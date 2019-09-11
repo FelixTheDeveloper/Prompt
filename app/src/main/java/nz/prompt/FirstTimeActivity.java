@@ -1,3 +1,4 @@
+//Author: FELIX
 package nz.prompt;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -38,7 +39,7 @@ public class FirstTimeActivity extends AppCompatActivity {
     }
 
     public void loginActivity(){
-        Intent intent = new Intent(this, loginActivity2.class);      //Creates new intent which will lead into LoginActivity class
+        Intent intent = new Intent(this, MainMenu.class);      //Creates new intent which will lead into LoginActivity class
         startActivity(intent);
     }
 

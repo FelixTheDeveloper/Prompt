@@ -18,4 +18,7 @@
     <string name="welcomeScreen">TODO</string>
     <string name="login">TODO</string>
     <string name="signup">TODO</string>
+    <string name="search">TODO</string>
+    <string name="addTasks">TODO</string>
+    <string name="todo">TODO</string>
 </resources>
