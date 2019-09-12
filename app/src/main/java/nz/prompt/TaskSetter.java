@@ -10,7 +10,9 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
@@ -130,12 +132,6 @@ public class TaskSetter extends AppCompatActivity {
 
         //End of DATE End
 
-
-
-
-
-
-
         //Start of End Time
 
         calendar = Calendar.getInstance();
@@ -163,8 +159,11 @@ public class TaskSetter extends AppCompatActivity {
             }
         });     //End of Time Start
 
-
-
+        //Creating a dropdown menu for a spinner
+        Spinner mySpinner = findViewById(R.id.spinner1);
+        ArrayAdapter<String> myAdapter = new ArrayAdapter<>(TaskSetter.this, android.R.layout.simple_list_item_1, getResources().getStringArray(R.array.names));
+        myAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        mySpinner.setAdapter(myAdapter);        //Starting the spinner
 
 
 

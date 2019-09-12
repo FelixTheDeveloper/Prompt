@@ -39,4 +39,10 @@
     <string name="time_set">Time Set:</string>
     <string name="chooseTime">Choose Time</string>
     <string name="end_time">End Time:</string>
+    <string name="repeat">Repeat:</string>
+    <string-array name="names">
+        <item>Daily</item>
+        <item>Monthly</item>
+        <item>Yearly</item>
+    </string-array>
 </resources>
