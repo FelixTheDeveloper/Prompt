@@ -8,10 +8,14 @@ import android.app.TimePickerDialog;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
@@ -21,6 +25,10 @@ import java.util.Calendar;
 public class TaskSetter extends AppCompatActivity {
 
     private static final String TAG = "TaskSetter";
+    private EditText editTextTask;
+    private EditText editTextLocation;
+    private Button buttonConfirm;
+
     //DATE Start VARIABLES
     private TextView mStartDisplayDate;
     private DatePickerDialog.OnDateSetListener mStartDateSetListener;
@@ -47,6 +55,37 @@ public class TaskSetter extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_task);
+
+        editTextTask = findViewById(R.id.taskInput);
+        editTextTask = findViewById(R.id.locationInput);
+        buttonConfirm = findViewById(R.id.confirmButton);
+
+        
+        editTextTask.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+
+
+
+
+
+
+
+
+
 
         //FOR START TIME
         //For TIME START

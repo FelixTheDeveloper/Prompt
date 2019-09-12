@@ -22,7 +22,7 @@
         <activity
             android:name=".loginActivity2"
             android:label="@string/title_activity_login2"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity
             android:name=".ui.login.LoginActivity"
             android:label="@string/title_activity_login" />
