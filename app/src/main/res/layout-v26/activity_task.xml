@@ -7,42 +7,6 @@
     tools:context=".TaskSetter">
 
 
-    <ImageView
-        android:id="@+id/line"
-        android:layout_width="848dp"
-        android:layout_height="145dp"
-        android:layout_marginBottom="400dp"
-        android:contentDescription="@string/todo"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.501"
-        app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/lines" />
-
-    <ImageView
-        android:id="@+id/line2"
-        android:layout_width="495dp"
-        android:layout_height="281dp"
-        android:layout_marginBottom="284dp"
-        android:contentDescription="@string/todo"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.654"
-        app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/lines" />
-
-    <ImageView
-        android:id="@+id/line4"
-        android:layout_width="495dp"
-        android:layout_height="281dp"
-        android:layout_marginBottom="388dp"
-        android:contentDescription="@string/todo"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.202"
-        app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/lines" />
-
     <Button
         android:id="@+id/cancelButton"
         android:layout_width="86dp"
@@ -207,7 +171,7 @@
         android:layout_height="62dp"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="364dp"
+        android:layout_marginBottom="455dp"
         android:background="#F9FAF9"
         android:text="@string/date"
         android:textAlignment="center"
@@ -224,7 +188,7 @@
         android:layout_height="62dp"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="308dp"
+        android:layout_marginBottom="392dp"
         android:background="#F9FAF9"
         android:text="@string/date"
         android:textAlignment="center"
@@ -241,13 +205,14 @@
         android:layout_height="62dp"
         android:layout_marginStart="264dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="308dp"
+        android:layout_marginBottom="392dp"
         android:text="@string/chooseTime"
         android:textAlignment="center"
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.1"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
@@ -256,13 +221,14 @@
         android:layout_height="62dp"
         android:layout_marginStart="264dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="364dp"
+        android:layout_marginBottom="455dp"
         android:text="@string/chooseTime"
         android:textAlignment="center"
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
@@ -271,7 +237,7 @@
         android:layout_height="46dp"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="260dp"
+        android:layout_marginBottom="312dp"
         android:text="@string/repeat"
         android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -285,9 +251,10 @@
         android:layout_height="38dp"
         android:layout_marginStart="150dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="276dp"
+        android:layout_marginBottom="320dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
