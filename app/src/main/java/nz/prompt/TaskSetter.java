@@ -60,7 +60,7 @@ public class TaskSetter extends AppCompatActivity {
         editTextTask = findViewById(R.id.locationInput);
         buttonConfirm = findViewById(R.id.confirmButton);
 
-        
+
         editTextTask.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
