@@ -43,8 +43,10 @@
     <string name="description">Description:</string>
     <string name="descriptionHint">Description of what you plan to do:  (Go grocery shopping)</string>
     <string name="descriptionhInt">Description of what you plan to do:  \\n(Go grocery shopping)</string>
+    <string name="confirm">Confirm</string>
     <string-array name="names">
         <item>Daily</item>
+        <item>Weekly</item>
         <item>Monthly</item>
         <item>Yearly</item>
     </string-array>

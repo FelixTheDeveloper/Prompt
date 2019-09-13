@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -28,27 +29,19 @@ public class TaskSetter extends AppCompatActivity {
     private EditText editTextTask;
     private EditText editTextLocation;
     private Button buttonConfirm;
-
-    //DATE Start VARIABLES
+    private Button button;
     private TextView mStartDisplayDate;
     private DatePickerDialog.OnDateSetListener mStartDateSetListener;
-    //DATE End Variable
     private TextView mEndDisplayDate;
     private DatePickerDialog.OnDateSetListener mEndDateSetListener;
-
-    //TIME VARIABLES
-    //Time Start Variables
     private TextView startChooseTime;
     private TimePickerDialog startTimePickerDialog;
-    //Time End Variables
     private TextView endChooseTime;
     private TimePickerDialog endTimePickerDialog;
-
     private Calendar calendar;
     private int currentHour;
     private int currentMinute;
     private String amPm;
-    //Time End Variables
 
 
     @Override
@@ -57,34 +50,12 @@ public class TaskSetter extends AppCompatActivity {
         setContentView(R.layout.activity_task);
 
         editTextTask = findViewById(R.id.taskInput);
-        editTextTask = findViewById(R.id.locationInput);
+        editTextLocation = findViewById(R.id.locationInput);
         buttonConfirm = findViewById(R.id.confirmButton);
 
-
-        editTextTask.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-
-            }
-        });
-
-
-
-
-
-
-
-
+        //Checking realtime whether the user has input anything
+        editTextTask.addTextChangedListener(addTaskTextWatcher);
+        editTextLocation.addTextChangedListener(addTaskTextWatcher);
 
 
         //FOR START TIME
@@ -204,20 +175,41 @@ public class TaskSetter extends AppCompatActivity {
         myAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mySpinner.setAdapter(myAdapter);        //Starting the spinner
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+        button = findViewById(R.id.cancelButton);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                cancelTask();
+            }
+        });
 
     }
+
+    public void cancelTask(){
+        Intent intent = new Intent(this, MainMenu.class);
+        startActivity(intent);
+    }
+
+    TextWatcher addTaskTextWatcher = new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+        }
+
+        @Override
+        public void onTextChanged(CharSequence charSequence, int start, int before, int count) {
+            String taskInput = editTextTask.getText().toString();
+            String locationInput = editTextLocation.getText().toString();
+
+            buttonConfirm.setEnabled(!taskInput.isEmpty() && !locationInput.isEmpty());
+        }
+
+        @Override
+        public void afterTextChanged(Editable editable) {
+
+        }
+    };
+
+
 
 }
