@@ -20,14 +20,11 @@
             android:resource="@array/preloaded_fonts" />
 
         <activity
-            android:name=".loginActivity2"
+            android:name=".ui.login.LoginActivity"
             android:label="@string/title_activity_login2"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
-        <activity
-            android:name=".ui.login.LoginActivity"
-            android:label="@string/title_activity_login" />
         <activity android:name=".MainMenu" />
-        <activity android:name=".RegisterActivity" />
+        <activity android:name=".ui.register.RegisterActivity" />
         <activity android:name=".FirstTimeActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>

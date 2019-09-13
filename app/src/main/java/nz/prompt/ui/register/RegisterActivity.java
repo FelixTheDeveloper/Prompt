@@ -1,8 +1,10 @@
-package nz.prompt;
+package nz.prompt.ui.register;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+
+import nz.prompt.R;
 
 public class RegisterActivity extends AppCompatActivity {
 

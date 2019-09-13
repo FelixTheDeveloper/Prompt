@@ -9,6 +9,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 
+import nz.prompt.ui.register.RegisterActivity;
+
 
 public class FirstTimeActivity extends AppCompatActivity {
     private Button button;
