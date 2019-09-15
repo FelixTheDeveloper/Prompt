@@ -7,7 +7,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import androidx.annotation.Nullable;
 
 public class DatabaseHandler extends SQLiteOpenHelper {
-    public static boolean loggedIn = true;
+    public static boolean loggedIn = false;
 
     public static final int DATABASE_VERSION = 1;
     public static final String DATABASE_NAME = "PromptDatabase.db";

@@ -32,9 +32,19 @@ public class MainMenu extends AppCompatActivity {
                 openProfilePage();  //Calls profilepage method
             }
         });
+        //For Upcoming Tasks
+        imageButton = (ImageButton) findViewById(R.id.upcomingTaskButton);
+        imageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openUpcomingTasks();
+            }
+        });
+    }
 
-
-
+    public void openUpcomingTasks() {
+        Intent intent = new Intent(this, UpcomingTasks.class);
+        startActivity(intent);
     }
 
     public void openTaskPage(){
