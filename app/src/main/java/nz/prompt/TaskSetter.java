@@ -193,7 +193,6 @@ public class TaskSetter extends AppCompatActivity {
         myAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mySpinner.setAdapter(myAdapter);        //Starting the spinner
 
-
         button = findViewById(R.id.cancelButton);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -201,7 +200,6 @@ public class TaskSetter extends AppCompatActivity {
                 cancelTask();
             }
         });
-
 
         //Asking for Permission for access of files
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)
@@ -245,7 +243,7 @@ public class TaskSetter extends AppCompatActivity {
         PrintWriter outputStream;
 
         //creates file
-        File file = new File(Environment.getExternalStorageDirectory().getAbsolutePath(), fileName);
+        File file = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/Prompt/", fileName);
 
         //writes to file
 
@@ -253,9 +251,8 @@ public class TaskSetter extends AppCompatActivity {
             outputStream = new PrintWriter(new FileOutputStream(file, true));
 
             outputStream.println("Task Name: " + taskType + "\nDate: " + startDate + "\nStart Time: " + startTime + "\nEnd Date:" + endDate + "\nEnd Time: " + endTime
-                    + "\nLocation: " + locationName + "\nDescription: " + description + "\n\n");
+                    + "\nLocation: " + location + "\nDescription: " + description + "\n\n");
             outputStream.close();
-
         } catch (FileNotFoundException e) {
             showToast("File Not Found");
         }
