@@ -11,6 +11,7 @@ import nz.prompt.R;
 
 public class BudgetActivity extends AppCompatActivity {
 
+
     private Button Subtract;
     private EditText TotalBudget;
     private EditText Expense;

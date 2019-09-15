@@ -10,8 +10,7 @@
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/colorBack">
+        android:layout_height="match_parent">
 
         <!-- The display of image that was selected will be set-->
         <ImageView
@@ -30,9 +29,9 @@
             android:layout_width="150dp"
             android:layout_height="30dp"
             android:layout_marginHorizontal="125dp"
-            android:background="@android:color/transparent"
+            android:background="@android:color/holo_blue_bright"
             android:text="Select Image"
-            android:textColor="@android:color/white" />
+            android:textColor="@android:color/black" />
 
     </LinearLayout>
 
