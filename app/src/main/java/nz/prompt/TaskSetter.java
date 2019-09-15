@@ -1,14 +1,19 @@
 //AUTHOR: FELIX NIOCENA
 package nz.prompt;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.Manifest;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -20,7 +25,16 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.nio.file.FileSystemNotFoundException;
 import java.util.Calendar;
 
 public class TaskSetter extends AppCompatActivity {
@@ -28,6 +42,7 @@ public class TaskSetter extends AppCompatActivity {
     private static final String TAG = "TaskSetter";
     private EditText editTextTask;
     private EditText editTextLocation;
+    private EditText editTextDescription;
     private Button buttonConfirm;
     private Button button;
     private TextView mStartDisplayDate;
@@ -42,6 +57,9 @@ public class TaskSetter extends AppCompatActivity {
     private int currentHour;
     private int currentMinute;
     private String amPm;
+    private String taskName;
+    private String locationName;
+    private String description;
 
 
     @Override
@@ -51,11 +69,13 @@ public class TaskSetter extends AppCompatActivity {
 
         editTextTask = findViewById(R.id.taskInput);
         editTextLocation = findViewById(R.id.locationInput);
+        editTextDescription = findViewById(R.id.descriptionTextBox);
         buttonConfirm = findViewById(R.id.confirmButton);
 
-        //Checking realtime whether the user has input anything
-        editTextTask.addTextChangedListener(addTaskTextWatcher);
-        editTextLocation.addTextChangedListener(addTaskTextWatcher);
+        //Turning into strings
+        taskName = editTextTask.getText().toString();
+        locationName = editTextLocation.getText().toString();
+        description = editTextDescription.getText().toString();
 
 
         //FOR START TIME
@@ -73,8 +93,7 @@ public class TaskSetter extends AppCompatActivity {
                     public void onTimeSet(TimePicker timePicker, int hourOfDay, int minutes) {
                         if(hourOfDay > 12){
                             amPm = "PM";
-                        }
-                        else{
+                        } else {
                             amPm = "AM";
                         }
                         startChooseTime.setText(String.format("%02d:%02d ", hourOfDay, minutes) + amPm);
@@ -157,8 +176,7 @@ public class TaskSetter extends AppCompatActivity {
                     public void onTimeSet(TimePicker timePicker, int hourOfDay, int minutes) {
                         if(hourOfDay > 12){
                             amPm = "PM";
-                        }
-                        else{
+                        } else {
                             amPm = "AM";
                         }
                         endChooseTime.setText(String.format("%02d:%02d ", hourOfDay, minutes) + amPm);
@@ -175,14 +193,97 @@ public class TaskSetter extends AppCompatActivity {
         myAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mySpinner.setAdapter(myAdapter);        //Starting the spinner
 
-        button = findViewById(R.id.cancelButton);
+        button = (Button) findViewById(R.id.cancelButton);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onClick(View v) {
                 cancelTask();
             }
         });
 
+
+        //Asking for Permission for access of files
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                != PackageManager.PERMISSION_GRANTED) {
+            requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1000);
+        }
+
+        button = findViewById(R.id.confirmButton);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                addTask();       //Goes back to main menu
+            }
+        });
+
+
+        //Checking realtime whether the user has input anything
+        editTextTask.addTextChangedListener(addTaskTextWatcher);
+        editTextLocation.addTextChangedListener(addTaskTextWatcher);
+
+
+    }
+
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        switch (requestCode) {
+            case 1000:
+                if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    Toast.makeText(this, "Permission Granted", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(this, "Permission Not Granted!", Toast.LENGTH_SHORT).show();
+                    finish();
+                }
+
+        }
+    }
+
+    private void saveTextAsFile(String fileName, String taskType, String startDate, String startTime, String endDate, String endTime, String location, String description) {
+        fileName = fileName + ".txt";
+        PrintWriter outputStream;
+
+        //creates file
+        File file = new File(Environment.getExternalStorageDirectory().getAbsolutePath(), fileName);
+
+        //writes to file
+
+        try {
+            outputStream = new PrintWriter(new FileOutputStream(file, false));
+
+            outputStream.println("Task Name: " + taskType + "\nDate: " + startDate + "\nStart Time: " + startTime + "\nEnd Date:" + endDate + "\nEnd Time: " + endTime
+                    + "\nLocation: " + locationName + "\nDescription: " + description + "\n\n");
+            outputStream.close();
+        } catch (FileNotFoundException e) {
+            showToast("File Not Found");
+        }
+        showToast("Saved Successfully!");
+    }
+
+    public void addTask() {
+
+        taskName = editTextTask.getText().toString();
+        locationName = editTextLocation.getText().toString();
+        description = editTextDescription.getText().toString();
+
+
+        String startTime = startChooseTime.getText().toString();
+        String endTime = endChooseTime.getText().toString();
+
+        String startDate = mStartDisplayDate.getText().toString();
+        String endDate = mEndDisplayDate.getText().toString();
+
+
+        saveTextAsFile("UserDetails", taskName, startDate, startTime, endDate, endTime, locationName, description);
+        Intent intent = new Intent(this, MainMenu.class);
+//            showToast("Details saved to Text Files");       //Shows a popup message
+        startActivity(intent);
+
+
+    }
+
+    public void showToast(String text) {
+        Toast.makeText(this, text, Toast.LENGTH_SHORT).show();
     }
 
     public void cancelTask(){
@@ -210,6 +311,10 @@ public class TaskSetter extends AppCompatActivity {
         }
     };
 
-
-
 }
+
+
+
+
+
+

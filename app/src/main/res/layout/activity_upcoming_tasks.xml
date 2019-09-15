@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".UpcomingTasks">
+
+    <TextView
+        android:id="@+id/currentDate"
+        android:layout_width="142dp"
+        android:layout_height="30dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="148dp"
+        android:layout_marginEnd="256dp"
+        android:layout_marginBottom="544dp"
+        android:textColor="@android:color/background_dark"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <ImageButton
+        android:id="@+id/profileButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginStart="300dp"
+        android:layout_marginBottom="580dp"
+        android:adjustViewBounds="true"
+        android:background="@color/defaultColor"
+        android:contentDescription="@string/lineImage"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/profile" />
+
+    <ImageButton
+        android:id="@+id/addTaskButton2"
+        android:layout_width="69dp"
+        android:layout_height="46dp"
+        android:layout_marginBottom="34dp"
+        android:background="@color/defaultColor"
+        android:contentDescription="@string/addTasks"
+        app:layout_constraintBottom_toBottomOf="@+id/line"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/addtask" />
+
+    <ImageView
+        android:id="@+id/line"
+        android:layout_width="438dp"
+        android:layout_height="63dp"
+        android:contentDescription="@string/lineDraw"
+        app:layout_constraintBottom_toBottomOf="@+id/currentDate"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/lines" />
+
+    <ImageView
+        android:id="@+id/line4"
+        android:layout_width="438dp"
+        android:layout_height="63dp"
+        android:contentDescription="@string/lineDraw"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/currentDate"
+        app:srcCompat="@drawable/lines" />
+
+    <SearchView
+        android:id="@+id/searchView"
+        android:layout_width="121dp"
+        android:layout_height="34dp"
+        android:layout_marginEnd="84dp"
+        android:layout_marginBottom="36dp"
+        app:layout_constraintBottom_toBottomOf="@+id/line"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="164dp"
+        android:layout_height="140dp"
+        android:layout_marginBottom="240dp"
+        android:text="@string/need_database_to_work"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
