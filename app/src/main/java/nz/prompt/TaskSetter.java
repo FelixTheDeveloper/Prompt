@@ -249,7 +249,7 @@ public class TaskSetter extends AppCompatActivity {
         //writes to file
 
         try {
-            outputStream = new PrintWriter(new FileOutputStream(file, false));
+            outputStream = new PrintWriter(new FileOutputStream(file, true));
 
             outputStream.println("Task Name: " + taskType + "\nDate: " + startDate + "\nStart Time: " + startTime + "\nEnd Date:" + endDate + "\nEnd Time: " + endTime
                     + "\nLocation: " + locationName + "\nDescription: " + description + "\n\n");
