@@ -7,6 +7,8 @@ import android.widget.ImageButton;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import nz.prompt.ui.profile.ProfileActivity;
+
 public class MainMenu extends AppCompatActivity {
     private ImageButton imageButton;
 
@@ -22,7 +24,7 @@ public class MainMenu extends AppCompatActivity {
                 openTaskPage();
             }
         });
-        //For Profile
+        //For ProfileActivity
         imageButton = (ImageButton) findViewById(R.id.profileButton);
         imageButton.setOnClickListener(new View.OnClickListener() {     //When user clicks onto profile image
             @Override
@@ -51,7 +53,7 @@ public class MainMenu extends AppCompatActivity {
     }
 
     public void openProfilePage(){
-        Intent intent = new Intent(this, Profile.class);
+        Intent intent = new Intent(this, ProfileActivity.class);
         startActivity(intent);
     }
 }
