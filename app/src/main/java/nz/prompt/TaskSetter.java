@@ -193,7 +193,8 @@ public class TaskSetter extends AppCompatActivity {
         myAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mySpinner.setAdapter(myAdapter);        //Starting the spinner
 
-        button = (Button) findViewById(R.id.cancelButton);
+
+        button = findViewById(R.id.cancelButton);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -254,6 +255,7 @@ public class TaskSetter extends AppCompatActivity {
             outputStream.println("Task Name: " + taskType + "\nDate: " + startDate + "\nStart Time: " + startTime + "\nEnd Date:" + endDate + "\nEnd Time: " + endTime
                     + "\nLocation: " + locationName + "\nDescription: " + description + "\n\n");
             outputStream.close();
+
         } catch (FileNotFoundException e) {
             showToast("File Not Found");
         }
@@ -265,16 +267,13 @@ public class TaskSetter extends AppCompatActivity {
         taskName = editTextTask.getText().toString();
         locationName = editTextLocation.getText().toString();
         description = editTextDescription.getText().toString();
-
-
         String startTime = startChooseTime.getText().toString();
         String endTime = endChooseTime.getText().toString();
-
         String startDate = mStartDisplayDate.getText().toString();
         String endDate = mEndDisplayDate.getText().toString();
 
 
-        saveTextAsFile("UserDetails", taskName, startDate, startTime, endDate, endTime, locationName, description);
+        saveTextAsFile("Tasks", taskName, startDate, startTime, endDate, endTime, locationName, description);
         Intent intent = new Intent(this, MainMenu.class);
 //            showToast("Details saved to Text Files");       //Shows a popup message
         startActivity(intent);

@@ -47,6 +47,15 @@
     <string name="lineImage" />
     <string name="lineDraw" />
     <string name="need_database_to_work">Need DATABASE TO WORK</string>
+    <string name="first_name">First Name:</string>
+    <string name="felixHint">Felix</string>
+    <string name="lastName">Last Name:</string>
+    <string name="lastNameHint">Carlo</string>
+    <string name="age">Age:</string>
+    <string name="ageHint">12</string>
+    <string name="termsConditions">The purpose of Prompt is to make us pass this paper with an A+ minimum, however by agreeing to our deal you must definetly give us an A+ or else Carlo will treat us dinner!</string>
+    <string name="tandC">The purpose of Prompt is to make us pass this paper with an A+ minimum, however by ticking the box below, you are agreeing to giving us an A+ or else Carlo will treat us dinner at any selected location!</string>
+    <string name="createAccount">Create Account</string>
     <string-array name="names">
         <item>Daily</item>
         <item>Weekly</item>

@@ -18,6 +18,6 @@ public class MainActivity extends AppCompatActivity {
             startActivity(firstTimeIntent);
         }
         else
-            setContentView(R.layout.activity_task);
+            setContentView(R.layout.activity_main_menu);
     }
 }
