@@ -48,7 +48,7 @@ public class MainMenu extends AppCompatActivity {
     }
 
     public void openTaskPage(){
-        Intent intent = new Intent(this, TaskSetter.class);
+        Intent intent = new Intent(this, TaskSetterActivity.class);
         startActivity(intent);
     }
 

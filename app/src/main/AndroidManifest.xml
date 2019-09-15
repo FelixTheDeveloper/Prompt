@@ -20,7 +20,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".TaskSetter" />
+        <activity android:name=".TaskSetterActivity" />
 
         <meta-data
             android:name="android.app.searchable"

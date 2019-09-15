@@ -27,19 +27,20 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.FileReader;
-import java.io.IOException;
 import java.io.PrintWriter;
-import java.nio.file.FileSystemNotFoundException;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
-public class TaskSetter extends AppCompatActivity {
+import nz.prompt.model.TaskModel;
 
-    private static final String TAG = "TaskSetter";
+public class TaskSetterActivity extends AppCompatActivity {
+
+
+    private static final String TAG = "TaskSetterActivity";
     private EditText editTextTask;
     private EditText editTextLocation;
     private EditText editTextDescription;
@@ -88,7 +89,7 @@ public class TaskSetter extends AppCompatActivity {
         startChooseTime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startTimePickerDialog = new TimePickerDialog(TaskSetter.this, new TimePickerDialog.OnTimeSetListener() {
+                startTimePickerDialog = new TimePickerDialog(TaskSetterActivity.this, new TimePickerDialog.OnTimeSetListener() {
                     @Override
                     public void onTimeSet(TimePicker timePicker, int hourOfDay, int minutes) {
                         if(hourOfDay > 12){
@@ -115,7 +116,7 @@ public class TaskSetter extends AppCompatActivity {
                 int month = calendar.get(Calendar.MONTH);
                 int day = calendar.get(Calendar.DAY_OF_MONTH);  //Using Day of month cause there are many different days to each month
 
-                DatePickerDialog dialog = new DatePickerDialog(TaskSetter.this, android.R.style.Theme_Holo_Light_Dialog_MinWidth, mStartDateSetListener, year, month, day);
+                DatePickerDialog dialog = new DatePickerDialog(TaskSetterActivity.this, android.R.style.Theme_Holo_Light_Dialog_MinWidth, mStartDateSetListener, year, month, day);
                 dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 dialog.show();
 
@@ -143,7 +144,7 @@ public class TaskSetter extends AppCompatActivity {
                 int month = calendar.get(Calendar.MONTH);
                 int day = calendar.get(Calendar.DAY_OF_MONTH);  //Using Day of month cause there are many different days to each month
 
-                DatePickerDialog dialog = new DatePickerDialog(TaskSetter.this, android.R.style.Theme_Holo_Light_Dialog_MinWidth, mEndDateSetListener, year, month, day);
+                DatePickerDialog dialog = new DatePickerDialog(TaskSetterActivity.this, android.R.style.Theme_Holo_Light_Dialog_MinWidth, mEndDateSetListener, year, month, day);
                 dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 dialog.show();
             }
@@ -171,7 +172,7 @@ public class TaskSetter extends AppCompatActivity {
         endChooseTime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                endTimePickerDialog = new TimePickerDialog(TaskSetter.this, new TimePickerDialog.OnTimeSetListener() {
+                endTimePickerDialog = new TimePickerDialog(TaskSetterActivity.this, new TimePickerDialog.OnTimeSetListener() {
                     @Override
                     public void onTimeSet(TimePicker timePicker, int hourOfDay, int minutes) {
                         if(hourOfDay > 12){
@@ -189,7 +190,7 @@ public class TaskSetter extends AppCompatActivity {
 
         //Creating a dropdown menu for a spinner
         Spinner mySpinner = findViewById(R.id.spinner1);
-        ArrayAdapter<String> myAdapter = new ArrayAdapter<>(TaskSetter.this, android.R.layout.simple_list_item_1, getResources().getStringArray(R.array.names));
+        ArrayAdapter<String> myAdapter = new ArrayAdapter<>(TaskSetterActivity.this, android.R.layout.simple_list_item_1, getResources().getStringArray(R.array.names));
         myAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mySpinner.setAdapter(myAdapter);        //Starting the spinner
 
@@ -242,12 +243,11 @@ public class TaskSetter extends AppCompatActivity {
         fileName = fileName + ".txt";
         PrintWriter outputStream;
 
-        //creates file
-        File file = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/Prompt/", fileName);
-
         //writes to file
 
         try {
+            //creates file
+            File file = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/Prompt/", fileName);
             outputStream = new PrintWriter(new FileOutputStream(file, true));
 
             outputStream.println("Task Name: " + taskType + "\nDate: " + startDate + "\nStart Time: " + startTime + "\nEnd Date:" + endDate + "\nEnd Time: " + endTime
@@ -306,6 +306,11 @@ public class TaskSetter extends AppCompatActivity {
 
         }
     };
+
+    public void updateUI()
+    {
+
+    }
 
 }
 

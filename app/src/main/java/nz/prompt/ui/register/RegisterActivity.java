@@ -24,7 +24,7 @@ import java.io.PrintWriter;
 
 import nz.prompt.MainMenu;
 import nz.prompt.R;
-import nz.prompt.TaskSetter;
+import nz.prompt.TaskSetterActivity;
 
 public class RegisterActivity extends AppCompatActivity {
 
@@ -32,7 +32,7 @@ public class RegisterActivity extends AppCompatActivity {
     private EditText editTextFName;
     private EditText editTextLName;
     private EditText age;
-    private TaskSetter taskSetter;
+    private TaskSetterActivity taskSetter;
     private String fNameInput;
     private String lNameInput;
     private String ageInput;
