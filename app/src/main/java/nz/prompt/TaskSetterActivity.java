@@ -214,11 +214,11 @@ public class TaskSetterActivity extends AppCompatActivity {
                 String endDate = mEndDisplayDate.getText().toString();
                 if (TaskController.addTask(taskName, locationName, description, startTime, endTime, startDate, endDate))
                 {
-                    Toast.makeText(TaskSetterActivity.this, "Task created!", Toast.LENGTH_SHORT);
+                    Toast.makeText(TaskSetterActivity.this, "Task created!", Toast.LENGTH_SHORT).show();
                 }
                 else
                 {
-                    Toast.makeText(TaskSetterActivity.this, "Task create failed!", Toast.LENGTH_SHORT);
+                    Toast.makeText(TaskSetterActivity.this, "Task create failed!", Toast.LENGTH_SHORT).show();
                 }
                 updateUI();
             }
