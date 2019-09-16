@@ -33,6 +33,13 @@
             android:text="Select Image"
             android:textColor="@android:color/black" />
 
+        <Button
+            android:id="@+id/budgetButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimaryDark"
+            android:text="Manage Budget" />
+
     </LinearLayout>
 
 </LinearLayout>
