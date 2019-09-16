@@ -33,7 +33,7 @@
     <string name="start_time">Start Time</string>
     <string name="start_times">Start Time:</string>
     <string name="time_2_30pm">Time (2:30pm)</string>
-    <string name="date">Date</string>
+    <string name="startDate">Date</string>
     <string name="choose_time">Click Here: Choose Time</string>
     <string name="timeInput" />
     <string name="time_set">Time Set:</string>

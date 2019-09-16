@@ -37,6 +37,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         String CREATE_TASKS_TABLE = "CREATE TABLE " + TABLE_TASKS_NAME + " (" +
                 "TaskID int PRIMARY KEY," +
                 "Title varchar(255)," +
+                "Description varchar(255)," +
                 "Date DATETIME DEFAULT CURRENT_TIMESTAMP," +
                 "Status bool" +
                 ")";
@@ -80,7 +81,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
         values.put("TaskID", task.getID());
         values.put("Title", task.getTitle());
-        values.put("Date", new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(task.getDate()));
+        values.put("Description", task.getDescription());
+        values.put("Date", new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(task.getStartDate()));
         values.put("Status", task.isStatus());
 
         // Inserting Row
