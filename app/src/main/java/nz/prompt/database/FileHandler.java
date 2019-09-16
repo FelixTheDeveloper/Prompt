@@ -9,8 +9,7 @@ import java.io.PrintWriter;
 import nz.prompt.Utilities;
 
 public class FileHandler {
-
-    public static void saveTextAsFile(String fileName, String taskType, String startDate, String startTime, String endDate, String endTime, String location, String description) {
+    public static boolean saveTextAsFile(String fileName, String taskType, String startDate, String startTime, String endDate, String endTime, String location, String description) {
         fileName = fileName + ".txt";
         PrintWriter outputStream;
 
@@ -27,9 +26,9 @@ public class FileHandler {
             outputStream.println("Task Name: " + taskType + "\nDate: " + startDate + "\nStart Time: " + startTime + "\nEnd Date:" + endDate + "\nEnd Time: " + endTime
                     + "\nLocation: " + location + "\nDescription: " + description + "\n\n");
             outputStream.close();
-            Utilities.showToast("Saved Successfully!");
+            return true;
         } catch (Exception e) {
-            Utilities.showToast("File Not Found");
+            return false;
         }
     }
 }

@@ -11,7 +11,7 @@ import nz.prompt.model.TaskModel;
 public class TaskController {
     private ArrayList<TaskModel> tasks = new ArrayList<TaskModel>();
 
-    public static void addTask(String taskName, String locationName, String description, String startTime, String endTime, String startDate, String endDate) {
-        FileHandler.saveTextAsFile("Tasks", taskName, startDate, startTime, endDate, endTime, locationName, description);
+    public static boolean addTask(String taskName, String locationName, String description, String startTime, String endTime, String startDate, String endDate) {
+        return FileHandler.saveTextAsFile("Tasks", taskName, startDate, startTime, endDate, endTime, locationName, description);
     }
 }
