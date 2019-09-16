@@ -1,6 +1,7 @@
 package nz.prompt.database;
 
 import android.os.Environment;
+import android.util.Log;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -16,10 +17,14 @@ public class FileHandler {
         //writes to file
 
         try {
+            File folder = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/Prompt/");
+            if (!folder.exists())
+            {
+                folder.mkdirs();
+            }
+
             //creates file
             File file = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/Prompt/", fileName);
-            if (!file.exists())
-                file.mkdirs();
 
             outputStream = new PrintWriter(new FileOutputStream(file, true));
 
@@ -28,6 +33,7 @@ public class FileHandler {
             outputStream.close();
             return true;
         } catch (Exception e) {
+            Log.d("DEBUG", e.getMessage());
             return false;
         }
     }
