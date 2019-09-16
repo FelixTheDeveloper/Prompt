@@ -7,6 +7,12 @@
     tools:context=".ui.profile.BudgetActivity">
 
     <!-- The Total Budget button -->
+
+    <!-- The Expense button -->
+
+    <!-- The Remaining Budget button -->
+
+    <!-- The Subtract button that will run Total Budget - Expense = Remaining Budget-->
     <EditText
         android:id="@+id/enterBudget"
         android:layout_width="260dp"
@@ -16,11 +22,11 @@
         android:inputType="number"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.50"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.141" />
+        app:layout_constraintVertical_bias="0.253" />
 
-    <!-- The Expense button -->
     <EditText
         android:id="@+id/enterExpense"
         android:layout_width="260dp"
@@ -34,11 +40,11 @@
         android:inputType="number"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.50"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.283" />
+        app:layout_constraintVertical_bias="0.365" />
 
-    <!-- The Remaining Budget button -->
     <EditText
         android:id="@+id/remainingBudget"
         android:layout_width="260dp"
@@ -52,11 +58,11 @@
         android:inputType="number"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.50"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.635" />
+        app:layout_constraintVertical_bias="0.644" />
 
-    <!-- The Subtract button that will run Total Budget - Expense = Remaining Budget-->
     <Button
         android:id="@+id/subBtn"
         android:layout_width="wrap_content"
@@ -69,6 +75,16 @@
         app:layout_constraintBottom_toTopOf="@+id/remainingBudget"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/enterExpense" />
+        app:layout_constraintTop_toBottomOf="@+id/enterExpense"
+        app:layout_constraintVertical_bias="0.50" />
+
+    <Button
+        android:id="@+id/backbutton"
+        android:layout_width="80dp"
+        android:layout_height="42dp"
+        android:text="back"
+        android:background="@color/defaultColor"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="38dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
