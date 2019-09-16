@@ -35,6 +35,8 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+import nz.prompt.controllers.TaskController;
+import nz.prompt.database.FileHandler;
 import nz.prompt.model.TaskModel;
 
 public class TaskSetterActivity extends AppCompatActivity {
@@ -58,9 +60,6 @@ public class TaskSetterActivity extends AppCompatActivity {
     private int currentHour;
     private int currentMinute;
     private String amPm;
-    private String taskName;
-    private String locationName;
-    private String description;
 
 
     @Override
@@ -72,12 +71,6 @@ public class TaskSetterActivity extends AppCompatActivity {
         editTextLocation = findViewById(R.id.locationInput);
         editTextDescription = findViewById(R.id.descriptionTextBox);
         buttonConfirm = findViewById(R.id.confirmButton);
-
-        //Turning into strings
-        taskName = editTextTask.getText().toString();
-        locationName = editTextLocation.getText().toString();
-        description = editTextDescription.getText().toString();
-
 
         //FOR START TIME
         //For TIME START
@@ -97,7 +90,7 @@ public class TaskSetterActivity extends AppCompatActivity {
                         } else {
                             amPm = "AM";
                         }
-                        startChooseTime.setText(String.format("%02d:%02d ", hourOfDay, minutes) + amPm);
+                        startChooseTime.setText(String.format("%02d:%02d:00", hourOfDay, minutes) + amPm);
 //                        startChooseTime.setText(hourOfDay + ":" + minutes);
                     }
                 }, currentHour, currentMinute, false);
@@ -127,7 +120,7 @@ public class TaskSetterActivity extends AppCompatActivity {
             public void onDateSet(DatePicker datePicker, int year, int month, int day) {
                 month += 1;     //Doing this because January Starts at 0 and December is 11
                 Log.d(TAG, "onDateSet: dd/mm/yy " + day + "/" + month + "/" + year);
-                String date = day + "/" + month + "/" + year;
+                String date = year + "-" + month + "-" + day;
                 mStartDisplayDate.setText(date);
             }
         };
@@ -155,7 +148,7 @@ public class TaskSetterActivity extends AppCompatActivity {
             public void onDateSet(DatePicker datePicker, int year, int month, int day) {
                 month += 1;     //Doing this because January Starts at 0 and December is 11
                 Log.d(TAG, "onDateSet: dd/mm/yy " + day + "/" + month + "/" + year);
-                String date = day + "/" + month + "/" + year;
+                String date = year + "-" + month + "-" + day;
                 mEndDisplayDate.setText(date);
             }
         };
@@ -180,7 +173,7 @@ public class TaskSetterActivity extends AppCompatActivity {
                         } else {
                             amPm = "AM";
                         }
-                        endChooseTime.setText(String.format("%02d:%02d ", hourOfDay, minutes) + amPm);
+                        endChooseTime.setText(String.format("%02d:%02d:00", hourOfDay, minutes) + amPm);
 //                        startChooseTime.setText(hourOfDay + ":" + minutes);
                     }
                 }, currentHour, currentMinute, false);
@@ -212,16 +205,21 @@ public class TaskSetterActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                addTask();       //Goes back to main menu
+                String taskName = editTextTask.getText().toString();
+                String locationName = editTextLocation.getText().toString();
+                String description = editTextDescription.getText().toString();
+                String startTime = startChooseTime.getText().toString();
+                String endTime = endChooseTime.getText().toString();
+                String startDate = mStartDisplayDate.getText().toString();
+                String endDate = mEndDisplayDate.getText().toString();
+                TaskController.addTask(taskName, locationName, description, startTime, endTime, startDate, endDate);
+                updateUI();
             }
         });
-
 
         //Checking realtime whether the user has input anything
         editTextTask.addTextChangedListener(addTaskTextWatcher);
         editTextLocation.addTextChangedListener(addTaskTextWatcher);
-
-
     }
 
 
@@ -237,49 +235,6 @@ public class TaskSetterActivity extends AppCompatActivity {
                 }
 
         }
-    }
-
-    private void saveTextAsFile(String fileName, String taskType, String startDate, String startTime, String endDate, String endTime, String location, String description) {
-        fileName = fileName + ".txt";
-        PrintWriter outputStream;
-
-        //writes to file
-
-        try {
-            //creates file
-            File file = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/Prompt/", fileName);
-            outputStream = new PrintWriter(new FileOutputStream(file, true));
-
-            outputStream.println("Task Name: " + taskType + "\nDate: " + startDate + "\nStart Time: " + startTime + "\nEnd Date:" + endDate + "\nEnd Time: " + endTime
-                    + "\nLocation: " + location + "\nDescription: " + description + "\n\n");
-            outputStream.close();
-        } catch (FileNotFoundException e) {
-            showToast("File Not Found");
-        }
-        showToast("Saved Successfully!");
-    }
-
-    public void addTask() {
-
-        taskName = editTextTask.getText().toString();
-        locationName = editTextLocation.getText().toString();
-        description = editTextDescription.getText().toString();
-        String startTime = startChooseTime.getText().toString();
-        String endTime = endChooseTime.getText().toString();
-        String startDate = mStartDisplayDate.getText().toString();
-        String endDate = mEndDisplayDate.getText().toString();
-
-
-        saveTextAsFile("Tasks", taskName, startDate, startTime, endDate, endTime, locationName, description);
-        Intent intent = new Intent(this, MainMenu.class);
-//            showToast("Details saved to Text Files");       //Shows a popup message
-        startActivity(intent);
-
-
-    }
-
-    public void showToast(String text) {
-        Toast.makeText(this, text, Toast.LENGTH_SHORT).show();
     }
 
     public void cancelTask(){
@@ -309,7 +264,8 @@ public class TaskSetterActivity extends AppCompatActivity {
 
     public void updateUI()
     {
-
+        Intent intent = new Intent(this, MainMenu.class);
+        startActivity(intent);
     }
 
 }
