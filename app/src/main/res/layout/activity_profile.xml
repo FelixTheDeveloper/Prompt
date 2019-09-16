@@ -4,42 +4,47 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:gravity="center_horizontal">
+    android:gravity="center_horizontal"
+    android:orientation="vertical">
 
-    <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+    <!-- The back button-->
+    <Button
+        android:id="@+id/button4"
+        android:layout_width="wrap_content"
+        android:layout_height="35dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginRight="120dp"
+        android:background="@color/defaultColor"
+        android:text="Back" />
 
-        <!-- The display of image that was selected will be set-->
-        <ImageView
-            android:id="@+id/image_view"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            android:layout_marginTop="70dp"
-            android:layout_marginHorizontal="125dp"
-            android:scaleType="centerCrop"
-            android:src="@drawable/ic_account_box_black_24dp" />
+    <!-- The display of image that was selected will be set-->
+    <ImageView
+        android:id="@+id/image_view"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_marginHorizontal="125dp"
+        android:layout_marginTop="70dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/ic_account_box_black_24dp" />
 
-        <!--Select image button to choose image from gallery-->
-        <Button
-            android:id="@+id/choose_image_btn"
-            style="@style/Base.Widget.AppCompat.Button.Colored"
-            android:layout_width="150dp"
-            android:layout_height="30dp"
-            android:layout_marginHorizontal="125dp"
-            android:background="@android:color/holo_blue_bright"
-            android:text="Select Image"
-            android:textColor="@android:color/black" />
+    <!--Select image button to choose image from gallery-->
+    <Button
+        android:id="@+id/choose_image_btn"
+        style="@style/Base.Widget.AppCompat.Button.Colored"
+        android:layout_width="150dp"
+        android:layout_height="30dp"
+        android:layout_marginHorizontal="125dp"
+        android:background="@android:color/holo_blue_bright"
+        android:text="Select Image"
+        android:textColor="@android:color/black" />
 
-        <Button
-            android:id="@+id/budgetButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/colorPrimaryDark"
-            android:text="Manage Budget" />
-
-    </LinearLayout>
+    <!--Select budget button to calculate expense and budget-->
+    <Button
+        android:id="@+id/button3"
+        android:layout_width="150dp"
+        android:layout_height="30dp"
+        android:layout_marginVertical="75dp"
+        android:background="@android:color/holo_blue_bright"
+        android:text="Budget" />
 
 </LinearLayout>
