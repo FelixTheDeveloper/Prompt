@@ -9,7 +9,7 @@
 
     <!-- The back button-->
     <Button
-        android:id="@+id/button4"
+        android:id="@+id/backButtons"
         android:layout_width="wrap_content"
         android:layout_height="35dp"
         android:layout_marginTop="50dp"
@@ -34,17 +34,17 @@
         android:layout_width="150dp"
         android:layout_height="30dp"
         android:layout_marginHorizontal="125dp"
-        android:background="@android:color/holo_blue_bright"
+        android:background="@color/colorPrimaryDark"
         android:text="Select Image"
         android:textColor="@android:color/black" />
 
     <!--Select budget button to calculate expense and budget-->
     <Button
-        android:id="@+id/button3"
+        android:id="@+id/budgetButton"
         android:layout_width="150dp"
         android:layout_height="30dp"
         android:layout_marginVertical="75dp"
-        android:background="@android:color/holo_blue_bright"
+        android:background="@color/defaultColor"
         android:text="Budget" />
 
 </LinearLayout>

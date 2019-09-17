@@ -14,12 +14,15 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import nz.prompt.MainMenu;
 import nz.prompt.R;
 
 public class ProfileActivity extends AppCompatActivity {
 
     ImageView vieImage;
     Button selectButton;
+    private Button button;
+
 
     private static final int IMAGE_PICK_CODE = 1000;
     private static final int PERMISSION_CODE = 1001;
@@ -55,7 +58,39 @@ public class ProfileActivity extends AppCompatActivity {
 
             }
         });
+
+        button = findViewById(R.id.budgetButton);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                goProfileAct();
+            }
+        });
+
+        button = findViewById(R.id.backButtons);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                backMain();
+            }
+        });
+
+
+
+
     }
+
+    public void backMain() {
+        Intent intent = new Intent(this, MainMenu.class);
+        startActivity(intent);
+    }
+
+
+    public void goProfileAct() {
+        Intent intent = new Intent(ProfileActivity.this, BudgetActivity.class);
+        startActivity(intent);
+    }
+
 
     private void pickImageFromGallery() {
         //Picking image from gallery
