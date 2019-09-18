@@ -4,7 +4,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-import nz.prompt.database.DatabaseContainer;
+import nz.prompt.database.DatabaseHandler;
 import nz.prompt.model.TaskModel;
 
 public class TaskController {
@@ -18,7 +18,7 @@ public class TaskController {
 
             tasks.add(task);
 
-            DatabaseContainer.db.addTask(task);
+            DatabaseHandler.db.addTask(task);
 
             return true;
         }

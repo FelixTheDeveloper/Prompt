@@ -74,8 +74,8 @@ public class RegisterActivity extends AppCompatActivity {
         fNameInput = editTextFName.getText().toString();
         lNameInput = editTextLName.getText().toString();
         ageInput = age.getText().toString();
-        String fileName = "UserDetail";
-        saveToFile(fileName, fNameInput, lNameInput, ageInput);
+
+
 
         Intent intent = new Intent(this, MainMenu.class);
         startActivity(intent);
@@ -117,7 +117,7 @@ public class RegisterActivity extends AppCompatActivity {
         }
     };
 
-    public void saveToFile(String fileName, String fName, String lName, String age) {
+    /*public void saveToFile(String fileName, String fName, String lName, String age) {
         fileName = fileName + ".txt";
         PrintWriter outputStream;
 
@@ -133,7 +133,5 @@ public class RegisterActivity extends AppCompatActivity {
             Toast.makeText(this, "File Not Found", Toast.LENGTH_SHORT).show();
         }
         Toast.makeText(this, "Account successfully created", Toast.LENGTH_SHORT).show();
-    }
-
-
+    }*/
 }
