@@ -16,7 +16,8 @@ public class MainMenu extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_menu);
-        //For add task button
+
+        //For add task buttongir
         imageButton = findViewById(R.id.confirmButton);
         imageButton.setOnClickListener(new View.OnClickListener() {
             @Override
