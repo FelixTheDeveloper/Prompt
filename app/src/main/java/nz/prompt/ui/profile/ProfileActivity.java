@@ -92,7 +92,7 @@ public class ProfileActivity extends AppCompatActivity {
     }
 
 
-    private void pickImageFromGallery() {
+    public void pickImageFromGallery() {
         //Picking image from gallery
         Intent intent = new Intent(Intent.ACTION_PICK);
         intent.setType("image/*");
