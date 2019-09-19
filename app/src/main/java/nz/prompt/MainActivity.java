@@ -8,7 +8,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
-import nz.prompt.database.DatabaseContainer;
 import nz.prompt.database.DatabaseHandler;
 
 import static nz.prompt.Notifications.CHANNEL_1_ID;
@@ -22,9 +21,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         notificationManager = NotificationManagerCompat.from(this);
-
-
-        DatabaseContainer.EstablishDB(this);
 
         boolean loggedIn = Boolean.parseBoolean(DatabaseHandler.db.getSetting("UserLoggedIn"));
 
