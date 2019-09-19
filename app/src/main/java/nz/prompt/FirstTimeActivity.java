@@ -27,11 +27,11 @@ public class FirstTimeActivity extends AppCompatActivity {
         imageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                registerActivity2();
+                registerActivity();
             }
         });
 
-        imageButton = (ImageButton) findViewById(R.id.login_button2);
+        imageButton = (ImageButton) findViewById(R.id.login_button);
         imageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -47,7 +47,7 @@ public class FirstTimeActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void registerActivity2(){
+    public void registerActivity(){
         Intent intent = new Intent(this, RegisterActivity.class);       //Creates new intent which will lead us into RegisterActivity class
         startActivity(intent);
     }

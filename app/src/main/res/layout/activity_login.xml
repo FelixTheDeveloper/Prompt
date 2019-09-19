@@ -41,7 +41,6 @@
         android:imeActionLabel="@string/action_sign_in_short"
         android:imeOptions="actionDone"
         android:inputType="textPassword"
-        android:password="false"
         android:selectAllOnFocus="true" />
 
     <EditText

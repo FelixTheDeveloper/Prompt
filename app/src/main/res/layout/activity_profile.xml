@@ -25,7 +25,7 @@
         android:layout_marginHorizontal="125dp"
         android:layout_marginTop="70dp"
         android:scaleType="centerCrop"
-        android:src="@drawable/ic_account_box_black_24dp" />
+        app:srcCompat="@drawable/ic_account_box_black_24dp" />
 
     <!--Select image button to choose image from gallery-->
     <Button

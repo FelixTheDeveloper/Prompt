@@ -19,4 +19,9 @@ public class UserController {
 
         DatabaseHandler.db.setSetting("User_CurrentID", String.valueOf(currentID));
     }
+
+    public static UserModel GetUser(int ID)
+    {
+        return DatabaseHandler.db.getUser(ID);
+    }
 }

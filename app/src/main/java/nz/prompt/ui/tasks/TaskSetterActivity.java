@@ -231,7 +231,7 @@ public class TaskSetterActivity extends AppCompatActivity {
                 String startDate = String.format("%d-%d-%d %d:%d:00", startDate_Year, startDate_Month, startDate_Day, startDate_Hour, startDate_Min);
                 String endDate = String.format("%d-%d-%d %d:%d:00", endDate_Year, endDate_Month, endDate_Day, endDate_Hour, endDate_Min);
 
-                if (TaskController.addTask(taskName, locationName, description, startDate, endDate))
+                if (TaskController.CreateTask(taskName, locationName, description, startDate, endDate))
                 {
                     Toast.makeText(TaskSetterActivity.this, "Task created!", Toast.LENGTH_SHORT).show();
                     updateUI();

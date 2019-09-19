@@ -12,7 +12,7 @@ import nz.prompt.model.TaskModel;
 public class TaskController {
     private static ArrayList<TaskModel> tasks = new ArrayList<TaskModel>();
 
-    public static boolean addTask(String taskName, String locationName, String description, String startDate, String endDate) {
+    public static boolean CreateTask(String taskName, String locationName, String description, String startDate, String endDate) {
         try {
             int currentID;
             String currentID_string = DatabaseHandler.db.getSetting("Task_CurrentID");
@@ -35,8 +35,13 @@ public class TaskController {
         }
         catch (Exception e)
         {
-            Log.d("TaskController.addTask()", e.getMessage());
+            Log.d("TaskController.CreateTask()", e.getMessage());
             return false;
         }
+    }
+
+    public static TaskModel GetTask(int ID)
+    {
+        return DatabaseHandler.db.getTask(ID);
     }
 }

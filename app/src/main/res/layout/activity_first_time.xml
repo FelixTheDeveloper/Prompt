@@ -26,31 +26,33 @@
             app:srcCompat="@drawable/welcome_screen" />
 
         <ImageButton
-            android:id="@+id/login_button2"
-            android:layout_width="241dp"
-            android:layout_height="66dp"
+            android:id="@+id/login_button"
+            android:layout_width="166dp"
+            android:layout_height="74dp"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="136dp"
             android:layout_marginEnd="8dp"
             android:background="@color/defaultColor"
             android:contentDescription="@string/login"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.497"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/imageView3"
             app:srcCompat="@drawable/login_logo" />
 
         <ImageButton
             android:id="@+id/signupButton"
-            android:layout_width="222dp"
-            android:layout_height="69dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
+            android:layout_marginTop="32dp"
             android:layout_marginEnd="8dp"
-            android:layout_marginBottom="152dp"
             android:background="@color/colorPrimaryDark"
             android:contentDescription="@string/signup"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.497"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/login_button"
             app:srcCompat="@drawable/sign_up" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

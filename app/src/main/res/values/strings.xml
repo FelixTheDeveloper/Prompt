@@ -1,47 +1,27 @@
 <resources>
     <string name="app_name">Prompt</string>
-    <string name="login_text">Login</string>
-    <string name="register_text">Register</string>
-    <string name="welcome_text">Welcome to Prompt!</string>
-    <string name="logo">logoimage</string>
-    <string name="title_activity_login">Sign in</string>
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password</string>
-    <string name="action_sign_in">Sign in or register</string>
     <string name="action_sign_in_short">Sign in</string>
-    <string name="welcome">"Welcome !"</string>
-    <string name="invalid_username">Not a valid username</string>
-    <string name="invalid_password">Password must be >5 characters</string>
-    <string name="login_failed">"Login failed"</string>
     <string name="title_activity_login2">loginActivity2</string>
     <string name="PromtLogo">TODO</string>
     <string name="welcomeScreen">TODO</string>
     <string name="login">TODO</string>
     <string name="signup">TODO</string>
-    <string name="search">TODO</string>
     <string name="addTasks">TODO</string>
     <string name="todo">TODO</string>
     <string name="new_task">New Task</string>
-    <string name="task_name">Task Name</string>
     <string name="things_to_do_eat_dinner">Things To Do (Eat Dinner)</string>
     <string name="task_nameu">Task Name:</string>
-    <string name="location">Location</string>
     <string name="locations">Location:</string>
     <string name="locationSet" />
-    <string name="locationHint" />
     <string name="locationHints">Set a Location (30 Albany)</string>
-    <string name="start_time">Start Time</string>
     <string name="start_times">Start Time:</string>
-    <string name="time_2_30pm">Time (2:30pm)</string>
     <string name="startDate">Date</string>
-    <string name="choose_time">Click Here: Choose Time</string>
-    <string name="timeInput" />
-    <string name="time_set">Time Set:</string>
     <string name="chooseTime">Choose Time</string>
     <string name="end_time">End Time:</string>
     <string name="repeat">Repeat:</string>
     <string name="description">Description:</string>
-    <string name="descriptionHint">Description of what you plan to do:  (Go grocery shopping)</string>
     <string name="descriptionhInt">Description of what you plan to do:  \\n(Go grocery shopping)</string>
     <string name="confirm">Confirm</string>
     <string name="lineImage" />
@@ -53,12 +33,29 @@
     <string name="lastNameHint">Carlo</string>
     <string name="age">Age:</string>
     <string name="ageHint">12</string>
-    <string name="termsConditions">The purpose of Prompt is to make us pass this paper with an A+ minimum, however by agreeing to our deal you must definetly give us an A+ or else Carlo will treat us dinner!</string>
     <string name="tandC">The purpose of Prompt is to make us pass this paper with an A+ minimum, however by ticking the box below, you are agreeing to giving us an A+ or else Carlo will treat us dinner at any selected location!</string>
     <string name="createAccount">Create Account</string>
     <string name="email">Email:</string>
     <string name="password">Password:</string>
-    <string name="budget" >Budget:</string>
+    <string name="budget">Budget:</string>
+
+    <!-- TODO: remove this placeholder text -->
+    <string name="action_share">Share</string>
+
+    <string name="action_reply">Reply</string>
+
+    <!-- TODO: remove this placeholder text -->
+    <string name="app_notification_title_template">App: %1$s</string>
+
+    <string name="app_notification_placeholder_text_template">You said %1$s and lorem ipsum dolor
+        sit amet, consectetur adipiscing elit. Etiam non enim magna. Morbi dictum, velit vel semper
+        venenatis, magna odio volutpat velit, at ullamcorper nulla lacus sed turpis. Pellentesque
+        vitae metus elit, nec tincidunt tellus. Integer sed nisl sem, ullamcorper ornare lacus. Duis
+        ac mauris sed massa congue volutpat. Donec sed erat sit amet turpis viverra rhoncus sit amet
+        nec magna. Donec lacinia ligula at libero volutpat volutpat nec nec tortor.
+    </string>
+
+    <!-- TODO: remove this placeholder text -->
     <string-array name="names">
         <item>Daily</item>
         <item>Weekly</item>
