@@ -3,11 +3,14 @@ package nz.prompt.controllers;
 import nz.prompt.database.DatabaseHandler;
 import nz.prompt.model.UserModel;
 
+/**
+ * @author Duc Nguyen
+ */
 public class UserController {
-    public static void CreateUser(String firstName, String lastName, int age, int budget)
+    public static UserModel CreateUser(String firstName, String lastName, int age, int budget)
     {
         int currentID;
-        String currentID_string = DatabaseHandler.db.getSetting("User_CurrentID");
+        String currentID_string = DatabaseHandler.dbHelper.getSetting("User_CurrentID");
         if (currentID_string != null)
             currentID = Integer.parseInt(currentID_string) + 1;
         else
@@ -15,13 +18,15 @@ public class UserController {
 
         UserModel user = new UserModel(currentID, firstName, lastName, age, budget);
 
-        DatabaseHandler.db.addUser(user);
+        DatabaseHandler.dbHelper.addUser(user);
 
-        DatabaseHandler.db.setSetting("User_CurrentID", String.valueOf(currentID));
+        DatabaseHandler.dbHelper.setSetting("User_CurrentID", String.valueOf(currentID));
+
+        return user;
     }
 
     public static UserModel GetUser(int ID)
     {
-        return DatabaseHandler.db.getUser(ID);
+        return DatabaseHandler.dbHelper.getUser(ID);
     }
 }

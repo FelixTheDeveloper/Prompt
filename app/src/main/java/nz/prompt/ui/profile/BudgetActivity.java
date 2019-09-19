@@ -24,11 +24,11 @@ public class BudgetActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_budget);
 
-        Subtract = findViewById(R.id.subBtn);
-        TotalBudget = findViewById(R.id.enterBudget);
-        Expense = findViewById(R.id.enterExpense);
-        RemainingBudget = findViewById(R.id.remainingBudget);
-        button = findViewById(R.id.backbutton);
+        Subtract = findViewById(R.id.budget_substractButton);
+        TotalBudget = findViewById(R.id.budget_totalBudgetTextBox);
+        Expense = findViewById(R.id.budget_expenseTextBox);
+        RemainingBudget = findViewById(R.id.budget_remainingBudgetTextBox);
+        button = findViewById(R.id.budget_backbutton);
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override

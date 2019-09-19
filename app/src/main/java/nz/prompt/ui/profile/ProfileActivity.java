@@ -32,8 +32,8 @@ public class ProfileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
-        vieImage = findViewById(R.id.image_view);
-        selectButton = findViewById(R.id.choose_image_btn);
+        vieImage = findViewById(R.id.profile_avatarImageView);
+        selectButton = findViewById(R.id.profile_choose_image_btn);
 
         selectButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -57,7 +57,7 @@ public class ProfileActivity extends AppCompatActivity {
             }
         });
 
-        button = findViewById(R.id.budgetButton);
+        button = findViewById(R.id.profile_budgetButton);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -65,7 +65,7 @@ public class ProfileActivity extends AppCompatActivity {
             }
         });
 
-        button = findViewById(R.id.backButtons);
+        button = findViewById(R.id.profile_backButton);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

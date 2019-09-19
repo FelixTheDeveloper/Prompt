@@ -9,7 +9,7 @@
 
     <!-- The back button-->
     <Button
-        android:id="@+id/backButtons"
+        android:id="@+id/profile_backButton"
         android:layout_width="wrap_content"
         android:layout_height="35dp"
         android:layout_marginTop="50dp"
@@ -19,7 +19,7 @@
 
     <!-- The display of image that was selected will be set-->
     <ImageView
-        android:id="@+id/image_view"
+        android:id="@+id/profile_avatarImageView"
         android:layout_width="150dp"
         android:layout_height="150dp"
         android:layout_marginHorizontal="125dp"
@@ -29,7 +29,7 @@
 
     <!--Select image button to choose image from gallery-->
     <Button
-        android:id="@+id/choose_image_btn"
+        android:id="@+id/profile_choose_image_btn"
         style="@style/Base.Widget.AppCompat.Button.Colored"
         android:layout_width="150dp"
         android:layout_height="30dp"
@@ -40,7 +40,7 @@
 
     <!--Select budget button to calculate expense and budget-->
     <Button
-        android:id="@+id/budgetButton"
+        android:id="@+id/profile_budgetButton"
         android:layout_width="150dp"
         android:layout_height="30dp"
         android:layout_marginVertical="75dp"

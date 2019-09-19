@@ -66,16 +66,16 @@ public class TaskSetterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_task);
 
-        editTextTask = findViewById(R.id.taskInput);
-        editTextLocation = findViewById(R.id.locationInput);
-        editTextDescription = findViewById(R.id.descriptionTextBox);
+        editTextTask = findViewById(R.id.task_taskTitleTextView);
+        editTextLocation = findViewById(R.id.task_locationTextBox);
+        editTextDescription = findViewById(R.id.task_descriptionTextBox);
         buttonConfirm = findViewById(R.id.confirmButton);
 
         //FOR START TIME
 
         //FOR DATE START
 
-        mStartDisplayDate = findViewById(R.id.startDateViewer);
+        mStartDisplayDate = findViewById(R.id.task_startDateViewer);
         mStartDisplayDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -110,7 +110,7 @@ public class TaskSetterActivity extends AppCompatActivity {
         currentHour = calendar.get(Calendar.HOUR_OF_DAY);
         currentMinute = calendar.get(Calendar.MINUTE);
 
-        startChooseTime = findViewById(R.id.startChooseTimeText);
+        startChooseTime = findViewById(R.id.task_startChooseTimeText);
         startChooseTime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -137,7 +137,7 @@ public class TaskSetterActivity extends AppCompatActivity {
 
         //START OF END
         //FOR DATE END
-        mEndDisplayDate = findViewById(R.id.endDateViewer);
+        mEndDisplayDate = findViewById(R.id.task_endDateViewer);
         mEndDisplayDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -174,7 +174,7 @@ public class TaskSetterActivity extends AppCompatActivity {
         currentHour = calendar.get(Calendar.HOUR_OF_DAY);
         currentMinute = calendar.get(Calendar.MINUTE);
 
-        endChooseTime = findViewById(R.id.endChooseTimeText);
+        endChooseTime = findViewById(R.id.task_endChooseTimeText);
         endChooseTime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -202,12 +202,12 @@ public class TaskSetterActivity extends AppCompatActivity {
         });     //End of Time Start
 
         //Creating a dropdown menu for a spinner
-        Spinner mySpinner = findViewById(R.id.spinner1);
+        Spinner mySpinner = findViewById(R.id.task_repeatOptions);
         ArrayAdapter<String> myAdapter = new ArrayAdapter<>(TaskSetterActivity.this, android.R.layout.simple_list_item_1, getResources().getStringArray(R.array.names));
         myAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mySpinner.setAdapter(myAdapter);        //Starting the spinner
 
-        button = findViewById(R.id.cancelButton);
+        button = findViewById(R.id.task_cancelButton);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

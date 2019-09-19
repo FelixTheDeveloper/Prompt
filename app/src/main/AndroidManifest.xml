@@ -13,17 +13,11 @@
         <activity
             android:name=".ui.profile.BudgetActivity"
             android:exported="true" />
-        <activity android:name=".FirstTimeActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+        <activity android:name=".FirstTimeActivity"/>
         <activity android:name=".ui.tasks.TaskSetterActivity" />
         <activity
             android:name=".ui.login.LoginActivity"
-            android:label="@string/title_activity_login2"
+            android:label="@string/title_activity_login"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity android:name=".ui.main.MainMenu" />
         <activity android:name=".ui.register.RegisterActivity" />

@@ -3,10 +3,10 @@
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password</string>
     <string name="action_sign_in_short">Sign in</string>
-    <string name="title_activity_login2">loginActivity2</string>
+    <string name="title_activity_login">loginActivity</string>
     <string name="PromtLogo">TODO</string>
     <string name="welcomeScreen">TODO</string>
-    <string name="login">TODO</string>
+    <string name="login">Login</string>
     <string name="signup">TODO</string>
     <string name="addTasks">TODO</string>
     <string name="todo">TODO</string>

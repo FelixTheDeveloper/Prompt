@@ -9,26 +9,38 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 
 import nz.prompt.R;
 
 public class LoginActivity extends AppCompatActivity {
+    private EditText emailInput;
+    private EditText passwordInput;
+    private Button submitButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        /*Toolbar toolbar = findViewById(R.id.);
-        setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
+        emailInput = findViewById(R.id.login_emailTextBox);
+        passwordInput = findViewById(R.id.login_passwordTextBox);
+        submitButton = findViewById(R.id.login_submitButton);
+
+        submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                tryLogin();
             }
-        });*/
+        });
     }
 
+    private void tryLogin()
+    {
+        String email = emailInput.getText().toString();
+        String password = emailInput.getText().toString();
+
+
+    }
 }

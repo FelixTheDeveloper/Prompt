@@ -9,13 +9,16 @@ import java.util.Date;
 import nz.prompt.database.DatabaseHandler;
 import nz.prompt.model.TaskModel;
 
+/**
+ * @author Duc Nguyen
+ */
 public class TaskController {
     private static ArrayList<TaskModel> tasks = new ArrayList<TaskModel>();
 
     public static boolean CreateTask(String taskName, String locationName, String description, String startDate, String endDate) {
         try {
             int currentID;
-            String currentID_string = DatabaseHandler.db.getSetting("Task_CurrentID");
+            String currentID_string = DatabaseHandler.dbHelper.getSetting("Task_CurrentID");
             if (currentID_string != null)
                 currentID = Integer.parseInt(currentID_string) + 1;
             else
@@ -27,9 +30,9 @@ public class TaskController {
 
             tasks.add(task);
 
-            DatabaseHandler.db.addTask(task);
+            DatabaseHandler.dbHelper.addTask(task);
 
-            DatabaseHandler.db.setSetting("Task_CurrentID", String.valueOf(currentID));
+            DatabaseHandler.dbHelper.setSetting("Task_CurrentID", String.valueOf(currentID));
 
             return true;
         }
@@ -42,6 +45,6 @@ public class TaskController {
 
     public static TaskModel GetTask(int ID)
     {
-        return DatabaseHandler.db.getTask(ID);
+        return DatabaseHandler.dbHelper.getTask(ID);
     }
 }

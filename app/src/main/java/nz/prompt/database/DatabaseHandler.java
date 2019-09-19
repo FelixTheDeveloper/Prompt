@@ -14,15 +14,23 @@ import nz.prompt.model.AccountModel;
 import nz.prompt.model.TaskModel;
 import nz.prompt.model.UserModel;
 
+/**
+ * @author Duc Nguyen
+ */
 public class DatabaseHandler extends SQLiteOpenHelper {
-    public static DatabaseHandler db;
+    public static DatabaseHandler dbHelper;
+
+    private SQLiteDatabase dbRead;
+    private SQLiteDatabase dbWrite;
 
     private static final int DATABASE_VERSION = 1;
-    private static final String DATABASE_NAME = "PromptDatabase.db";
+    private static final String DATABASE_NAME = "PromptDatabase.dbHelper";
     private static final String TABLE_USERS_NAME = "Users";
     private static final String TABLE_TASKS_NAME = "Tasks";
     private static final String TABLE_ACCOUNT_NAME = "Accounts";
     private static final String TABLE_PROMPT_NAME = "PromptDB";
+
+    private boolean Created = false;
 
     public DatabaseHandler(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -30,7 +38,19 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     public static void EstablishDB(Context context)
     {
-        db = new DatabaseHandler(context);
+        dbHelper = new DatabaseHandler(context);
+        dbHelper.dbRead = dbHelper.getReadableDatabase();
+        dbHelper.dbWrite = dbHelper.getWritableDatabase();
+
+        if (dbHelper.Created)
+        {
+            dbHelper.setSetting("User_CurrentID", "0");
+            dbHelper.setSetting("Task_CurrentID", "0");
+            dbHelper.setSetting("Account_CurrentID", "0");
+            dbHelper.setSetting("UserLoggedIn", "FALSE");
+            dbHelper.setSetting("UserLoggedInID", "0");
+            dbHelper.Created = false;
+        }
     }
 
     @Override
@@ -55,14 +75,15 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         String CREATE_ACCOUNTS_TABLE = "CREATE TABLE " + TABLE_ACCOUNT_NAME + " (" +
                 "AccountID int NOT NULL PRIMARY KEY," +
-                "Email varchar(255) NOT NULL," +
+                "Email varchar(255) NOT NULL UNIQUE," +
                 "Password varchar(255) NOT NULL," +
+                "UserID int," +
                 "FOREIGN KEY (UserID) REFERENCES " + TABLE_USERS_NAME + "(UserID)" +
                 ")";
 
         String CREATE_PROMPT_TABLE = "CREATE TABLE " + TABLE_PROMPT_NAME + " (" +
                 "setting varchar(255) NOT NULL PRIMARY KEY," +
-                "value varchar(255) NOT NULL PRIMARY KEY" +
+                "value varchar(255) NOT NULL" +
                 ")";
 
         sqLiteDatabase.execSQL(CREATE_USERS_TABLE);
@@ -70,23 +91,22 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         sqLiteDatabase.execSQL(CREATE_ACCOUNTS_TABLE);
         sqLiteDatabase.execSQL(CREATE_PROMPT_TABLE);
 
-        setSetting("User_CurrentID", "0");
-        setSetting("Task_CurrentID", "0");
-        setSetting("Account_CurrentID", "0");
-        setSetting("UserLoggedIn", "FALSE");
+        Created = true;
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + TABLE_USERS_NAME);
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + TABLE_TASKS_NAME);
+        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + TABLE_ACCOUNT_NAME);
+        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + TABLE_PROMPT_NAME);
 
         onCreate(sqLiteDatabase);
     }
 
     public void addUser(UserModel user)
     {
-        SQLiteDatabase db = this.getWritableDatabase();
+        SQLiteDatabase db = dbWrite;
 
         ContentValues values = new ContentValues();
         values.put("UserID", user.getID());
@@ -96,12 +116,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         values.put("Budget", user.getBudget());
 
         db.insert(TABLE_USERS_NAME, null, values);
-        db.close();
     }
 
     public UserModel getUser(int ID)
     {
-        SQLiteDatabase db = this.getReadableDatabase();
+        SQLiteDatabase db = dbRead;
 
         Cursor cursor = db.query(TABLE_USERS_NAME, null, "UserID = ?", new String[] {String.valueOf(ID)}, null, null, null);
 
@@ -116,33 +135,50 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             if (index != -1)
                 id = cursor.getInt(index);
             else
+            {
+                cursor.close();
                 return null;
+            }
 
             index = cursor.getColumnIndex("FirstName");
             if (index != -1)
                 firstName = cursor.getString(index);
             else
+            {
+                cursor.close();
                 return null;
+            }
 
             index = cursor.getColumnIndex("LastName");
             if (index != -1)
                 lastName = cursor.getString(index);
             else
+            {
+                cursor.close();
                 return null;
+            }
 
             index = cursor.getColumnIndex("Age");
             if (index != -1)
                 age = cursor.getInt(index);
             else
+            {
+                cursor.close();
                 return null;
+            }
 
             index = cursor.getColumnIndex("Budget");
             if (index != -1)
                 budget = cursor.getInt(index);
             else
+            {
+                cursor.close();
                 return null;
+            }
 
             UserModel user = new UserModel(id, firstName, lastName, age, budget);
+
+            cursor.close();
 
             return user;
         }
@@ -152,7 +188,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     public void addTask(TaskModel task)
     {
-        SQLiteDatabase db = this.getWritableDatabase();
+        SQLiteDatabase db = dbWrite;
 
         ContentValues values = new ContentValues();
         values.put("TaskID", task.getID());
@@ -163,12 +199,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         values.put("Status", task.isStatus());
 
         db.insert(TABLE_TASKS_NAME, null, values);
-        db.close();
     }
 
     public TaskModel getTask(int ID)
     {
-        SQLiteDatabase db = this.getReadableDatabase();
+        SQLiteDatabase db = dbRead;
 
         Cursor cursor = db.query(TABLE_TASKS_NAME, null, "TaskID = ?", new String[] {String.valueOf(ID)}, null, null, null);
 
@@ -184,25 +219,37 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             if (index != -1)
                 id = cursor.getInt(index);
             else
+            {
+                cursor.close();
                 return null;
+            }
 
             index = cursor.getColumnIndex("Title");
             if (index != -1)
                 title = cursor.getString(index);
             else
+            {
+                cursor.close();
                 return null;
+            }
 
             index = cursor.getColumnIndex("Description");
             if (index != -1)
                 description = cursor.getString(index);
             else
+            {
+                cursor.close();
                 return null;
+            }
 
             index = cursor.getColumnIndex("Location");
             if (index != -1)
                 location = cursor.getString(index);
             else
+            {
+                cursor.close();
                 return null;
+            }
 
             index = cursor.getColumnIndex("StartDate");
             if (index != -1)
@@ -212,11 +259,15 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 }
                 catch (ParseException e)
                 {
+                    cursor.close();
                     return null;
                 }
             }
             else
+            {
+                cursor.close();
                 return null;
+            }
 
             index = cursor.getColumnIndex("EndDate");
             if (index != -1)
@@ -226,29 +277,37 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 }
                 catch (ParseException e)
                 {
+                    cursor.close();
                     return null;
                 }
             }
-            else
+            else {
+                cursor.close();
                 return null;
+            }
 
             index = cursor.getColumnIndex("Status");
             if (index != -1)
                 status = cursor.getInt(index) > 0;
             else
+            {
+                cursor.close();
                 return null;
+            }
 
             TaskModel task = new TaskModel(id, title, description, location, startDate, endDate, status);
 
+            cursor.close();
             return task;
         }
 
+        cursor.close();
         return null;
     }
 
     public void addAccount(AccountModel account)
     {
-        SQLiteDatabase db = this.getWritableDatabase();
+        SQLiteDatabase db = dbWrite;
 
         ContentValues values = new ContentValues();
         values.put("AccountID", account.getAccountID());
@@ -257,12 +316,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         values.put("UserID", account.getUser().getID());
 
         db.insert(TABLE_ACCOUNT_NAME, null, values);
-        db.close();
     }
 
     public AccountModel getAccount(int ID)
     {
-        SQLiteDatabase db = this.getReadableDatabase();
+        SQLiteDatabase db = dbRead;
 
         Cursor cursor = db.query(TABLE_ACCOUNT_NAME, null, "AccountID = ?", new String[] {String.valueOf(ID)}, null, null, null);
 
@@ -276,38 +334,67 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             if (index != -1)
                 id = cursor.getInt(index);
             else
+            {
+                cursor.close();
                 return null;
+            }
 
             index = cursor.getColumnIndex("Email");
             if (index != -1)
                 email = cursor.getString(index);
-            else
+            else {
+                cursor.close();
                 return null;
+            }
 
             index = cursor.getColumnIndex("Password");
             if (index != -1)
                 password = cursor.getString(index);
-            else
+            else {
+                cursor.close();
                 return null;
+            }
 
             index = cursor.getColumnIndex("UserID");
             if (index != -1)
                 userID = cursor.getInt(index);
-            else
+            else {
+                cursor.close();
                 return null;
+            }
 
             UserModel user = getUser(userID);
             AccountModel account = new AccountModel(id, email, password, user);
 
+            cursor.close();
+
             return account;
         }
+
+        cursor.close();
 
         return null;
     }
 
+    public boolean checkAccount(String email)
+    {
+        SQLiteDatabase db = dbRead;
+
+        Cursor cursor = db.query(TABLE_ACCOUNT_NAME, null, "Email = ?", new String[] {email}, null, null, null);
+
+        if (cursor.moveToNext()) {
+            cursor.close();
+            return true;
+        }
+        else {
+            cursor.close();
+            return false;
+        }
+    }
+
     public void setSetting(String setting, String value)
     {
-        SQLiteDatabase db = this.getWritableDatabase();
+        SQLiteDatabase db = dbWrite;
 
         ContentValues values = new ContentValues();
         values.put(setting, value);
@@ -317,17 +404,19 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     public String getSetting(String setting)
     {
-        SQLiteDatabase db = this.getReadableDatabase();
+        SQLiteDatabase db = dbRead;
         String[] column = {"value"};
 
         Cursor cursor = db.query(TABLE_PROMPT_NAME, column, "setting = ?", new String[] {setting}, null, null, null);
 
         if (cursor.moveToNext())
         {
+            cursor.close();
             return cursor.getString(0);
         }
         else
         {
+            cursor.close();
             return null;
         }
     }

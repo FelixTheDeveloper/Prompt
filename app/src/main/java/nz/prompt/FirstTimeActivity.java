@@ -23,7 +23,7 @@ public class FirstTimeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_first_time);
 
-        imageButton = (ImageButton) findViewById(R.id.signupButton);
+        imageButton = (ImageButton) findViewById(R.id.firstTime_signupButton);
         imageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -31,15 +31,13 @@ public class FirstTimeActivity extends AppCompatActivity {
             }
         });
 
-        imageButton = (ImageButton) findViewById(R.id.login_button);
+        imageButton = (ImageButton) findViewById(R.id.firstTime_loginButton);
         imageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 loginActivity();
             }
         });
-
-
     }
 
     public void loginActivity(){

@@ -14,7 +14,7 @@
 
     <!-- The Subtract button that will run Total Budget - Expense = Remaining Budget-->
     <EditText
-        android:id="@+id/enterBudget"
+        android:id="@+id/budget_totalBudgetTextBox"
         android:layout_width="260dp"
         android:layout_height="wrap_content"
         android:ems="10"
@@ -28,7 +28,7 @@
         app:layout_constraintVertical_bias="0.253" />
 
     <EditText
-        android:id="@+id/enterExpense"
+        android:id="@+id/budget_expenseTextBox"
         android:layout_width="260dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -46,7 +46,7 @@
         app:layout_constraintVertical_bias="0.365" />
 
     <EditText
-        android:id="@+id/remainingBudget"
+        android:id="@+id/budget_remainingBudgetTextBox"
         android:layout_width="260dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -64,7 +64,7 @@
         app:layout_constraintVertical_bias="0.644" />
 
     <Button
-        android:id="@+id/subBtn"
+        android:id="@+id/budget_substractButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -72,20 +72,20 @@
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
         android:text="Subtract"
-        app:layout_constraintBottom_toTopOf="@+id/remainingBudget"
+        app:layout_constraintBottom_toTopOf="@+id/budget_remainingBudgetTextBox"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/enterExpense"
+        app:layout_constraintTop_toBottomOf="@+id/budget_expenseTextBox"
         app:layout_constraintVertical_bias="0.50" />
 
     <Button
-        android:id="@+id/backbutton"
+        android:id="@+id/budget_backbutton"
         android:layout_width="80dp"
         android:layout_height="42dp"
         android:layout_marginBottom="132dp"
         android:background="@color/defaultColor"
         android:text="back"
-        app:layout_constraintBottom_toTopOf="@+id/enterBudget"
+        app:layout_constraintBottom_toTopOf="@+id/budget_totalBudgetTextBox"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"

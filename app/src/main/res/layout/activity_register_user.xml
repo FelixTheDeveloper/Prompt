@@ -7,19 +7,17 @@
     tools:context=".ui.register.RegisterActivity_User">
 
     <EditText
-        android:id="@+id/ageTextBox2"
+        android:id="@+id/registerUser_budgetTextBox"
         android:layout_width="234dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="68dp"
         android:layout_marginTop="11dp"
         android:ems="10"
         android:hint="1"
         android:importantForAutofill="no"
         android:inputType="number"
-        app:layout_constraintEnd_toEndOf="@+id/ageTextBox"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@+id/budgetTextView"
-        app:layout_constraintTop_toBottomOf="@+id/ageTextBox" />
+        app:layout_constraintEnd_toEndOf="@+id/registerUser_ageTextBox"
+        app:layout_constraintStart_toStartOf="@+id/registerUser_ageTextBox"
+        app:layout_constraintTop_toBottomOf="@+id/registerUser_ageTextBox" />
 
     <ImageView
         android:id="@+id/logo"
@@ -36,7 +34,7 @@
         app:srcCompat="@drawable/welcome_screen" />
 
     <TextView
-        android:id="@+id/emailTextView"
+        android:id="@+id/registerUser_firstNameTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="404dp"
@@ -51,40 +49,40 @@
         app:layout_constraintVertical_bias="0.803" />
 
     <TextView
-        android:id="@+id/lastNameTextView"
+        android:id="@+id/registerUser_lastNameTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
         android:paddingStart="20px"
         android:text="@string/lastName"
         android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="@+id/emailTextView"
-        app:layout_constraintTop_toBottomOf="@+id/emailTextView" />
+        app:layout_constraintStart_toStartOf="@+id/registerUser_firstNameTextView"
+        app:layout_constraintTop_toBottomOf="@+id/registerUser_firstNameTextView" />
 
     <TextView
-        android:id="@+id/budgetTextView"
+        android:id="@+id/registerUser_budgetTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
         android:paddingStart="20px"
         android:text="@string/budget"
         android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="@+id/ageTextView"
-        app:layout_constraintTop_toBottomOf="@+id/ageTextView" />
+        app:layout_constraintStart_toStartOf="@+id/registerUser_ageTextView"
+        app:layout_constraintTop_toBottomOf="@+id/registerUser_ageTextView" />
 
     <TextView
-        android:id="@+id/ageTextView"
+        android:id="@+id/registerUser_ageTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
         android:paddingStart="20px"
         android:text="@string/age"
         android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="@+id/lastNameTextView"
-        app:layout_constraintTop_toBottomOf="@+id/lastNameTextView" />
+        app:layout_constraintStart_toStartOf="@+id/registerUser_lastNameTextView"
+        app:layout_constraintTop_toBottomOf="@+id/registerUser_lastNameTextView" />
 
     <EditText
-        android:id="@+id/firstNameTextBox"
+        android:id="@+id/registerUser_firstNameTextBox"
         android:layout_width="234dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="388dp"
@@ -95,12 +93,12 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.366"
-        app:layout_constraintStart_toEndOf="@+id/emailTextView"
+        app:layout_constraintStart_toEndOf="@+id/registerUser_firstNameTextView"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.786" />
 
     <EditText
-        android:id="@+id/lastNameTextBox"
+        android:id="@+id/registerUser_lastNameTextBox"
         android:layout_width="234dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="11dp"
@@ -108,56 +106,53 @@
         android:hint="@string/lastNameHint"
         android:importantForAutofill="no"
         android:inputType="textPersonName"
-        app:layout_constraintEnd_toEndOf="@+id/firstNameTextBox"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@+id/lastNameTextView"
-        app:layout_constraintTop_toBottomOf="@+id/firstNameTextBox" />
+        app:layout_constraintEnd_toEndOf="@id/registerUser_firstNameTextBox"
+        app:layout_constraintStart_toStartOf="@+id/registerUser_firstNameTextBox"
+        app:layout_constraintTop_toBottomOf="@id/registerUser_firstNameTextBox" />
 
     <EditText
-        android:id="@+id/ageTextBox"
+        android:id="@+id/registerUser_ageTextBox"
         android:layout_width="234dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="68dp"
-        android:layout_marginTop="11dp"
+        android:layout_marginTop="12dp"
         android:ems="10"
         android:hint="@string/ageHint"
         android:importantForAutofill="no"
         android:inputType="number"
-        app:layout_constraintEnd_toEndOf="@+id/lastNameTextBox"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@+id/budgetTextView"
-        app:layout_constraintTop_toBottomOf="@+id/lastNameTextBox" />
+        app:layout_constraintEnd_toEndOf="@+id/registerUser_lastNameTextBox"
+        app:layout_constraintStart_toStartOf="@+id/registerUser_lastNameTextBox"
+        app:layout_constraintTop_toBottomOf="@+id/registerUser_lastNameTextBox" />
 
     <TextView
-        android:id="@+id/termConTextBox"
+        android:id="@+id/registerUser_termConTextBox"
         android:layout_width="345dp"
         android:layout_height="161dp"
         android:layout_marginTop="32dp"
         android:paddingStart="20px"
         android:text="@string/tandC"
         android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="@+id/ageTextBox2"
+        app:layout_constraintEnd_toEndOf="@+id/registerUser_budgetTextBox"
         app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="@+id/budgetTextView"
-        app:layout_constraintTop_toBottomOf="@+id/ageTextBox2" />
+        app:layout_constraintStart_toStartOf="@+id/registerUser_budgetTextView"
+        app:layout_constraintTop_toBottomOf="@+id/registerUser_budgetTextBox" />
 
     <CheckBox
-        android:id="@+id/checkBox"
+        android:id="@+id/registerUser_termsCheckBox"
         android:layout_width="35dp"
         android:layout_height="37dp"
-        app:layout_constraintBottom_toBottomOf="@+id/termConTextBox"
-        app:layout_constraintStart_toStartOf="@+id/termConTextBox" />
+        app:layout_constraintBottom_toBottomOf="@+id/registerUser_termConTextBox"
+        app:layout_constraintStart_toStartOf="@+id/registerUser_termConTextBox" />
 
     <Button
-        android:id="@+id/createAccButton"
+        android:id="@+id/registerUser_submitButton"
+        style="@style/Widget.AppCompat.Button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:background="@color/defaultColor"
-        android:text="@string/createAccount"
         android:enabled="false"
+        android:text="@string/createAccount"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.91"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/termConTextBox" />
+        app:layout_constraintTop_toBottomOf="@+id/registerUser_termConTextBox" />
 </androidx.constraintlayout.widget.ConstraintLayout>
