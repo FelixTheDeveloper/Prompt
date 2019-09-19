@@ -26,16 +26,6 @@ public class UpcomingTasks extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_upcoming_tasks);
 
-        dateTimeDisplay = (TextView) findViewById(R.id.currentDate);
-
-        calendar = Calendar.getInstance();
-
-        dateFormat = new SimpleDateFormat("EE d MMM ");
-        date = dateFormat.format(calendar.getTime());
-        dateTimeDisplay.setText(date);
-
-        imageButton = (ImageButton) findViewById(R.id.addTaskButton2);
-
 
     }
 }

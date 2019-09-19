@@ -39,8 +39,8 @@ public class TaskSetterActivity extends AppCompatActivity {
     private EditText editTextTask;
     private EditText editTextLocation;
     private EditText editTextDescription;
-    private Button buttonConfirm;
-    private Button button;
+    private Button createButton;
+    private Button cancelButton;
     private TextView mStartDisplayDate;
     private TextView mEndDisplayDate;
     private TextView startChooseTime;
@@ -69,7 +69,8 @@ public class TaskSetterActivity extends AppCompatActivity {
         editTextTask = findViewById(R.id.task_taskTitleTextView);
         editTextLocation = findViewById(R.id.task_locationTextBox);
         editTextDescription = findViewById(R.id.task_descriptionTextBox);
-        buttonConfirm = findViewById(R.id.confirmButton);
+        createButton = findViewById(R.id.task_createButton);
+        cancelButton = findViewById(R.id.task_cancelButton);
 
         //FOR START TIME
 
@@ -207,8 +208,7 @@ public class TaskSetterActivity extends AppCompatActivity {
         myAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mySpinner.setAdapter(myAdapter);        //Starting the spinner
 
-        button = findViewById(R.id.task_cancelButton);
-        button.setOnClickListener(new View.OnClickListener() {
+        cancelButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 cancelTask();
@@ -221,8 +221,7 @@ public class TaskSetterActivity extends AppCompatActivity {
             requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1000);
         }
 
-        button = findViewById(R.id.confirmButton);
-        button.setOnClickListener(new View.OnClickListener() {
+        createButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String taskName = editTextTask.getText().toString();
@@ -279,7 +278,7 @@ public class TaskSetterActivity extends AppCompatActivity {
             String taskInput = editTextTask.getText().toString();
             String locationInput = editTextLocation.getText().toString();
 
-            buttonConfirm.setEnabled(!taskInput.isEmpty() && !locationInput.isEmpty());
+            createButton.setEnabled(!taskInput.isEmpty() && !locationInput.isEmpty());
         }
 
         @Override

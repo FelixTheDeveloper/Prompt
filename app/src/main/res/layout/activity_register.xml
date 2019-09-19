@@ -46,10 +46,11 @@
         android:id="@+id/register_passwordTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
         android:text="@string/password"
         android:textSize="18sp"
-        tools:layout_editor_absoluteX="29dp"
-        tools:layout_editor_absoluteY="347dp" />
+        app:layout_constraintStart_toStartOf="@+id/register_emailTextView"
+        app:layout_constraintTop_toBottomOf="@+id/register_emailTextView" />
 
     <Button
         android:id="@+id/register_submitButton"

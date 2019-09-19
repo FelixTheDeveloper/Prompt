@@ -21,12 +21,12 @@
 
     <ImageView
         android:id="@+id/logo"
-        android:layout_width="335dp"
-        android:layout_height="194dp"
+        android:layout_width="354dp"
+        android:layout_height="236dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="24dp"
         android:contentDescription="@string/PromtLogo"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -43,10 +43,10 @@
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.098"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.803" />
+        app:layout_constraintHorizontal_bias="0.01"
+        app:layout_constraintStart_toStartOf="@+id/logo"
+        app:layout_constraintTop_toBottomOf="@+id/logo"
+        app:layout_constraintVertical_bias="0.458" />
 
     <TextView
         android:id="@+id/registerUser_lastNameTextView"
@@ -91,11 +91,10 @@
         android:importantForAutofill="no"
         android:inputType="textPersonName"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.366"
+        app:layout_constraintEnd_toEndOf="@+id/logo"
         app:layout_constraintStart_toEndOf="@+id/registerUser_firstNameTextView"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.786" />
+        app:layout_constraintTop_toBottomOf="@+id/logo"
+        app:layout_constraintVertical_bias="0.355" />
 
     <EditText
         android:id="@+id/registerUser_lastNameTextBox"
@@ -127,7 +126,7 @@
         android:id="@+id/registerUser_termConTextBox"
         android:layout_width="345dp"
         android:layout_height="161dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="16dp"
         android:paddingStart="20px"
         android:text="@string/tandC"
         android:textSize="18sp"

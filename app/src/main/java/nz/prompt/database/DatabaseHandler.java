@@ -376,6 +376,28 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return null;
     }
 
+    public int verifyAccount(String email, String password)
+    {
+        SQLiteDatabase db = dbRead;
+
+        Cursor cursor = db.query(TABLE_ACCOUNT_NAME, null, "Email = ?", new String[] {email}, null, null, null);
+
+        if (cursor.moveToNext())
+        {
+            int index = cursor.getColumnIndex("Password");
+            String tmpPassword = cursor.getString(index);
+
+            if (password.equals(tmpPassword))
+            {
+                index = cursor.getColumnIndex("AccountID");
+                int ID = cursor.getInt(index);
+                return ID;
+            }
+        }
+
+        return -1;
+    }
+
     public boolean checkAccount(String email)
     {
         SQLiteDatabase db = dbRead;

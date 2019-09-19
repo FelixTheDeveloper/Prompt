@@ -21,7 +21,7 @@ public class MainMenu extends AppCompatActivity {
         setContentView(R.layout.activity_main_menu);
 
         //For add task buttongir
-        imageButton = findViewById(R.id.confirmButton);
+        imageButton = findViewById(R.id.mainMenu_confirmButton);
         imageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -29,7 +29,7 @@ public class MainMenu extends AppCompatActivity {
             }
         });
         //For ProfileActivity
-        imageButton = findViewById(R.id.profileButton);
+        imageButton = findViewById(R.id.mainMenu_profileButton);
         imageButton.setOnClickListener(new View.OnClickListener() {     //When user clicks onto profile image
             @Override
             public void onClick(View view) {
@@ -37,7 +37,7 @@ public class MainMenu extends AppCompatActivity {
             }
         });
         //For Upcoming Tasks
-        imageButton = findViewById(R.id.upcomingTaskButton);
+        imageButton = findViewById(R.id.mainMenu_upcomingTaskButton);
         imageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

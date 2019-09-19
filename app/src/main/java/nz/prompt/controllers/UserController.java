@@ -7,6 +7,8 @@ import nz.prompt.model.UserModel;
  * @author Duc Nguyen
  */
 public class UserController {
+    public static UserModel currentUser;
+
     public static UserModel CreateUser(String firstName, String lastName, int age, int budget)
     {
         int currentID;

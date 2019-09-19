@@ -8,6 +8,8 @@ import nz.prompt.model.UserModel;
  * @author Duc Nguyen
  */
 public class AccountController {
+    public static AccountModel currentAccount;
+
     public static AccountModel CreateAccount(String email, String password, UserModel user)
     {
         int currentID;
@@ -37,5 +39,10 @@ public class AccountController {
     public static boolean CheckAccount(String email)
     {
         return DatabaseHandler.dbHelper.checkAccount(email);
+    }
+
+    public static int VerifyAccount(String email, String password)
+    {
+        return DatabaseHandler.dbHelper.verifyAccount(email, password);
     }
 }

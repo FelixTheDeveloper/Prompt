@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 
+import nz.prompt.ui.login.LoginActivity;
 import nz.prompt.ui.main.MainMenu;
 import nz.prompt.ui.register.RegisterActivity;
 
@@ -41,7 +42,7 @@ public class FirstTimeActivity extends AppCompatActivity {
     }
 
     public void loginActivity(){
-        Intent intent = new Intent(this, MainMenu.class);      //Creates new intent which will lead into LoginActivity class
+        Intent intent = new Intent(this, LoginActivity.class);      //Creates new intent which will lead into LoginActivity class
         startActivity(intent);
     }
 
