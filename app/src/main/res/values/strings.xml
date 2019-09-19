@@ -56,6 +56,9 @@
     <string name="termsConditions">The purpose of Prompt is to make us pass this paper with an A+ minimum, however by agreeing to our deal you must definetly give us an A+ or else Carlo will treat us dinner!</string>
     <string name="tandC">The purpose of Prompt is to make us pass this paper with an A+ minimum, however by ticking the box below, you are agreeing to giving us an A+ or else Carlo will treat us dinner at any selected location!</string>
     <string name="createAccount">Create Account</string>
+    <string name="email">Email:</string>
+    <string name="password">Password:</string>
+    <string name="budget" >Budget:</string>
     <string-array name="names">
         <item>Daily</item>
         <item>Weekly</item>

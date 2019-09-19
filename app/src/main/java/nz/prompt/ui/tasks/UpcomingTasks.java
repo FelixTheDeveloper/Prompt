@@ -1,4 +1,4 @@
-package nz.prompt;
+package nz.prompt.ui.tasks;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -10,6 +10,8 @@ import org.w3c.dom.Text;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+
+import nz.prompt.R;
 
 public class UpcomingTasks extends AppCompatActivity {
 

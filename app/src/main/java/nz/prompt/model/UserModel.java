@@ -5,15 +5,13 @@ public class UserModel {
     private String FirstName;
     private String LastName;
     private int Age;
-    private int PhoneNumber;
     private int Budget;
 
-    public UserModel(int id, String firstName, String lastName, int age, int phoneNumber, int budget) {
+    public UserModel(int id, String firstName, String lastName, int age, int budget) {
         ID = id;
         FirstName = firstName;
         LastName = lastName;
         Age = age;
-        PhoneNumber = phoneNumber;
         Budget = budget;
     }
 
@@ -49,14 +47,6 @@ public class UserModel {
         }
 
         return false;
-    }
-
-    public int getPhoneNumber() {
-        return PhoneNumber;
-    }
-
-    public void setPhoneNumber(int phoneNumber) {
-        PhoneNumber = phoneNumber;
     }
 
     public int getBudget() {

@@ -14,7 +14,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import nz.prompt.MainMenu;
+import nz.prompt.ui.main.MainMenu;
 import nz.prompt.R;
 
 public class ProfileActivity extends AppCompatActivity {
@@ -32,10 +32,8 @@ public class ProfileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
-
         vieImage = findViewById(R.id.image_view);
         selectButton = findViewById(R.id.choose_image_btn);
-
 
         selectButton.setOnClickListener(new View.OnClickListener() {
             @Override

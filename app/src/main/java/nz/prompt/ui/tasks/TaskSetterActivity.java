@@ -1,5 +1,5 @@
 //AUTHOR: FELIX NIOCENA
-package nz.prompt;
+package nz.prompt.ui.tasks;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,7 +13,6 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Environment;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -27,17 +26,11 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.PrintWriter;
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.List;
 
+import nz.prompt.R;
 import nz.prompt.controllers.TaskController;
-import nz.prompt.database.FileHandler;
-import nz.prompt.model.TaskModel;
+import nz.prompt.ui.main.MainMenu;
 
 public class TaskSetterActivity extends AppCompatActivity {
 

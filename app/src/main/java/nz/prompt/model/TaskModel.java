@@ -6,14 +6,16 @@ public class TaskModel {
     private int ID;
     private String Title;
     private String Description;
+    private String Location;
     private Date StartDate;
     private Date EndDate;
     private boolean Status;
 
-    public TaskModel(String title, String description, Date startDate, Date endDate, boolean status) {
-        setID(ID);
+    public TaskModel(int id, String title, String description, String location, Date startDate, Date endDate, boolean status) {
+        setID(id);
         setTitle(title);
         setDescription(description);
+        setLocation(location);
         setStartDate(startDate);
         setEndDate(endDate);
         setStatus(status);
@@ -41,6 +43,14 @@ public class TaskModel {
 
     public void setDescription(String description) {
         Description = description;
+    }
+
+    public String getLocation() {
+        return Location;
+    }
+
+    public void setLocation(String location) {
+        Location = location;
     }
 
     public Date getStartDate() {

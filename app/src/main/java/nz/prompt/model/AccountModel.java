@@ -4,10 +4,13 @@ public class AccountModel {
     private int AccountID;
     private String Email;
     private String Password;
+    private UserModel User;
 
-    public AccountModel(String email, String password) {
+    public AccountModel(int id, String email, String password, UserModel user) {
+        AccountID = id;
         Email = email;
         Password = password;
+        User = user;
     }
 
     public int getAccountID() {
@@ -28,5 +31,13 @@ public class AccountModel {
 
     public void setPassword(String password) {
         Password = password;
+    }
+
+    public UserModel getUser() {
+        return User;
+    }
+
+    public void setUser(UserModel user) {
+        User = user;
     }
 }

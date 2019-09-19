@@ -1,5 +1,5 @@
 //AUTHOR: FELIX NIOCENA
-package nz.prompt;
+package nz.prompt.ui.main;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -7,6 +7,9 @@ import android.widget.ImageButton;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import nz.prompt.R;
+import nz.prompt.ui.tasks.TaskSetterActivity;
+import nz.prompt.ui.tasks.UpcomingTasks;
 import nz.prompt.ui.profile.ProfileActivity;
 
 public class MainMenu extends AppCompatActivity {

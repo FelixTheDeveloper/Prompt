@@ -15,7 +15,9 @@ public class MainActivity extends AppCompatActivity {
 
         DatabaseHandler.EstablishDB(this);
 
-        if (!DatabaseHandler.loggedIn)
+        boolean loggedIn = Boolean.parseBoolean(DatabaseHandler.db.getSetting("UserLoggedIn"));
+
+        if (!loggedIn)
         {
             Intent firstTimeIntent = new Intent(this, FirstTimeActivity.class);
             startActivity(firstTimeIntent);
