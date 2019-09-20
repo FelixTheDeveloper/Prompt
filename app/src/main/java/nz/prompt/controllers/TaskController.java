@@ -1,5 +1,6 @@
 package nz.prompt.controllers;
 
+import android.provider.ContactsContract;
 import android.util.Log;
 
 import java.text.SimpleDateFormat;
@@ -8,8 +9,11 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Locale;
 
+import nz.prompt.MainActivity;
 import nz.prompt.database.DatabaseHandler;
 import nz.prompt.model.TaskModel;
+import nz.prompt.notification.BackgroundService;
+import nz.prompt.notification.PromptService;
 
 /**
  * @author Duc Nguyen
@@ -47,6 +51,10 @@ public class TaskController {
     public static void AddTask(TaskModel task)
     {
         DatabaseHandler.dbHelper.addTask(task);
+        if (!task.isStatus())
+            BackgroundService.setAlarm(PromptService.instance, task);
+        else
+            BackgroundService.cancelAlarm(PromptService.instance, task);
     }
 
     /**
@@ -77,8 +85,14 @@ public class TaskController {
         return mTasks;
     }
 
+    public static TaskModel GetTask(int ID)
+    {
+        return DatabaseHandler.dbHelper.getTask(ID);
+    }
+
     public static boolean RemoveTask(int ID)
     {
+        BackgroundService.cancelAlarm(PromptService.instance, GetTask(ID));
         return DatabaseHandler.dbHelper.deleteTask(ID);
     }
 }
