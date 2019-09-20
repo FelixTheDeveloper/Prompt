@@ -2,10 +2,11 @@ package nz.prompt.ui.tasks;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.LinearLayout;
@@ -15,24 +16,30 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.text.ParseException;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Locale;
 
 import nz.prompt.R;
 import nz.prompt.controllers.TaskController;
 import nz.prompt.controllers.UserController;
 import nz.prompt.model.TaskModel;
-import nz.prompt.ui.main.MainMenu;
 
 public class TaskListActivity extends AppCompatActivity {
-    private TableLayout table;
     private Button backButton;
 
     private int year, month, day;
 
     private Date date = new Date();
+
+    private HashSet<TaskModel> pastTasks = new HashSet<>();
+    private HashSet<TaskModel> upcomingTasks = new HashSet<>();
+    private HashSet<TaskModel> finishedTasks = new HashSet<>();
+
+    private static int ID = 10000;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,8 +63,6 @@ public class TaskListActivity extends AppCompatActivity {
         backButton = findViewById(R.id.taskList_backButton);
         backButton.setOnClickListener(v -> finish());
 
-        table = findViewById(R.id.taskList_tableLayout);
-
         TaskController.GetTasks(UserController.currentUser.getID(), date);
 
         if (TaskController.tasks.isEmpty())
@@ -65,25 +70,62 @@ public class TaskListActivity extends AppCompatActivity {
             Toast.makeText(this, "You don't have any tasks :D", Toast.LENGTH_SHORT).show();
         }
         else
-            TaskController.tasks.forEach(this::addRow);
+        {
+            TaskController.tasks.forEach(this::ProcessTask);
+            DrawTasks();
+        }
     }
 
-    private void addRow(TaskModel task)
+    private void DrawTasks()
     {
-        TableRow taskDetailsRow = new TableRow(this);
-        taskDetailsRow.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT, TableRow.LayoutParams.WRAP_CONTENT));
+        pastTasks.forEach(task -> addRow(task, findViewById(R.id.taskList_tablePast)));
+        upcomingTasks.forEach(task -> addRow(task, findViewById(R.id.taskList_tableUpcoming)));
+        finishedTasks.forEach(task -> addRow(task, findViewById(R.id.taskList_tableFinished)));
+    }
 
-        CheckBox status = new CheckBox(this);
+    private void ProcessTask(TaskModel task)
+    {
+        if (task.isStatus())
+        {
+            finishedTasks.add(task);
+            return;
+        }
+
+        if (task.getEndDate().before(new Date()))
+        {
+            pastTasks.add(task);
+            return;
+        }
+
+        upcomingTasks.add(task);
+    }
+
+    private void addRow(TaskModel task, LinearLayout tableLayout)
+    {
+        LinearLayout taskDetailsRow = (LinearLayout)getLayoutInflater().inflate(R.layout.tmp_linear_layout, null);
+        taskDetailsRow.setId(ID++ + task.getID());
+        taskDetailsRow.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+        taskDetailsRow.setOrientation(LinearLayout.HORIZONTAL);
+
+        CheckBox status = new CheckBox(taskDetailsRow.getContext());
+        status.setId(ID++ + task.getID());
+        status.setTextAppearance(R.style.AppTheme);
         status.setChecked(task.isStatus());
         status.setOnClickListener(v -> {
             task.setStatus(status.isChecked());
             TaskController.AddTask(task);
+            finish();
+            overridePendingTransition(0, 0);
+            startActivity(getIntent());
+            overridePendingTransition(0, 0);
         });
         taskDetailsRow.addView(status);
 
         LinearLayout layout = (LinearLayout)getLayoutInflater().inflate(R.layout.tmp_linear_layout, null);
+        layout.setId(ID++ + task.getID());
 
         TextView title = new TextView(layout.getContext());
+        title.setId(ID++ + task.getID());
         title.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
         title.setTextAppearance(R.style.AppTheme);
         title.setText(task.getTitle());
@@ -92,6 +134,7 @@ public class TaskListActivity extends AppCompatActivity {
         layout.addView(title);
 
         TextView description = new TextView(layout.getContext());
+        description.setId(ID++ + task.getID());
         description.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
         description.setTextAppearance(R.style.AppTheme);
         description.setText(task.getDescription());
@@ -100,6 +143,7 @@ public class TaskListActivity extends AppCompatActivity {
         layout.addView(description);
 
         TextView location = new TextView(layout.getContext());
+        location.setId(ID++ + task.getID());
         location.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
         location.setTextAppearance(R.style.AppTheme);
         location.setText("Location: " + task.getLocation());
@@ -108,6 +152,7 @@ public class TaskListActivity extends AppCompatActivity {
         layout.addView(location);
 
         Button deleteButton = new Button(layout.getContext());
+        deleteButton.setId(ID++ + task.getID());
         deleteButton.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
         deleteButton.setText(getString(R.string.delete_button_text));
         deleteButton.setOnClickListener(v -> {
@@ -115,10 +160,10 @@ public class TaskListActivity extends AppCompatActivity {
             {
                 Toast.makeText(v.getContext(), "Delete task successfully!", Toast.LENGTH_SHORT).show();
                 TaskController.GetTasks(UserController.currentUser.getID(), date);
-                Intent intent = getIntent();
-                intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                 finish();
-                startActivity(intent);
+                overridePendingTransition(0, 0);
+                startActivity(getIntent());
+                overridePendingTransition(0, 0);
             }
             else
             {
@@ -128,6 +173,6 @@ public class TaskListActivity extends AppCompatActivity {
         layout.addView(deleteButton);
 
         taskDetailsRow.addView(layout);
-        table.addView(taskDetailsRow);
+        tableLayout.addView(taskDetailsRow);
     }
 }

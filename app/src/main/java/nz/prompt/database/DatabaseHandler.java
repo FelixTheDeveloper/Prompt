@@ -339,7 +339,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         else
         {
             cursor = db.query(TABLE_TASKS_NAME, null, "OwnerID = ? AND StartDate <= ? AND EndDate >= ?", new String[] {String.valueOf(ownerID),
-                    TaskController.dateFormat.format(date), TaskController.dateFormat.format(date)},
+                    new SimpleDateFormat("yyyy-MM-dd 23:59:59", Locale.US).format(date), new SimpleDateFormat("yyyy-MM-dd 00:00:00", Locale.US).format(date)},
                     null, null, null);
         }
 
