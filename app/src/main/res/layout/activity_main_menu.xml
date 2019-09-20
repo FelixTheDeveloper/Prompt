@@ -54,18 +54,32 @@
         android:background="?android:attr/listDivider"
         app:layout_constraintTop_toBottomOf="@+id/mainMenu_calendarView" />
 
+    <TextView
+        android:id="@+id/mainMenu_upcomingTextView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@color/colorAccent"
+        android:text="Tasks in the next 7 days"
+        android:textColor="@color/defaultColor"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/mainMenu_scrollView"
+        app:layout_constraintStart_toStartOf="@+id/mainMenu_scrollView"
+        app:layout_constraintTop_toBottomOf="@+id/divider2" />
+
     <ScrollView
+        android:id="@+id/mainMenu_scrollView"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/mainMenu_calendarView">
+        app:layout_constraintTop_toBottomOf="@+id/mainMenu_upcomingTextView">
 
         <LinearLayout
+            android:id="@+id/mainMenu_upcomingTable"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical" >
+            android:orientation="vertical">
 
         </LinearLayout>
     </ScrollView>

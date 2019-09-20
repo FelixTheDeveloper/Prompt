@@ -22,7 +22,7 @@
     <string name="end_time">End Time:</string>
     <string name="repeat">Repeat:</string>
     <string name="description">Description:</string>
-    <string name="descriptionhInt">Description of what you plan to do:  \\n(Go grocery shopping)</string>
+    <string name="descriptionhInt">Description of what you plan to do (eg. Go grocery shopping)</string>
     <string name="confirm">Confirm</string>
     <string name="lineImage" />
     <string name="lineDraw" />

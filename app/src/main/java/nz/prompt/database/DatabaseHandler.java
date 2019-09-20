@@ -8,7 +8,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Date;
 import java.util.Locale;
 
@@ -19,6 +19,7 @@ import nz.prompt.model.TaskModel;
 import nz.prompt.model.UserModel;
 
 /**
+ * Handle everything related to Database
  * @author Duc Nguyen
  */
 public class DatabaseHandler extends SQLiteOpenHelper {
@@ -321,17 +322,17 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return null;
     }
 
-    public ArrayList<TaskModel> getTasks(int ownerID)
+    public HashSet<TaskModel> getTasks(int ownerID)
     {
         return getTasks(ownerID, null);
     }
 
-    public ArrayList<TaskModel> getTasks(int ownerID, Date date)
+    public HashSet<TaskModel> getTasks(int ownerID, Date date)
     {
         SQLiteDatabase db = dbRead;
         Cursor cursor;
 
-        ArrayList<TaskModel> tasks = new ArrayList<>();
+        HashSet<TaskModel> tasks = new HashSet<>();
 
         if (date == null) {
             cursor = db.query(TABLE_TASKS_NAME, null, "OwnerID = ?", new String[]{String.valueOf(ownerID)}, null, null, null);

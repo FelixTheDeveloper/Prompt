@@ -8,6 +8,7 @@ import android.os.Bundle;
 import nz.prompt.controllers.AccountController;
 import nz.prompt.controllers.UserController;
 import nz.prompt.database.DatabaseHandler;
+import nz.prompt.ui.main.FirstTimeActivity;
 import nz.prompt.ui.main.MainMenu;
 
 public class MainActivity extends AppCompatActivity {

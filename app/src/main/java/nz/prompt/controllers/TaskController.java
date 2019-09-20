@@ -49,16 +49,32 @@ public class TaskController {
         DatabaseHandler.dbHelper.addTask(task);
     }
 
-    public static void GetTasks(int ownerID, Date date)
+    /**
+     * Get all {@link TaskModel} which owned by {@param ownerID} and in a specified date
+     * @param ownerID
+     * @param date
+     * @returna {@link HashSet} containing all {@link TaskModel}
+     */
+    public static HashSet<TaskModel> GetTasks(int ownerID, Date date)
     {
         tasks.clear();
-        tasks.addAll(DatabaseHandler.dbHelper.getTasks(ownerID, date));
+        HashSet<TaskModel> mTasks = DatabaseHandler.dbHelper.getTasks(ownerID, date);
+        tasks.addAll(mTasks);
+
+        return mTasks;
     }
 
-    public static void GetTasks(int ownerID)
+    /**
+     * Get all {@link TaskModel} which owned by {@param ownerID}
+     * @param ownerID the ID of the user (owner)
+     * @return a {@link HashSet} containing all {@link TaskModel}
+     */
+    public static HashSet<TaskModel> GetTasks(int ownerID)
     {
         tasks.clear();
-        tasks.addAll(DatabaseHandler.dbHelper.getTasks(ownerID));
+        HashSet<TaskModel> mTasks = DatabaseHandler.dbHelper.getTasks(ownerID);
+        tasks.addAll(mTasks);
+        return mTasks;
     }
 
     public static boolean RemoveTask(int ID)

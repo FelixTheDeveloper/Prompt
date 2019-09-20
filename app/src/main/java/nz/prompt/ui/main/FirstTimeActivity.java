@@ -1,22 +1,19 @@
-package nz.prompt;
-
-import androidx.appcompat.app.AppCompatActivity;
+package nz.prompt.ui.main;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
 import android.widget.ImageButton;
 
+import androidx.appcompat.app.AppCompatActivity;
+
+import nz.prompt.R;
 import nz.prompt.ui.login.LoginActivity;
-import nz.prompt.ui.main.MainMenu;
 import nz.prompt.ui.register.RegisterActivity;
 
 /**
 @author FELIX
  */
 public class FirstTimeActivity extends AppCompatActivity {
-    private Button button;
     private ImageButton imageButton;
 
     @Override
@@ -24,21 +21,11 @@ public class FirstTimeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_first_time);
 
-        imageButton = (ImageButton) findViewById(R.id.firstTime_signupButton);
-        imageButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                registerActivity();
-            }
-        });
+        imageButton = findViewById(R.id.firstTime_signupButton);
+        imageButton.setOnClickListener(view -> registerActivity());
 
-        imageButton = (ImageButton) findViewById(R.id.firstTime_loginButton);
-        imageButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                loginActivity();
-            }
-        });
+        imageButton = findViewById(R.id.firstTime_loginButton);
+        imageButton.setOnClickListener(view -> loginActivity());
     }
 
     public void loginActivity(){
