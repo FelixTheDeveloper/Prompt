@@ -208,6 +208,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         values.put("TaskID", task.getID());
         values.put("Title", task.getTitle());
         values.put("Description", task.getDescription());
+        values.put("Location", task.getLocation());
         values.put("StartDate", new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(task.getStartDate()));
         values.put("EndDate", new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(task.getStartDate()));
         values.put("Status", task.isStatus());

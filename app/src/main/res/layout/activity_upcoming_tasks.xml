@@ -57,6 +57,13 @@
                         android:textSize="18sp" />
 
                     <TextView
+                        android:id="@+id/taskList_tmpDesc2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="uboiuqbf upqorwubnqo qurbqp owu qw urpq9w ouqwr upqwu r"
+                        android:textSize="18sp" />
+
+                    <TextView
                         android:id="@+id/taskList_tmpTitle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"

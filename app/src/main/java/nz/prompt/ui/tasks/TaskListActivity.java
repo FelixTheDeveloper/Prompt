@@ -2,6 +2,7 @@ package nz.prompt.ui.tasks;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.app.ActionBar;
 import android.content.Intent;
 import android.content.res.Resources;
@@ -42,9 +43,15 @@ public class TaskListActivity extends AppCompatActivity {
 
         TaskController.GetTasks(UserController.currentUser.getID());
 
-        TaskController.tasks.forEach(this::addRow);
+        if (TaskController.tasks.isEmpty())
+        {
+            Toast.makeText(this, "You don't have any tasks :D", Toast.LENGTH_SHORT).show();
+        }
+        else
+            TaskController.tasks.forEach(this::addRow);
     }
 
+    @SuppressLint("SetTextI18n")
     private void addRow(TaskModel task)
     {
         TableRow taskDetailsRow = new TableRow(this);
@@ -61,7 +68,7 @@ public class TaskListActivity extends AppCompatActivity {
         LinearLayout layout = (LinearLayout)getLayoutInflater().inflate(R.layout.tmp_linear_layout, null);
 
         TextView title = new TextView(layout.getContext());
-        title.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+        title.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
         title.setTextAppearance(R.style.AppTheme);
         title.setText(task.getTitle());
         title.setTextSize(18);
@@ -69,12 +76,20 @@ public class TaskListActivity extends AppCompatActivity {
         layout.addView(title);
 
         TextView description = new TextView(layout.getContext());
-        title.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
-        title.setTextAppearance(R.style.AppTheme);
+        description.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+        description.setTextAppearance(R.style.AppTheme);
         description.setText(task.getDescription());
-        description.setTextSize(18);
-        title.setTextColor(0xEE000000);
+        description.setTextSize(16);
+        description.setTextColor(0xCC000000);
         layout.addView(description);
+
+        TextView location = new TextView(layout.getContext());
+        location.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+        location.setTextAppearance(R.style.AppTheme);
+        location.setText("Location: " + task.getLocation());
+        location.setTextSize(14);
+        location.setTextColor(0xBB000000);
+        layout.addView(location);
 
         Button deleteButton = new Button(layout.getContext());
         deleteButton.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
@@ -85,6 +100,7 @@ public class TaskListActivity extends AppCompatActivity {
                 Toast.makeText(v.getContext(), "Delete task successfully!", Toast.LENGTH_SHORT).show();
                 TaskController.GetTasks(UserController.currentUser.getID());
                 Intent intent = getIntent();
+                intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                 finish();
                 startActivity(intent);
             }
