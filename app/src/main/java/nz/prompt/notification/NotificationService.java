@@ -14,6 +14,7 @@ import android.os.Build;
 
 import androidx.core.app.NotificationCompat;
 
+import nz.prompt.MainActivity;
 import nz.prompt.R;
 import nz.prompt.model.TaskModel;
 
@@ -40,12 +41,12 @@ public class NotificationService {
                 // Set ticker text (preview) information for this notification.
                 .setTicker("Prompt")
 
-                /*.setContentIntent(
+                .setContentIntent(
                         PendingIntent.getActivity(
                                 context,
                                 0,
-                                new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.google.com")),
-                                PendingIntent.FLAG_UPDATE_CURRENT))*/
+                                new Intent(context, MainActivity.class),
+                                PendingIntent.FLAG_UPDATE_CURRENT))
 
                 // Show expanded text content on devices running Android 4.1 or
                 // later.
