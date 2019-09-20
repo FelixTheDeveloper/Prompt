@@ -5,7 +5,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 
+import nz.prompt.controllers.AccountController;
+import nz.prompt.controllers.UserController;
 import nz.prompt.database.DatabaseHandler;
+import nz.prompt.ui.main.MainMenu;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -21,8 +24,17 @@ public class MainActivity extends AppCompatActivity {
         {
             Intent firstTimeIntent = new Intent(this, FirstTimeActivity.class);
             startActivity(firstTimeIntent);
+            finish();
         }
         else
-            setContentView(R.layout.activity_main_menu);
+        {
+            int ID = Integer.parseInt(DatabaseHandler.dbHelper.getSetting("UserLoggedInID"));
+            AccountController.currentAccount = DatabaseHandler.dbHelper.getAccount(ID);
+            UserController.currentUser = AccountController.currentAccount.getUser();
+
+            Intent mainMenuIntent = new Intent(this, MainMenu.class);
+            startActivity(mainMenuIntent);
+            finish();
+        }
     }
 }

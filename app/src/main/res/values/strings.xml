@@ -10,7 +10,7 @@
     <string name="signup">TODO</string>
     <string name="addTasks">TODO</string>
     <string name="todo">TODO</string>
-    <string name="new_task">New Task</string>
+    <string name="taskTitle">Task Manager</string>
     <string name="things_to_do_eat_dinner">Things To Do (Eat Dinner)</string>
     <string name="task_nameu">Task Name:</string>
     <string name="locations">Location:</string>
@@ -54,6 +54,7 @@
         ac mauris sed massa congue volutpat. Donec sed erat sit amet turpis viverra rhoncus sit amet
         nec magna. Donec lacinia ligula at libero volutpat volutpat nec nec tortor.
     </string>
+    <string name="delete_button_text">Delete</string>
 
     <!-- TODO: remove this placeholder text -->
     <string-array name="names">

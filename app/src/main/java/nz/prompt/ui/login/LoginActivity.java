@@ -17,6 +17,7 @@ import android.widget.Toast;
 import nz.prompt.R;
 import nz.prompt.controllers.AccountController;
 import nz.prompt.controllers.UserController;
+import nz.prompt.database.DatabaseHandler;
 import nz.prompt.model.AccountModel;
 import nz.prompt.model.UserModel;
 import nz.prompt.ui.main.MainMenu;
@@ -57,6 +58,9 @@ public class LoginActivity extends AppCompatActivity {
                 AccountController.currentAccount = account;
                 UserModel user = account.getUser();
                 UserController.currentUser = user;
+
+                DatabaseHandler.dbHelper.setSetting("UserLoggedInID", String.valueOf(account.getAccountID()));
+                DatabaseHandler.dbHelper.setSetting("UserLoggedIn", "TRUE");
 
                 Intent intent = new Intent(this, MainMenu.class);
                 startActivity(intent);

@@ -12,7 +12,7 @@ public class UserController {
     public static UserModel CreateUser(String firstName, String lastName, int age, int budget)
     {
         int currentID;
-        String currentID_string = DatabaseHandler.dbHelper.getSetting("User_CurrentID");
+        String currentID_string = DatabaseHandler.dbHelper.getSetting("UserCurrentID");
         if (currentID_string != null)
             currentID = Integer.parseInt(currentID_string) + 1;
         else
@@ -22,7 +22,7 @@ public class UserController {
 
         DatabaseHandler.dbHelper.addUser(user);
 
-        DatabaseHandler.dbHelper.setSetting("User_CurrentID", String.valueOf(currentID));
+        DatabaseHandler.dbHelper.setSetting("UserCurrentID", String.valueOf(currentID));
 
         return user;
     }

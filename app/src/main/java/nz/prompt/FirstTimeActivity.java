@@ -1,6 +1,3 @@
-/*
-@author: FELIX
- */
 package nz.prompt;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,6 +12,9 @@ import nz.prompt.ui.login.LoginActivity;
 import nz.prompt.ui.main.MainMenu;
 import nz.prompt.ui.register.RegisterActivity;
 
+/**
+@author FELIX
+ */
 public class FirstTimeActivity extends AppCompatActivity {
     private Button button;
     private ImageButton imageButton;

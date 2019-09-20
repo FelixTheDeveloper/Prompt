@@ -5,6 +5,7 @@ import android.util.Log;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
 
 import nz.prompt.database.DatabaseHandler;
 import nz.prompt.model.TaskModel;
@@ -13,12 +14,12 @@ import nz.prompt.model.TaskModel;
  * @author Duc Nguyen
  */
 public class TaskController {
-    private static ArrayList<TaskModel> tasks = new ArrayList<TaskModel>();
+    public static HashSet<TaskModel> tasks = new HashSet<>();
 
     public static boolean CreateTask(String taskName, String locationName, String description, String startDate, String endDate) {
         try {
             int currentID;
-            String currentID_string = DatabaseHandler.dbHelper.getSetting("Task_CurrentID");
+            String currentID_string = DatabaseHandler.dbHelper.getSetting("TaskCurrentID");
             if (currentID_string != null)
                 currentID = Integer.parseInt(currentID_string) + 1;
             else
@@ -28,11 +29,9 @@ public class TaskController {
             Date m_endDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(endDate);
             TaskModel task = new TaskModel(currentID, taskName, description, locationName, m_startDate, m_endDate, false);
 
-            tasks.add(task);
+            AddTask(task);
 
-            DatabaseHandler.dbHelper.addTask(task);
-
-            DatabaseHandler.dbHelper.setSetting("Task_CurrentID", String.valueOf(currentID));
+            DatabaseHandler.dbHelper.setSetting("TaskCurrentID", String.valueOf(currentID));
 
             return true;
         }
@@ -43,8 +42,19 @@ public class TaskController {
         }
     }
 
-    public static TaskModel GetTask(int ID)
+    public static void AddTask(TaskModel task)
     {
-        return DatabaseHandler.dbHelper.getTask(ID);
+        DatabaseHandler.dbHelper.addTask(task);
+    }
+
+    public static void GetTasks(int ownerID)
+    {
+        tasks.clear();
+        tasks.addAll(DatabaseHandler.dbHelper.getTasks(ownerID));
+    }
+
+    public static boolean RemoveTask(int ID)
+    {
+        return DatabaseHandler.dbHelper.deleteTask(ID);
     }
 }

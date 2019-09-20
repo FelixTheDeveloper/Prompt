@@ -8,8 +8,10 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
+import nz.prompt.controllers.UserController;
 import nz.prompt.model.AccountModel;
 import nz.prompt.model.TaskModel;
 import nz.prompt.model.UserModel;
@@ -24,7 +26,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private SQLiteDatabase dbWrite;
 
     private static final int DATABASE_VERSION = 1;
-    private static final String DATABASE_NAME = "PromptDatabase.dbHelper";
+    private static final String DATABASE_NAME = "PromptDatabase.db";
     private static final String TABLE_USERS_NAME = "Users";
     private static final String TABLE_TASKS_NAME = "Tasks";
     private static final String TABLE_ACCOUNT_NAME = "Accounts";
@@ -44,9 +46,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         if (dbHelper.Created)
         {
-            dbHelper.setSetting("User_CurrentID", "0");
-            dbHelper.setSetting("Task_CurrentID", "0");
-            dbHelper.setSetting("Account_CurrentID", "0");
+            dbHelper.setSetting("UserCurrentID", "0");
+            dbHelper.setSetting("TaskCurrentID", "0");
+            dbHelper.setSetting("AccountCurrentID", "0");
             dbHelper.setSetting("UserLoggedIn", "FALSE");
             dbHelper.setSetting("UserLoggedInID", "0");
             dbHelper.Created = false;
@@ -57,33 +59,35 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
         String CREATE_USERS_TABLE = "CREATE TABLE " + TABLE_USERS_NAME + " (" +
                 "UserID int NOT NULL PRIMARY KEY," +
-                "FirstName varchar(255) NOT NULL," +
-                "LastName varchar(255) NOT NULL," +
+                "FirstName TEXT NOT NULL," +
+                "LastName TEXT NOT NULL," +
                 "Age int(3) NOT NULL," +
                 "Budget int NOT NULL" +
                 ")";
 
         String CREATE_TASKS_TABLE = "CREATE TABLE " + TABLE_TASKS_NAME + " (" +
                 "TaskID int NOT NULL PRIMARY KEY," +
-                "Title varchar(255) NOT NULL," +
-                "Description varchar(255)," +
-                "Location varchar(255)," +
+                "Title TEXT NOT NULL," +
+                "Description TEXT," +
+                "Location TEXT," +
                 "StartDate DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL," +
                 "EndDate DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL," +
-                "Status bool NOT NULL" +
+                "Status bool NOT NULL," +
+                "OwnerID int NOT NULL," +
+                "FOREIGN KEY (OwnerID) REFERENCES " + TABLE_USERS_NAME + "(UserID)" +
                 ")";
 
         String CREATE_ACCOUNTS_TABLE = "CREATE TABLE " + TABLE_ACCOUNT_NAME + " (" +
                 "AccountID int NOT NULL PRIMARY KEY," +
-                "Email varchar(255) NOT NULL UNIQUE," +
-                "Password varchar(255) NOT NULL," +
+                "Email TEXT NOT NULL UNIQUE," +
+                "Password TEXT NOT NULL," +
                 "UserID int," +
                 "FOREIGN KEY (UserID) REFERENCES " + TABLE_USERS_NAME + "(UserID)" +
                 ")";
 
         String CREATE_PROMPT_TABLE = "CREATE TABLE " + TABLE_PROMPT_NAME + " (" +
-                "setting varchar(255) NOT NULL PRIMARY KEY," +
-                "value varchar(255) NOT NULL" +
+                "setting TEXT NOT NULL PRIMARY KEY," +
+                "value TEXT NOT NULL" +
                 ")";
 
         sqLiteDatabase.execSQL(CREATE_USERS_TABLE);
@@ -107,6 +111,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public void addUser(UserModel user)
     {
         SQLiteDatabase db = dbWrite;
+
+        if (getUser(user.getID()) != null)
+        {
+            db.delete(TABLE_USERS_NAME, "UserID = ?", new String[] {String.valueOf(user.getID())});
+        }
 
         ContentValues values = new ContentValues();
         values.put("UserID", user.getID());
@@ -190,6 +199,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     {
         SQLiteDatabase db = dbWrite;
 
+        if (getTask(task.getID()) != null)
+        {
+            db.delete(TABLE_TASKS_NAME, "TaskID = ?", new String[] {String.valueOf(task.getID())});
+        }
+
         ContentValues values = new ContentValues();
         values.put("TaskID", task.getID());
         values.put("Title", task.getTitle());
@@ -197,6 +211,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         values.put("StartDate", new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(task.getStartDate()));
         values.put("EndDate", new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(task.getStartDate()));
         values.put("Status", task.isStatus());
+        values.put("OwnerID", UserController.currentUser.getID());
 
         db.insert(TABLE_TASKS_NAME, null, values);
     }
@@ -297,17 +312,141 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
             TaskModel task = new TaskModel(id, title, description, location, startDate, endDate, status);
 
-            cursor.close();
             return task;
         }
 
-        cursor.close();
         return null;
+    }
+
+    public ArrayList<TaskModel> getTasks(int ownerID)
+    {
+        SQLiteDatabase db = dbRead;
+
+        ArrayList<TaskModel> tasks = new ArrayList<>();
+
+        Cursor cursor = db.query(TABLE_TASKS_NAME, null, "OwnerID = ?", new String[] {String.valueOf(ownerID)}, null, null, null);
+
+        while (cursor.moveToNext())
+        {
+            int id;
+            String title, description, location;
+            Date startDate, endDate;
+            boolean status;
+
+            int index;
+            index = cursor.getColumnIndex("TaskID");
+            if (index != -1)
+                id = cursor.getInt(index);
+            else
+            {
+                cursor.close();
+                continue;
+            }
+
+            index = cursor.getColumnIndex("Title");
+            if (index != -1)
+                title = cursor.getString(index);
+            else
+            {
+                cursor.close();
+                continue;
+            }
+
+            index = cursor.getColumnIndex("Description");
+            if (index != -1)
+                description = cursor.getString(index);
+            else
+            {
+                cursor.close();
+                continue;
+            }
+
+            index = cursor.getColumnIndex("Location");
+            if (index != -1)
+                location = cursor.getString(index);
+            else
+            {
+                cursor.close();
+                continue;
+            }
+
+            index = cursor.getColumnIndex("StartDate");
+            if (index != -1)
+            {
+                try {
+                    startDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(cursor.getString(index));
+                }
+                catch (ParseException e)
+                {
+                    cursor.close();
+                    continue;
+                }
+            }
+            else
+            {
+                cursor.close();
+                continue;
+            }
+
+            index = cursor.getColumnIndex("EndDate");
+            if (index != -1)
+            {
+                try {
+                    endDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(cursor.getString(index));
+                }
+                catch (ParseException e)
+                {
+                    cursor.close();
+                    continue;
+                }
+            }
+            else {
+                cursor.close();
+                continue;
+            }
+
+            index = cursor.getColumnIndex("Status");
+            if (index != -1)
+                status = cursor.getInt(index) > 0;
+            else
+            {
+                cursor.close();
+                continue;
+            }
+
+            TaskModel task = new TaskModel(id, title, description, location, startDate, endDate, status);
+
+            tasks.add(task);
+        }
+
+        cursor.close();
+
+        return tasks;
+    }
+
+    public boolean deleteTask(int ID)
+    {
+        SQLiteDatabase db = dbWrite;
+
+        if (getTask(ID) != null)
+        {
+            db.delete(TABLE_TASKS_NAME, "TaskID = ?", new String[] {String.valueOf(ID)});
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 
     public void addAccount(AccountModel account)
     {
         SQLiteDatabase db = dbWrite;
+
+        if (getAccount(account.getAccountID()) != null)
+        {
+            db.delete(TABLE_ACCOUNT_NAME, "AccountID = ?", new String[] {String.valueOf(account.getAccountID())});
+        }
 
         ContentValues values = new ContentValues();
         values.put("AccountID", account.getAccountID());
@@ -391,10 +530,12 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             {
                 index = cursor.getColumnIndex("AccountID");
                 int ID = cursor.getInt(index);
+                cursor.close();
                 return ID;
             }
         }
 
+        cursor.close();
         return -1;
     }
 
@@ -418,8 +559,14 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     {
         SQLiteDatabase db = dbWrite;
 
+        if (getSetting(setting) != null)
+        {
+            db.delete(TABLE_PROMPT_NAME, "setting = ?", new String[] {setting});
+        }
+
         ContentValues values = new ContentValues();
-        values.put(setting, value);
+        values.put("setting", setting);
+        values.put("value", value);
 
         db.insert(TABLE_PROMPT_NAME, null, values);
     }
@@ -427,14 +574,14 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public String getSetting(String setting)
     {
         SQLiteDatabase db = dbRead;
-        String[] column = {"value"};
 
-        Cursor cursor = db.query(TABLE_PROMPT_NAME, column, "setting = ?", new String[] {setting}, null, null, null);
+        Cursor cursor = db.query(TABLE_PROMPT_NAME, null, "setting = ?", new String[] {setting}, null, null, null);
 
         if (cursor.moveToNext())
         {
+            String tmp = cursor.getString(cursor.getColumnIndex("value"));
             cursor.close();
-            return cursor.getString(0);
+            return tmp;
         }
         else
         {

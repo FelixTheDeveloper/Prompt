@@ -13,7 +13,7 @@ public class AccountController {
     public static AccountModel CreateAccount(String email, String password, UserModel user)
     {
         int currentID;
-        String currentID_string = DatabaseHandler.dbHelper.getSetting("Account_CurrentID");
+        String currentID_string = DatabaseHandler.dbHelper.getSetting("AccountCurrentID");
         if (currentID_string != null)
             currentID = Integer.parseInt(currentID_string) + 1;
         else
@@ -26,7 +26,7 @@ public class AccountController {
 
         DatabaseHandler.dbHelper.addAccount(account);
 
-        DatabaseHandler.dbHelper.setSetting("Account_CurrentID", String.valueOf(currentID));
+        DatabaseHandler.dbHelper.setSetting("AccountCurrentID", String.valueOf(currentID));
 
         return account;
     }

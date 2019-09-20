@@ -76,4 +76,16 @@ public class TaskModel {
     public void setStatus(boolean status) {
         Status = status;
     }
+
+    @Override
+    public boolean equals(Object target)
+    {
+        return this.getID() == ((TaskModel)target).getID();
+    }
+
+    @Override
+    public int hashCode()
+    {
+        return this.getID();
+    }
 }
