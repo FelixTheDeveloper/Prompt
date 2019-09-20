@@ -8,32 +8,6 @@
     tools:context=".ui.main.MainMenu">
 
 
-    <View
-        android:id="@+id/divider"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="?android:attr/listDivider"
-        app:layout_constraintTop_toBottomOf="@+id/mainMenu_upcomingTaskButton"
-        tools:layout_editor_absoluteX="0dp" />
-
-    <SearchView
-        android:id="@+id/mainMenu_search"
-        android:layout_width="0dp"
-        android:layout_height="71dp"
-        android:inputType="text"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/mainMenu_upcomingTaskButton" />
-
-    <View
-        android:id="@+id/divider2"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="?android:attr/listDivider"
-        app:layout_constraintTop_toBottomOf="@+id/mainMenu_search"
-        tools:layout_editor_absoluteX="0dp" />
-
     <CalendarView
         android:id="@+id/mainMenu_calendarView"
         android:layout_width="0dp"
@@ -41,41 +15,51 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/divider2" />
+        app:layout_constraintTop_toBottomOf="@+id/mainMenu_profileButton" />
 
     <ImageButton
         android:id="@+id/mainMenu_addTaskButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="80dp"
         android:background="@color/colorPrimaryDark"
         android:contentDescription="@string/addTasks"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/mainMenu_upcomingTaskButton"
-        app:layout_constraintTop_toTopOf="@+id/mainMenu_upcomingTaskButton"
-        app:srcCompat="@drawable/addtask" />
-
-    <ImageButton
-        android:id="@+id/mainMenu_upcomingTaskButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:background="@color/colorPrimaryDark"
-        android:contentDescription="@string/todo"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/task_upcoming" />
+        app:srcCompat="@drawable/addtask" />
 
     <ImageButton
         android:id="@+id/mainMenu_profileButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="80dp"
         android:background="@color/colorPrimaryDark"
         android:contentDescription="@string/todo"
-        app:layout_constraintEnd_toStartOf="@+id/mainMenu_upcomingTaskButton"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/mainMenu_upcomingTaskButton"
+        app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/profile" />
+
+    <ScrollView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/mainMenu_calendarView">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" />
+    </ScrollView>
+
+    <View
+        android:id="@+id/divider"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="?android:attr/listDivider"
+        app:layout_constraintTop_toBottomOf="@+id/mainMenu_profileButton"
+        tools:layout_editor_absoluteX="0dp" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

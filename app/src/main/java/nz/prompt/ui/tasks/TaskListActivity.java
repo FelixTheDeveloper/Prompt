@@ -3,45 +3,62 @@ package nz.prompt.ui.tasks;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
-import android.app.ActionBar;
 import android.content.Intent;
-import android.content.res.Resources;
-import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.material.resources.TextAppearance;
-
-import org.w3c.dom.Text;
-
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.function.Consumer;
+import java.text.ParseException;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.util.Date;
+import java.util.Locale;
 
 import nz.prompt.R;
 import nz.prompt.controllers.TaskController;
 import nz.prompt.controllers.UserController;
 import nz.prompt.model.TaskModel;
+import nz.prompt.ui.main.MainMenu;
 
 public class TaskListActivity extends AppCompatActivity {
     private TableLayout table;
+    private Button backButton;
+
+    private int year, month, day;
+
+    private Date date = new Date();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_upcoming_tasks);
+        setContentView(R.layout.activity_task_list);
+
+        Bundle bundle = getIntent().getExtras();
+        year = bundle.getInt("EXTRA_YEAR");
+        month = bundle.getInt("EXTRA_MONTH");
+        day = bundle.getInt("EXTRA_DAY");
+
+        LocalTime time = LocalTime.now();
+
+        try {
+            date = TaskController.dateFormat.parse(year + "-" + String.format(Locale.getDefault(), "%02d", month) + "-" + day + " " + time.getHour() + ":" + time.getMinute() + ":" + time.getSecond());
+        } catch (ParseException e) {
+            Log.d("TaskListActivity", e.getMessage());
+            Toast.makeText(this, "ERROR: Cannot read date. Please report to devs.", Toast.LENGTH_LONG).show();
+        }
+
+        backButton = findViewById(R.id.taskList_backButton);
+        backButton.setOnClickListener(v -> finish());
 
         table = findViewById(R.id.taskList_tableLayout);
 
-        TaskController.GetTasks(UserController.currentUser.getID());
+        TaskController.GetTasks(UserController.currentUser.getID(), date);
 
         if (TaskController.tasks.isEmpty())
         {
@@ -51,7 +68,6 @@ public class TaskListActivity extends AppCompatActivity {
             TaskController.tasks.forEach(this::addRow);
     }
 
-    @SuppressLint("SetTextI18n")
     private void addRow(TaskModel task)
     {
         TableRow taskDetailsRow = new TableRow(this);
@@ -98,7 +114,7 @@ public class TaskListActivity extends AppCompatActivity {
             if (TaskController.RemoveTask(task.getID()))
             {
                 Toast.makeText(v.getContext(), "Delete task successfully!", Toast.LENGTH_SHORT).show();
-                TaskController.GetTasks(UserController.currentUser.getID());
+                TaskController.GetTasks(UserController.currentUser.getID(), date);
                 Intent intent = getIntent();
                 intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                 finish();

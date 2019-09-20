@@ -35,52 +35,28 @@ public class ProfileActivity extends AppCompatActivity {
         vieImage = findViewById(R.id.profile_avatarImageView);
         selectButton = findViewById(R.id.profile_choose_image_btn);
 
-        selectButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        selectButton.setOnClickListener(v -> {
+            if (checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED) {
 
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
-                    if (checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED) {
-
-                        String[] permissions = {Manifest.permission.READ_EXTERNAL_STORAGE};
-                        requestPermissions(permissions, PERMISSION_CODE);
-
-                    }
-                    else {
-                        pickImageFromGallery();
-                    }
-                }
-                else {
-                    pickImageFromGallery();
-                }
+                String[] permissions = {Manifest.permission.READ_EXTERNAL_STORAGE};
+                requestPermissions(permissions, PERMISSION_CODE);
 
             }
+            else {
+                pickImageFromGallery();
+            }
+
         });
 
-        button = findViewById(R.id.profile_budgetButton);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                goProfileAct();
-            }
-        });
+        //button = findViewById(R.id.profile_budgetButton);
+        //button.setOnClickListener(v -> goProfileAct());
 
         button = findViewById(R.id.profile_backButton);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                backMain();
-            }
-        });
-
-
-
-
+        button.setOnClickListener(v -> backMain());
     }
 
     public void backMain() {
-        Intent intent = new Intent(this, MainMenu.class);
-        startActivity(intent);
+        finish();
     }
 
 
@@ -100,16 +76,14 @@ public class ProfileActivity extends AppCompatActivity {
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        switch (requestCode){
-            case PERMISSION_CODE:{
-                if (grantResults.length >0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
-                    // The permission was granted
-                    pickImageFromGallery();
-                }
-                else {
-                    //The permission was denied
-                    Toast.makeText(this, "Permission denied...!", Toast.LENGTH_SHORT).show();
-                }
+        if (requestCode == PERMISSION_CODE) {
+            if (grantResults.length >0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
+                // The permission was granted
+                pickImageFromGallery();
+            }
+            else {
+                //The permission was denied
+                Toast.makeText(this, "Permission denied...!", Toast.LENGTH_SHORT).show();
             }
         }
     }

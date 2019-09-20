@@ -10,7 +10,9 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Locale;
 
+import nz.prompt.controllers.TaskController;
 import nz.prompt.controllers.UserController;
 import nz.prompt.model.AccountModel;
 import nz.prompt.model.TaskModel;
@@ -209,8 +211,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         values.put("Title", task.getTitle());
         values.put("Description", task.getDescription());
         values.put("Location", task.getLocation());
-        values.put("StartDate", new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(task.getStartDate()));
-        values.put("EndDate", new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(task.getStartDate()));
+        values.put("StartDate", TaskController.dateFormat.format(task.getStartDate()));
+        values.put("EndDate", TaskController.dateFormat.format(task.getEndDate()));
         values.put("Status", task.isStatus());
         values.put("OwnerID", UserController.currentUser.getID());
 
@@ -271,7 +273,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             if (index != -1)
             {
                 try {
-                    startDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(cursor.getString(index));
+                    startDate = TaskController.dateFormat.parse(cursor.getString(index));
                 }
                 catch (ParseException e)
                 {
@@ -289,7 +291,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             if (index != -1)
             {
                 try {
-                    endDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(cursor.getString(index));
+                    endDate = TaskController.dateFormat.parse(cursor.getString(index));
                 }
                 catch (ParseException e)
                 {
@@ -321,11 +323,25 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     public ArrayList<TaskModel> getTasks(int ownerID)
     {
+        return getTasks(ownerID, null);
+    }
+
+    public ArrayList<TaskModel> getTasks(int ownerID, Date date)
+    {
         SQLiteDatabase db = dbRead;
+        Cursor cursor;
 
         ArrayList<TaskModel> tasks = new ArrayList<>();
 
-        Cursor cursor = db.query(TABLE_TASKS_NAME, null, "OwnerID = ?", new String[] {String.valueOf(ownerID)}, null, null, null);
+        if (date == null) {
+            cursor = db.query(TABLE_TASKS_NAME, null, "OwnerID = ?", new String[]{String.valueOf(ownerID)}, null, null, null);
+        }
+        else
+        {
+            cursor = db.query(TABLE_TASKS_NAME, null, "OwnerID = ? AND StartDate <= ? AND EndDate >= ?", new String[] {String.valueOf(ownerID),
+                    TaskController.dateFormat.format(date), TaskController.dateFormat.format(date)},
+                    null, null, null);
+        }
 
         while (cursor.moveToNext())
         {
@@ -375,7 +391,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             if (index != -1)
             {
                 try {
-                    startDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(cursor.getString(index));
+                    startDate = TaskController.dateFormat.parse(cursor.getString(index));
                 }
                 catch (ParseException e)
                 {
@@ -393,7 +409,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             if (index != -1)
             {
                 try {
-                    endDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(cursor.getString(index));
+                    endDate = TaskController.dateFormat.parse(cursor.getString(index));
                 }
                 catch (ParseException e)
                 {

@@ -6,6 +6,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.Locale;
 
 import nz.prompt.database.DatabaseHandler;
 import nz.prompt.model.TaskModel;
@@ -15,6 +16,7 @@ import nz.prompt.model.TaskModel;
  */
 public class TaskController {
     public static HashSet<TaskModel> tasks = new HashSet<>();
+    public static final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.US);
 
     public static boolean CreateTask(String taskName, String locationName, String description, String startDate, String endDate) {
         try {
@@ -25,8 +27,8 @@ public class TaskController {
             else
                 currentID = 1;
 
-            Date m_startDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(startDate);
-            Date m_endDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(endDate);
+            Date m_startDate = dateFormat.parse(startDate);
+            Date m_endDate = dateFormat.parse(endDate);
             TaskModel task = new TaskModel(currentID, taskName, description, locationName, m_startDate, m_endDate, false);
 
             AddTask(task);
@@ -45,6 +47,12 @@ public class TaskController {
     public static void AddTask(TaskModel task)
     {
         DatabaseHandler.dbHelper.addTask(task);
+    }
+
+    public static void GetTasks(int ownerID, Date date)
+    {
+        tasks.clear();
+        tasks.addAll(DatabaseHandler.dbHelper.getTasks(ownerID, date));
     }
 
     public static void GetTasks(int ownerID)

@@ -7,8 +7,6 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.PrintWriter;
 
-import nz.prompt.Utilities;
-
 public class FileHandler {
     public static boolean saveTextAsFile(String fileName, String taskType, String startDate, String startTime, String endDate, String endTime, String location, String description) {
         fileName = fileName + ".txt";

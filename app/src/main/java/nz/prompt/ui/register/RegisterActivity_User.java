@@ -67,12 +67,7 @@ public class RegisterActivity_User extends AppCompatActivity {
         }
 
         buttonConfirm = findViewById(R.id.registerUser_submitButton);
-        buttonConfirm.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                createUser();
-            }
-        });
+        buttonConfirm.setOnClickListener(v -> createUser());
 
         //For Checking whether the user has input anything.
         editTextFName.addTextChangedListener(addTextWatcher);
@@ -96,6 +91,9 @@ public class RegisterActivity_User extends AppCompatActivity {
             if (account != null) {
                 DatabaseHandler.dbHelper.setSetting("UserLoggedInID", String.valueOf(account.getAccountID()));
                 DatabaseHandler.dbHelper.setSetting("UserLoggedIn", "TRUE");
+
+                AccountController.currentAccount = account;
+                UserController.currentUser = user;
 
                 Intent intent = new Intent(this, MainMenu.class);
                 startActivity(intent);

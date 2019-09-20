@@ -1,50 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/linearLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center_horizontal"
-    android:orientation="vertical">
+    android:gravity="center_horizontal">
 
     <!-- The back button-->
     <Button
         android:id="@+id/profile_backButton"
         android:layout_width="wrap_content"
         android:layout_height="35dp"
-        android:layout_marginTop="50dp"
-        android:layout_marginRight="120dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
         android:background="@color/defaultColor"
-        android:text="Back" />
+        android:text="Back"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <!-- The display of image that was selected will be set-->
-    <ImageView
-        android:id="@+id/profile_avatarImageView"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:layout_marginHorizontal="125dp"
-        android:layout_marginTop="70dp"
-        android:scaleType="centerCrop"
-        app:srcCompat="@drawable/ic_account_box_black_24dp" />
 
     <!--Select image button to choose image from gallery-->
+
     <Button
         android:id="@+id/profile_choose_image_btn"
         style="@style/Base.Widget.AppCompat.Button.Colored"
-        android:layout_width="150dp"
-        android:layout_height="30dp"
-        android:layout_marginHorizontal="125dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
         android:background="@color/colorPrimaryDark"
         android:text="Select Image"
-        android:textColor="@android:color/black" />
+        android:textColor="@android:color/black"
+        app:layout_constraintEnd_toEndOf="@+id/profile_avatarImageView"
+        app:layout_constraintStart_toStartOf="@+id/profile_avatarImageView"
+        app:layout_constraintTop_toBottomOf="@+id/profile_avatarImageView" />
 
     <!--Select budget button to calculate expense and budget-->
-    <Button
-        android:id="@+id/profile_budgetButton"
-        android:layout_width="150dp"
-        android:layout_height="30dp"
-        android:layout_marginVertical="75dp"
-        android:background="@color/defaultColor"
-        android:text="Budget" />
+    <ImageView
+        android:id="@+id/profile_avatarImageView"
+        android:layout_width="101dp"
+        android:layout_height="106dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="92dp"
+        android:scaleType="centerCrop"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_account_box_black_24dp" />
 
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

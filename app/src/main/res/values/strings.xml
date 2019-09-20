@@ -55,6 +55,7 @@
         nec magna. Donec lacinia ligula at libero volutpat volutpat nec nec tortor.
     </string>
     <string name="delete_button_text">Delete</string>
+    <string name="back">Back</string>
 
     <!-- TODO: remove this placeholder text -->
     <string-array name="names">

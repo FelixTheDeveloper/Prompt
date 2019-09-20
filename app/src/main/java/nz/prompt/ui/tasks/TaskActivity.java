@@ -26,6 +26,7 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 
 import java.util.Calendar;
+import java.util.Locale;
 
 import nz.prompt.R;
 import nz.prompt.controllers.TaskController;
@@ -196,8 +197,8 @@ public class TaskActivity extends AppCompatActivity {
             String taskName = editTextTask.getText().toString();
             String locationName = editTextLocation.getText().toString();
             String description = editTextDescription.getText().toString();
-            String startDate = String.format("%d-%d-%d %d:%d:00", startDate_Year, startDate_Month, startDate_Day, startDate_Hour, startDate_Min);
-            String endDate = String.format("%d-%d-%d %d:%d:00", endDate_Year, endDate_Month, endDate_Day, endDate_Hour, endDate_Min);
+            String startDate = String.format(Locale.getDefault(), "%d-%02d-%02d %d:%d:00", startDate_Year, startDate_Month, startDate_Day, startDate_Hour, startDate_Min);
+            String endDate = String.format(Locale.getDefault(), "%d-%02d-%02d %d:%d:00", endDate_Year, endDate_Month, endDate_Day, endDate_Hour, endDate_Min);
 
             if (TaskController.CreateTask(taskName, locationName, description, startDate, endDate))
             {
