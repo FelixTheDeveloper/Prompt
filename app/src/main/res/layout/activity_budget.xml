@@ -13,19 +13,6 @@
     <!-- The Remaining Budget button -->
 
     <!-- The Subtract button that will run Total Budget - Expense = Remaining Budget-->
-    <EditText
-        android:id="@+id/budget_totalBudgetTextBox"
-        android:layout_width="260dp"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="Total Budget"
-        android:inputType="number"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.50"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.253" />
 
     <EditText
         android:id="@+id/budget_expenseTextBox"
@@ -82,14 +69,31 @@
         android:id="@+id/budget_backbutton"
         android:layout_width="80dp"
         android:layout_height="42dp"
-        android:layout_marginBottom="132dp"
         android:background="@color/defaultColor"
         android:text="back"
-        app:layout_constraintBottom_toTopOf="@+id/budget_totalBudgetTextBox"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/budget_budgetTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="76dp"
+        android:layout_marginTop="176dp"
+        android:text="@string/budget"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/budget_budgetInput"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:textSize="18sp"
+        app:layout_constraintStart_toEndOf="@+id/budget_budgetTextView"
+        app:layout_constraintTop_toTopOf="@+id/budget_budgetTextView" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
