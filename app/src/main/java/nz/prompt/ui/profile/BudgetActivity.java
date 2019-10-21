@@ -41,10 +41,10 @@ public class BudgetActivity extends AppCompatActivity {
 
         //Subtracts the expenses to the budget
         Subtract.setOnClickListener(v -> {
-            double budget,expense,remaining;
+            double budget, expense, remaining;
             budget = Double.parseDouble(TotalBudget.getText().toString());
             expense = Double.parseDouble(Expense.getText().toString());
-            remaining = budget-expense;
+            remaining = budget - expense;
             RemainingBudget.setText(Double.toString(remaining));
         });
     }

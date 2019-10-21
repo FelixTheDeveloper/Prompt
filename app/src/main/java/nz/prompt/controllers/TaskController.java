@@ -59,6 +59,7 @@ public class TaskController {
 
     /**
      * Get all {@link TaskModel} which owned by {@param ownerID} and in a specified date
+     *
      * @param ownerID
      * @param date
      * @returna {@link HashSet} containing all {@link TaskModel}
@@ -74,6 +75,7 @@ public class TaskController {
 
     /**
      * Get all {@link TaskModel} which owned by {@param ownerID}
+     *
      * @param ownerID the ID of the user (owner)
      * @return a {@link HashSet} containing all {@link TaskModel}
      */
@@ -85,13 +87,11 @@ public class TaskController {
         return mTasks;
     }
 
-    public static TaskModel GetTask(int ID)
-    {
+    public static TaskModel GetTask(int ID) {
         return DatabaseHandler.dbHelper.getTask(ID);
     }
 
-    public static boolean RemoveTask(int ID)
-    {
+    public static boolean RemoveTask(int ID) {
         BackgroundService.cancelAlarm(PromptService.instance, GetTask(ID));
         return DatabaseHandler.dbHelper.deleteTask(ID);
     }

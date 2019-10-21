@@ -61,34 +61,27 @@ public class TaskListActivity extends AppCompatActivity {
 
         TaskController.GetTasks(UserController.currentUser.getID(), date);
 
-        if (TaskController.tasks.isEmpty())
-        {
+        if (TaskController.tasks.isEmpty()) {
             Toast.makeText(this, "You don't have any tasks :D", Toast.LENGTH_SHORT).show();
-        }
-        else
-        {
+        } else {
             TaskController.tasks.forEach(this::ProcessTask);
             DrawTasks();
         }
     }
 
-    private void DrawTasks()
-    {
+    private void DrawTasks() {
         pastTasks.forEach(task -> addRow(task, findViewById(R.id.taskList_tablePast)));
         upcomingTasks.forEach(task -> addRow(task, findViewById(R.id.taskList_tableUpcoming)));
         finishedTasks.forEach(task -> addRow(task, findViewById(R.id.taskList_tableFinished)));
     }
 
-    private void ProcessTask(TaskModel task)
-    {
-        if (task.isStatus())
-        {
+    private void ProcessTask(TaskModel task) {
+        if (task.isStatus()) {
             finishedTasks.add(task);
             return;
         }
 
-        if (task.getEndDate().before(new Date()))
-        {
+        if (task.getEndDate().before(new Date())) {
             pastTasks.add(task);
             return;
         }
@@ -96,9 +89,8 @@ public class TaskListActivity extends AppCompatActivity {
         upcomingTasks.add(task);
     }
 
-    private void addRow(TaskModel task, LinearLayout tableLayout)
-    {
-        LinearLayout taskDetailsRow = (LinearLayout)getLayoutInflater().inflate(R.layout.tmp_linear_layout, null);
+    private void addRow(TaskModel task, LinearLayout tableLayout) {
+        LinearLayout taskDetailsRow = (LinearLayout) getLayoutInflater().inflate(R.layout.tmp_linear_layout, null);
         taskDetailsRow.setId(ID++ + task.getID());
         taskDetailsRow.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
         taskDetailsRow.setOrientation(LinearLayout.HORIZONTAL);
@@ -152,17 +144,14 @@ public class TaskListActivity extends AppCompatActivity {
         deleteButton.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
         deleteButton.setText(getString(R.string.delete_button_text));
         deleteButton.setOnClickListener(v -> {
-            if (TaskController.RemoveTask(task.getID()))
-            {
+            if (TaskController.RemoveTask(task.getID())) {
                 Toast.makeText(v.getContext(), "Delete task successfully!", Toast.LENGTH_SHORT).show();
                 TaskController.GetTasks(UserController.currentUser.getID(), date);
                 finish();
                 overridePendingTransition(0, 0);
                 startActivity(getIntent());
                 overridePendingTransition(0, 0);
-            }
-            else
-            {
+            } else {
                 Toast.makeText(v.getContext(), "Cannot remove task! Please report to the devs", Toast.LENGTH_LONG).show();
             }
         });

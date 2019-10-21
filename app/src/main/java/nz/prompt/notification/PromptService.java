@@ -13,15 +13,13 @@ public class PromptService extends Service {
     public static Service instance;
 
     @Override
-    public void onCreate()
-    {
+    public void onCreate() {
         super.onCreate();
         instance = this;
     }
 
     @Override
-    public int onStartCommand(Intent intent, int flags, int startId)
-    {
+    public int onStartCommand(Intent intent, int flags, int startId) {
         return START_STICKY;
     }
 

@@ -70,16 +70,14 @@ public class MainMenu extends AppCompatActivity {
     }
 
     @Override
-    protected void onResume()
-    {
-        ((LinearLayout)findViewById(R.id.mainMenu_upcomingTable)).removeAllViews();
+    protected void onResume() {
+        ((LinearLayout) findViewById(R.id.mainMenu_upcomingTable)).removeAllViews();
 
         tasks.clear();
         TaskController.GetTasks(UserController.currentUser.getID()).forEach(task -> {
             Date now = new Date();
 
-            if (task.getEndDate().after(now) && task.getStartDate().getTime() - now.getTime() < 1000 * 60 * 60 * 24 * 7)
-            {
+            if (task.getEndDate().after(now) && task.getStartDate().getTime() - now.getTime() < 1000 * 60 * 60 * 24 * 7) {
                 tasks.add(task);
             }
         });
@@ -98,9 +96,8 @@ public class MainMenu extends AppCompatActivity {
         startActivity(intent);
     }
 
-    private void addRow(TaskModel task)
-    {
-        LinearLayout taskDetailsRow = (LinearLayout)getLayoutInflater().inflate(R.layout.tmp_linear_layout, null);
+    private void addRow(TaskModel task) {
+        LinearLayout taskDetailsRow = (LinearLayout) getLayoutInflater().inflate(R.layout.tmp_linear_layout, null);
         taskDetailsRow.setId(ID++ + task.getID());
         taskDetailsRow.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
         taskDetailsRow.setOrientation(LinearLayout.HORIZONTAL);
@@ -115,7 +112,7 @@ public class MainMenu extends AppCompatActivity {
         });
         taskDetailsRow.addView(status);
 
-        LinearLayout layout = (LinearLayout)getLayoutInflater().inflate(R.layout.tmp_linear_layout, null);
+        LinearLayout layout = (LinearLayout) getLayoutInflater().inflate(R.layout.tmp_linear_layout, null);
         layout.setId(ID++ + task.getID());
 
         TextView title = new TextView(layout.getContext());
@@ -146,6 +143,6 @@ public class MainMenu extends AppCompatActivity {
         layout.addView(location);
 
         taskDetailsRow.addView(layout);
-        ((LinearLayout)findViewById(R.id.mainMenu_upcomingTable)).addView(taskDetailsRow);
+        ((LinearLayout) findViewById(R.id.mainMenu_upcomingTable)).addView(taskDetailsRow);
     }
 }

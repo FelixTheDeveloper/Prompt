@@ -17,7 +17,7 @@ public class BackgroundService extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
         PowerManager.WakeLock wl = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "Prompt:wakeLock");
-        wl.acquire(10*60*1000L /*10 minutes*/);
+        wl.acquire(10 * 60 * 1000L /*10 minutes*/);
 
         int id = intent.getIntExtra("id", 0);
         TaskModel task = TaskController.GetTask(id);
@@ -28,20 +28,18 @@ public class BackgroundService extends BroadcastReceiver {
         wl.release();
     }
 
-    public static void setAlarm(Context context, TaskModel task)
-    {
-        AlarmManager am = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
+    public static void setAlarm(Context context, TaskModel task) {
+        AlarmManager am = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         Intent intent = new Intent(context, BackgroundService.class);
         PendingIntent pi = PendingIntent.getBroadcast(context, task.getID(), intent, 0);
         am.set(AlarmManager.RTC_WAKEUP, task.getStartDate().getTime(), pi);
     }
 
-    public static void cancelAlarm(Context context, TaskModel task)
-    {
+    public static void cancelAlarm(Context context, TaskModel task) {
         Intent intent = new Intent(context, BackgroundService.class);
         intent.putExtra("ID", task.getID());
         PendingIntent sender = PendingIntent.getBroadcast(context, task.getID(), intent, 0);
-        AlarmManager alarmManager = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
+        AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         alarmManager.cancel(sender);
     }
 }

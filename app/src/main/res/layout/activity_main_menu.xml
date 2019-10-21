@@ -84,5 +84,16 @@
         </LinearLayout>
     </ScrollView>
 
+    <Button
+        android:id="@+id/foodSuggest"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="78dp"
+        android:text="Food"
+        app:layout_constraintBottom_toTopOf="@+id/mainMenu_calendarView"
+        app:layout_constraintEnd_toStartOf="@+id/mainMenu_addTaskButton"
+        app:layout_constraintStart_toStartOf="@+id/mainMenu_profileButton"
+        app:layout_constraintTop_toTopOf="parent" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
