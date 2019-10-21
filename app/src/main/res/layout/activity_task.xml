@@ -9,6 +9,7 @@
 
     <Button
         android:id="@+id/task_cancelButton"
+        style="@style/Widget.AppCompat.Button.Borderless.Colored"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -52,7 +53,7 @@
         android:id="@+id/task_taskTitleTextView"
         android:layout_width="280dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="32dp"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
         android:autofillHints=""
@@ -63,7 +64,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/task_taskNameTextView"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.107" />
+        app:layout_constraintVertical_bias="0.106" />
 
     <TextView
         android:id="@+id/task_locationTextView"
@@ -76,20 +77,6 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/task_taskNameTextView"
         app:layout_constraintTop_toBottomOf="@+id/task_taskNameTextView" />
-
-    <EditText
-        android:id="@+id/task_locationTextBox"
-        android:layout_width="280dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:autofillHints=""
-        android:ems="10"
-        android:hint="@string/locationHints"
-        android:inputType="textPersonName"
-        android:text="@string/locationSet"
-        app:layout_constraintEnd_toEndOf="@+id/task_taskTitleTextView"
-        app:layout_constraintStart_toStartOf="@+id/task_taskTitleTextView"
-        app:layout_constraintTop_toBottomOf="@+id/task_taskTitleTextView" />
 
     <TextView
         android:id="@+id/task_endTimeTextViewer"
@@ -113,14 +100,14 @@
         android:id="@+id/task_startDateViewer"
         android:layout_width="126dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="8dp"
         android:background="#F9FAF9"
         android:text="@string/startDate"
         android:textAlignment="center"
         android:textSize="18sp"
         android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="@+id/task_locationTextBox"
-        app:layout_constraintTop_toBottomOf="@+id/task_locationTextBox" />
+        app:layout_constraintStart_toStartOf="@+id/task_locationButton"
+        app:layout_constraintTop_toBottomOf="@+id/task_locationButton" />
 
     <TextView
         android:id="@+id/task_endDateViewer"
@@ -143,7 +130,7 @@
         android:textAlignment="center"
         android:textSize="18sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="@+id/task_endChooseTimeText"
+        app:layout_constraintEnd_toEndOf="@+id/task_taskTitleTextView"
         app:layout_constraintTop_toTopOf="@+id/task_startDateViewer" />
 
     <TextView
@@ -154,7 +141,7 @@
         android:textAlignment="center"
         android:textSize="18sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="@+id/task_locationTextBox"
+        app:layout_constraintEnd_toEndOf="@+id/task_startChooseTimeText"
         app:layout_constraintTop_toTopOf="@+id/task_endDateViewer" />
 
     <TextView
@@ -201,6 +188,7 @@
 
     <Button
         android:id="@+id/task_createButton"
+        style="@style/Widget.AppCompat.Button.Borderless.Colored"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
@@ -208,5 +196,15 @@
         android:text="Save"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/task_cancelButton" />
+
+    <Button
+        android:id="@+id/task_locationButton"
+        style="@style/Widget.AppCompat.Button.Borderless.Colored"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@string/locationButton"
+        app:layout_constraintStart_toStartOf="@+id/task_taskTitleTextView"
+        app:layout_constraintTop_toBottomOf="@+id/task_taskTitleTextView" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

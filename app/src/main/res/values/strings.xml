@@ -65,4 +65,6 @@
         <item>Monthly</item>
         <item>Yearly</item>
     </string-array>
+    <string name="title_activity_maps">Map</string>
+    <string name="locationButton">Choose location</string>
 </resources>
