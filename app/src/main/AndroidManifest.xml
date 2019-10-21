@@ -11,12 +11,13 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
+        <activity android:name=".api.LocationRestaurants"></activity>
         <activity android:name=".ui.register.RegisterActivity_User" />
         <activity android:name=".ui.tasks.TaskListActivity" />
         <activity
             android:name=".ui.profile.BudgetActivity"
             android:exported="true" />
-        <activity android:name=".FirstTimeActivity"/>
+        <activity android:name=".FirstTimeActivity" />
         <activity android:name=".ui.tasks.TaskActivity" />
         <activity
             android:name=".ui.login.LoginActivity"
@@ -45,10 +46,11 @@
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
     </application>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-
+    <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.VIBRATE" />
+
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
 </manifest>

@@ -2,16 +2,16 @@ package nz.prompt.ui.main;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.Button;
 import android.widget.CalendarView;
 import android.widget.ImageButton;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+import nz.prompt.api.LocationRestaurants;
 import nz.prompt.R;
 import nz.prompt.ui.profile.ProfileActivity;
 import nz.prompt.ui.tasks.TaskActivity;
@@ -22,6 +22,7 @@ import nz.prompt.ui.tasks.TaskListActivity;
  */
 public class MainMenu extends AppCompatActivity {
     private ImageButton addTaskButton, profileButton;
+    private Button foodButton;
     private CalendarView calendarView;
     private LocalDate cacheDate = LocalDate.now();
     public static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-M-d");
@@ -33,6 +34,10 @@ public class MainMenu extends AppCompatActivity {
 
         addTaskButton = findViewById(R.id.mainMenu_addTaskButton);
         addTaskButton.setOnClickListener(v -> openTaskPage());
+
+        foodButton = findViewById(R.id.foodSuggest);
+        foodButton.setOnClickListener(view -> openZomato());
+
 
         profileButton = findViewById(R.id.mainMenu_profileButton);
         profileButton.setOnClickListener(v -> openProfilePage());
@@ -55,6 +60,11 @@ public class MainMenu extends AppCompatActivity {
                 cacheDate = LocalDate.parse(year + "-" + (month + 1) + "-" + day, formatter);
             }
         });
+    }
+
+    public void openZomato() {
+        Intent intent = new Intent(this, LocationRestaurants.class);
+        startActivity(intent);
     }
 
     public void openTaskPage(){
