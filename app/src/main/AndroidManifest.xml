@@ -3,6 +3,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="nz.prompt">
 
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -11,13 +19,13 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".api.LocationRestaurants"></activity>
         <activity android:name=".ui.register.RegisterActivity_User" />
+
         <activity android:name=".ui.tasks.TaskListActivity" />
         <activity
             android:name=".ui.profile.BudgetActivity"
             android:exported="true" />
-        <activity android:name=".FirstTimeActivity" />
+        <activity android:name=".ui.main.FirstTimeActivity" />
         <activity android:name=".ui.tasks.TaskActivity" />
         <activity
             android:name=".ui.login.LoginActivity"
@@ -38,19 +46,30 @@
                 android:name="android.app.searchable"
                 android:resource="@xml/searchable" />
         </activity>
-
         <meta-data
             android:name="android.app.searchable"
             android:resource="@xml/searchable" />
+
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
-    </application>
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.VIBRATE" />
 
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+        <receiver
+            android:name=".notification.BackgroundService"
+            android:enabled="true"
+            android:exported="false"
+            android:process=":remote">
+            <intent-filter>
+                <action android:name="ALARM" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </receiver>
+
+        <service
+            android:name=".notification.PromptService"
+            android:enabled="true"
+            android:exported="false" />
+    </application>
 
 </manifest>

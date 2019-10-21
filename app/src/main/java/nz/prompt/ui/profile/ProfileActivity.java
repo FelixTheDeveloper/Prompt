@@ -7,21 +7,22 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.os.Build;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
-import nz.prompt.ui.main.MainMenu;
+import org.w3c.dom.Text;
+
 import nz.prompt.R;
+import nz.prompt.controllers.UserController;
 
 public class ProfileActivity extends AppCompatActivity {
 
     ImageView vieImage;
     Button selectButton;
-    private Button button;
+    private Button backButton, budgetButton;
 
 
     private static final int IMAGE_PICK_CODE = 1000;
@@ -48,15 +49,17 @@ public class ProfileActivity extends AppCompatActivity {
 
         });
 
-        //button = findViewById(R.id.profile_budgetButton);
-        //button.setOnClickListener(v -> goProfileAct());
+        budgetButton = findViewById(R.id.profile_budgetButton);
+        budgetButton.setOnClickListener(v -> goProfileAct());
 
-        button = findViewById(R.id.profile_backButton);
-        button.setOnClickListener(v -> backMain());
-    }
+        backButton = findViewById(R.id.profile_backButton);
+        backButton.setOnClickListener(v -> finish());
 
-    public void backMain() {
-        finish();
+        TextView nameText = findViewById(R.id.profile_nameTextInput);
+        nameText.setText(UserController.currentUser.getFirstName() + " " + UserController.currentUser.getLastName());
+
+        TextView ageText = findViewById(R.id.profile_ageTextInput);
+        ageText.setText(String.valueOf(UserController.currentUser.getAge()));
     }
 
 

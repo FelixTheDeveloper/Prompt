@@ -15,7 +15,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:background="@color/defaultColor"
-        android:text="Back"
+        android:text="@string/back"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -25,10 +25,8 @@
 
     <Button
         android:id="@+id/profile_choose_image_btn"
-        style="@style/Base.Widget.AppCompat.Button.Colored"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:background="@color/colorPrimaryDark"
         android:text="Select Image"
         android:textColor="@android:color/black"
         app:layout_constraintEnd_toEndOf="@+id/profile_avatarImageView"
@@ -40,11 +38,60 @@
         android:id="@+id/profile_avatarImageView"
         android:layout_width="101dp"
         android:layout_height="106dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="92dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="64dp"
         android:scaleType="centerCrop"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_account_box_black_24dp" />
+
+    <TextView
+        android:id="@+id/profile_nameTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="24dp"
+        android:text="@string/name"
+        android:textSize="18sp"
+        app:layout_constraintStart_toEndOf="@+id/profile_avatarImageView"
+        app:layout_constraintTop_toTopOf="@+id/profile_avatarImageView" />
+
+    <TextView
+        android:id="@+id/profile_nameTextInput"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@+id/profile_nameTextView"
+        app:layout_constraintStart_toEndOf="@+id/profile_nameTextView"
+        app:layout_constraintTop_toTopOf="@+id/profile_nameTextView" />
+
+    <TextView
+        android:id="@+id/profile_ageTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@string/age"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="@+id/profile_nameTextView"
+        app:layout_constraintTop_toBottomOf="@+id/profile_nameTextView" />
+
+    <TextView
+        android:id="@+id/profile_ageTextInput"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:textSize="18sp"
+        app:layout_constraintStart_toEndOf="@+id/profile_ageTextView"
+        app:layout_constraintTop_toTopOf="@+id/profile_ageTextView" />
+
+    <Button
+        android:id="@+id/profile_budgetButton"
+        android:layout_width="115dp"
+        android:layout_height="0dp"
+        android:layout_marginEnd="8dp"
+        android:text="Budget Calculate"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/profile_avatarImageView" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

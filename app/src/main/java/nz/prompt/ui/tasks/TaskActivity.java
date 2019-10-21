@@ -174,7 +174,7 @@ public class TaskActivity extends AppCompatActivity {
                 {
                     amPm = "AM";
                 }
-                endChooseTime.setText(String.format("%02d:%02d:00", hourOfDay, minutes) + amPm);
+                endChooseTime.setText(String.format(Locale.getDefault(), "%02d:%02d:00", hourOfDay, minutes) + " " + amPm);
 //                        startChooseTime.setText(hourOfDay + ":" + minutes);
             }, currentHour, currentMinute, false);
             dialog.show();
@@ -197,8 +197,8 @@ public class TaskActivity extends AppCompatActivity {
             String taskName = editTextTask.getText().toString();
             String locationName = editTextLocation.getText().toString();
             String description = editTextDescription.getText().toString();
-            String startDate = String.format(Locale.getDefault(), "%d-%02d-%02d %d:%d:00", startDate_Year, startDate_Month, startDate_Day, startDate_Hour, startDate_Min);
-            String endDate = String.format(Locale.getDefault(), "%d-%02d-%02d %d:%d:00", endDate_Year, endDate_Month, endDate_Day, endDate_Hour, endDate_Min);
+            String startDate = String.format(Locale.getDefault(), "%04d-%02d-%02d %02d:%02d:00", startDate_Year, startDate_Month, startDate_Day, startDate_Hour, startDate_Min);
+            String endDate = String.format(Locale.getDefault(), "%04d-%02d-%02d %02d:%02d:00", endDate_Year, endDate_Month, endDate_Day, endDate_Hour, endDate_Min);
 
             if (TaskController.CreateTask(taskName, locationName, description, startDate, endDate))
             {
@@ -240,9 +240,12 @@ public class TaskActivity extends AppCompatActivity {
         @Override
         public void onTextChanged(CharSequence charSequence, int start, int before, int count) {
             String taskInput = editTextTask.getText().toString();
-            String locationInput = editTextLocation.getText().toString();
+            String startDateInput = mStartDisplayDate.getText().toString();
+            String startTimeInput = startChooseTime.getText().toString();
+            String endDateInput = mEndDisplayDate.getText().toString();
+            String endTimeInput = endChooseTime.getText().toString();
 
-            createButton.setEnabled(!taskInput.isEmpty() && !locationInput.isEmpty());
+            createButton.setEnabled(!taskInput.isEmpty() && !startDateInput.isEmpty() && !startTimeInput.isEmpty() && !endDateInput.isEmpty() && !endTimeInput.isEmpty());
         }
 
         @Override

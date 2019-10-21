@@ -9,8 +9,8 @@
 
     <Button
         android:id="@+id/task_cancelButton"
-        android:layout_width="86dp"
-        android:layout_height="43dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:background="@color/colorPrimaryDark"
@@ -169,10 +169,11 @@
 
     <Spinner
         android:id="@+id/task_repeatOptions"
-        android:layout_width="235dp"
+        android:layout_width="0dp"
         android:layout_height="38dp"
         android:layout_marginTop="46dp"
-        app:layout_constraintEnd_toEndOf="@+id/task_startChooseTimeText"
+        app:layout_constraintEnd_toEndOf="@+id/task_endChooseTimeText"
+        app:layout_constraintStart_toStartOf="@+id/task_endDateViewer"
         app:layout_constraintTop_toBottomOf="@+id/task_endChooseTimeText" />
 
     <TextView
@@ -186,8 +187,8 @@
 
     <EditText
         android:id="@+id/task_descriptionTextBox"
-        android:layout_width="282dp"
-        android:layout_height="177dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:ems="10"
         android:hint="@string/descriptionhInt"
@@ -195,6 +196,7 @@
         android:inputType="textMultiLine"
         android:singleLine="false"
         app:layout_constraintEnd_toEndOf="@+id/task_repeatOptions"
+        app:layout_constraintStart_toStartOf="@+id/task_repeatOptions"
         app:layout_constraintTop_toBottomOf="@+id/task_repeatOptions" />
 
     <Button

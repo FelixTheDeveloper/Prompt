@@ -1,5 +1,6 @@
 package nz.prompt.controllers;
 
+import android.provider.ContactsContract;
 import android.util.Log;
 
 import java.text.SimpleDateFormat;
@@ -8,8 +9,11 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Locale;
 
+import nz.prompt.MainActivity;
 import nz.prompt.database.DatabaseHandler;
 import nz.prompt.model.TaskModel;
+import nz.prompt.notification.BackgroundService;
+import nz.prompt.notification.PromptService;
 
 /**
  * @author Duc Nguyen
@@ -47,22 +51,48 @@ public class TaskController {
     public static void AddTask(TaskModel task)
     {
         DatabaseHandler.dbHelper.addTask(task);
+        if (!task.isStatus())
+            BackgroundService.setAlarm(PromptService.instance, task);
+        else
+            BackgroundService.cancelAlarm(PromptService.instance, task);
     }
 
-    public static void GetTasks(int ownerID, Date date)
+    /**
+     * Get all {@link TaskModel} which owned by {@param ownerID} and in a specified date
+     *
+     * @param ownerID
+     * @param date
+     * @returna {@link HashSet} containing all {@link TaskModel}
+     */
+    public static HashSet<TaskModel> GetTasks(int ownerID, Date date)
     {
         tasks.clear();
-        tasks.addAll(DatabaseHandler.dbHelper.getTasks(ownerID, date));
+        HashSet<TaskModel> mTasks = DatabaseHandler.dbHelper.getTasks(ownerID, date);
+        tasks.addAll(mTasks);
+
+        return mTasks;
     }
 
-    public static void GetTasks(int ownerID)
+    /**
+     * Get all {@link TaskModel} which owned by {@param ownerID}
+     *
+     * @param ownerID the ID of the user (owner)
+     * @return a {@link HashSet} containing all {@link TaskModel}
+     */
+    public static HashSet<TaskModel> GetTasks(int ownerID)
     {
         tasks.clear();
-        tasks.addAll(DatabaseHandler.dbHelper.getTasks(ownerID));
+        HashSet<TaskModel> mTasks = DatabaseHandler.dbHelper.getTasks(ownerID);
+        tasks.addAll(mTasks);
+        return mTasks;
     }
 
-    public static boolean RemoveTask(int ID)
-    {
+    public static TaskModel GetTask(int ID) {
+        return DatabaseHandler.dbHelper.getTask(ID);
+    }
+
+    public static boolean RemoveTask(int ID) {
+        BackgroundService.cancelAlarm(PromptService.instance, GetTask(ID));
         return DatabaseHandler.dbHelper.deleteTask(ID);
     }
 }
