@@ -20,6 +20,7 @@ import java.util.HashSet;
 import java.util.Locale;
 
 import nz.prompt.R;
+import nz.prompt.api.LocationRestaurants;
 import nz.prompt.controllers.TaskController;
 import nz.prompt.controllers.UserController;
 import nz.prompt.model.TaskModel;
@@ -32,6 +33,7 @@ import nz.prompt.ui.tasks.TaskListActivity;
  */
 public class MainMenu extends AppCompatActivity {
     private ImageButton addTaskButton, profileButton;
+    private Button zomatoButton;
     private CalendarView calendarView;
     private LocalDate cacheDate = LocalDate.now();
     public static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-M-d");
@@ -46,6 +48,9 @@ public class MainMenu extends AppCompatActivity {
 
         addTaskButton = findViewById(R.id.mainMenu_addTaskButton);
         addTaskButton.setOnClickListener(v -> openTaskPage());
+
+        zomatoButton = findViewById(R.id.foodSuggest);
+        zomatoButton.setOnClickListener(view -> openZomato());
 
         profileButton = findViewById(R.id.mainMenu_profileButton);
         profileButton.setOnClickListener(v -> openProfilePage());
@@ -85,6 +90,11 @@ public class MainMenu extends AppCompatActivity {
         tasks.forEach(this::addRow);
 
         super.onResume();
+    }
+
+    public void openZomato() {
+        Intent intent = new Intent(this, LocationRestaurants.class);
+        startActivity(intent);
     }
 
     public void openTaskPage(){
