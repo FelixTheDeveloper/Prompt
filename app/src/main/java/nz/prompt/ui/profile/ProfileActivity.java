@@ -16,6 +16,7 @@ import android.widget.Toast;
 import org.w3c.dom.Text;
 
 import nz.prompt.R;
+import nz.prompt.api.LocationRestaurants;
 import nz.prompt.controllers.UserController;
 import nz.prompt.database.DatabaseHandler;
 import nz.prompt.ui.main.FirstTimeActivity;
@@ -24,7 +25,7 @@ public class ProfileActivity extends AppCompatActivity {
 
     ImageView vieImage;
     Button selectButton;
-    private Button backButton, budgetButton, logoutButton;
+    private Button backButton, budgetButton, logoutButton, foodButton;
 
 
     private static final int IMAGE_PICK_CODE = 1000;
@@ -37,6 +38,12 @@ public class ProfileActivity extends AppCompatActivity {
 
         vieImage = findViewById(R.id.profile_avatarImageView);
         selectButton = findViewById(R.id.profile_choose_image_btn);
+        foodButton = findViewById(R.id.profile_foodButton);
+
+        foodButton.setOnClickListener(v -> {
+            Intent intent = new Intent(this, LocationRestaurants.class);
+            startActivity(intent);
+        });
 
         selectButton.setOnClickListener(v -> {
             if (checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED) {

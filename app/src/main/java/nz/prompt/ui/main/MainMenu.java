@@ -13,7 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
+import java.util.Calendar;
 import java.util.HashSet;
 import java.util.Locale;
 
@@ -31,7 +31,6 @@ import nz.prompt.ui.tasks.TaskListActivity;
  */
 public class MainMenu extends AppCompatActivity {
     private ImageButton addTaskButton, profileButton;
-    private Button zomatoButton;
     private CalendarView calendarView;
     private LocalDate cacheDate = LocalDate.now();
     public static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-M-d");
@@ -46,9 +45,6 @@ public class MainMenu extends AppCompatActivity {
 
         addTaskButton = findViewById(R.id.mainMenu_addTaskButton);
         addTaskButton.setOnClickListener(v -> openTaskPage());
-
-        zomatoButton = findViewById(R.id.foodSuggest);
-        zomatoButton.setOnClickListener(view -> openZomato());
 
         profileButton = findViewById(R.id.mainMenu_profileButton);
         profileButton.setOnClickListener(v -> openProfilePage());
@@ -79,20 +75,15 @@ public class MainMenu extends AppCompatActivity {
 
         tasks.clear();
         TaskController.GetTasks(UserController.currentUser.getID()).forEach(task -> {
-            Date now = new Date();
+            Calendar now = Calendar.getInstance();
 
-            if (task.getEndDate().after(now) && task.getStartDate().getTime() - now.getTime() < 1000 * 60 * 60 * 24 * 7) {
+            if (task.getEndDate().after(now) && task.getStartDate().getTimeInMillis() - now.getTimeInMillis() < 1000 * 60 * 60 * 24 * 7) {
                 tasks.add(task);
             }
         });
         tasks.forEach(this::addRow);
 
         super.onResume();
-    }
-
-    public void openZomato() {
-        Intent intent = new Intent(this, Location.class);
-        startActivity(intent);
     }
 
     public void openTaskPage(){

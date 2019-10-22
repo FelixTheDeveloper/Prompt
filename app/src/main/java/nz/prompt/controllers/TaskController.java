@@ -3,7 +3,7 @@ package nz.prompt.controllers;
 import android.util.Log;
 
 import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.util.Calendar;
 import java.util.HashSet;
 import java.util.Locale;
 
@@ -19,7 +19,7 @@ public class TaskController {
     public static HashSet<TaskModel> tasks = new HashSet<>();
     public static final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.US);
 
-    public static boolean CreateTask(String taskName, String description, double location_LAT, double location_LNG, String startDate, String endDate) {
+    public static boolean CreateTask(String taskName, String description, double location_LAT, double location_LNG, int[] startDate, int[] endDate) {
         try {
             int currentID;
             String currentID_string = DatabaseHandler.dbHelper.getSetting("TaskCurrentID");
@@ -28,8 +28,8 @@ public class TaskController {
             else
                 currentID = 1;
 
-            Date m_startDate = dateFormat.parse(startDate);
-            Date m_endDate = dateFormat.parse(endDate);
+            Calendar m_startDate = new Calendar.Builder().setDate(startDate[0], startDate[1], startDate[2]).setTimeOfDay(startDate[3], startDate[4], 0).build();
+            Calendar m_endDate = new Calendar.Builder().setDate(endDate[0], endDate[1], endDate[2]).setTimeOfDay(endDate[3], endDate[4], 0).build();
             TaskModel task = new TaskModel(currentID, taskName, description, location_LAT, location_LNG, m_startDate, m_endDate, false);
 
             AddTask(task);
@@ -40,7 +40,7 @@ public class TaskController {
         }
         catch (Exception e)
         {
-            Log.d("TaskController.CreateTask()", e.getMessage());
+            e.printStackTrace();
             return false;
         }
     }
@@ -61,7 +61,7 @@ public class TaskController {
      * @param date
      * @returna {@link HashSet} containing all {@link TaskModel}
      */
-    public static HashSet<TaskModel> GetTasks(int ownerID, Date date)
+    public static HashSet<TaskModel> GetTasks(int ownerID, Calendar date)
     {
         tasks.clear();
         HashSet<TaskModel> mTasks = DatabaseHandler.dbHelper.getTasks(ownerID, date);

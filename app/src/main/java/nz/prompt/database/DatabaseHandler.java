@@ -12,7 +12,7 @@ import java.security.NoSuchAlgorithmException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.HashSet;
-import java.util.Date;
+import java.util.Calendar;
 import java.util.Locale;
 
 import nz.prompt.controllers.TaskController;
@@ -217,8 +217,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         values.put("Description", task.getDescription());
         values.put("Location_LAT", task.getLocation_LAT());
         values.put("Location_LNG", task.getLocation_LNG());
-        values.put("StartDate", TaskController.dateFormat.format(task.getStartDate()));
-        values.put("EndDate", TaskController.dateFormat.format(task.getEndDate()));
+        values.put("StartDate", TaskController.dateFormat.format(task.getStartDate().getTime()));
+        values.put("EndDate", TaskController.dateFormat.format(task.getEndDate().getTime()));
         values.put("Status", task.isStatus());
         values.put("OwnerID", UserController.currentUser.getID());
 
@@ -236,7 +236,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             int id;
             String title, description;
             double location_LAT, location_LNG;
-            Date startDate, endDate;
+            Calendar startDate, endDate;
             boolean status;
 
             int index;
@@ -289,7 +289,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             if (index != -1)
             {
                 try {
-                    startDate = TaskController.dateFormat.parse(cursor.getString(index));
+                    startDate = new Calendar.Builder().setInstant(TaskController.dateFormat.parse(cursor.getString(index))).build();
                 }
                 catch (ParseException e)
                 {
@@ -307,7 +307,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             if (index != -1)
             {
                 try {
-                    endDate = TaskController.dateFormat.parse(cursor.getString(index));
+                    endDate = new Calendar.Builder().setInstant(TaskController.dateFormat.parse(cursor.getString(index))).build();
                 }
                 catch (ParseException e)
                 {
@@ -342,7 +342,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return getTasks(ownerID, null);
     }
 
-    public HashSet<TaskModel> getTasks(int ownerID, Date date)
+    public HashSet<TaskModel> getTasks(int ownerID, Calendar date)
     {
         SQLiteDatabase db = dbRead;
         Cursor cursor;
@@ -355,7 +355,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         else
         {
             cursor = db.query(TABLE_TASKS_NAME, null, "OwnerID = ? AND StartDate <= ? AND EndDate >= ?", new String[] {String.valueOf(ownerID),
-                            new SimpleDateFormat("yyyy-MM-dd 23:59:59", Locale.US).format(date), new SimpleDateFormat("yyyy-MM-dd 00:00:00", Locale.US).format(date)},
+                            new SimpleDateFormat("yyyy-MM-dd 23:59:59", Locale.US).format(date.getTime()), new SimpleDateFormat("yyyy-MM-dd 00:00:00", Locale.US).format(date.getTime())},
                     null, null, null);
         }
 
@@ -364,7 +364,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             int id;
             String title, description;
             double location_LAT, location_LNG;
-            Date startDate, endDate;
+            Calendar startDate, endDate;
             boolean status;
 
             int index;
@@ -417,7 +417,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             if (index != -1)
             {
                 try {
-                    startDate = TaskController.dateFormat.parse(cursor.getString(index));
+                    startDate = new Calendar.Builder().setInstant(TaskController.dateFormat.parse(cursor.getString(index))).build();
                 }
                 catch (ParseException e)
                 {
@@ -435,7 +435,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             if (index != -1)
             {
                 try {
-                    endDate = TaskController.dateFormat.parse(cursor.getString(index));
+                    endDate = new Calendar.Builder().setInstant(TaskController.dateFormat.parse(cursor.getString(index))).build();
                 }
                 catch (ParseException e)
                 {

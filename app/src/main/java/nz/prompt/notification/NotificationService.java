@@ -1,7 +1,9 @@
 package nz.prompt.notification;
 
 import android.annotation.TargetApi;
+import android.app.AlarmManager;
 import android.app.Notification;
+import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
@@ -18,6 +20,8 @@ import nz.prompt.MainActivity;
 import nz.prompt.R;
 import nz.prompt.model.TaskModel;
 
+import static androidx.core.content.ContextCompat.getSystemService;
+
 public class NotificationService {
     private static final String NOTIFICATION_TAG = "Prompt";
 
@@ -33,29 +37,7 @@ public class NotificationService {
                 .setSmallIcon(R.drawable.ic_stat_app)
                 .setContentTitle(task.getTitle())
                 .setContentText(task.getDescription())
-
-                .setPriority(NotificationCompat.PRIORITY_MAX)
-
-                .setLargeIcon(picture)
-
-                // Set ticker text (preview) information for this notification.
-                .setTicker("Prompt")
-
-                .setContentIntent(
-                        PendingIntent.getActivity(
-                                context,
-                                0,
-                                new Intent(context, MainActivity.class),
-                                PendingIntent.FLAG_UPDATE_CURRENT))
-
-                // Show expanded text content on devices running Android 4.1 or
-                // later.
-                .setStyle(new NotificationCompat.BigTextStyle()
-                        .bigText(task.getDescription())
-                        .setBigContentTitle(task.getTitle())
-                        .setSummaryText("Dummy summary text"))
-
-                .setAutoCancel(true);
+                .setPriority(NotificationCompat.PRIORITY_MAX);
 
         notify(context, builder.build());
     }
@@ -85,4 +67,21 @@ public class NotificationService {
             nm.cancel(NOTIFICATION_TAG.hashCode());
         }
     }
+
+    public static void createNotificationChannel(Context context) {
+        // Create the NotificationChannel, but only on API 26+ because
+        // the NotificationChannel class is new and not in the support library
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            CharSequence name = NOTIFICATION_TAG + "_NOTIFICATION_CHANNEL_NAME";
+            String description = NOTIFICATION_TAG + "_NOTIFICATION_CHANNEL_DESC";
+            int importance = NotificationManager.IMPORTANCE_DEFAULT;
+            NotificationChannel channel = new NotificationChannel(NOTIFICATION_TAG + "_NOTIFICATION_CHANNEL_ID", name, importance);
+            channel.setDescription(description);
+            // Register the channel with the system; you can't change the importance
+            // or other notification behaviors after this
+            NotificationManager notificationManager = getSystemService(context, NotificationManager.class);
+            notificationManager.createNotificationChannel(channel);
+        }
+    }
+
 }

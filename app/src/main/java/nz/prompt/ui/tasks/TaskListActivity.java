@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import java.text.ParseException;
 import java.time.LocalTime;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Locale;
@@ -20,6 +21,7 @@ import nz.prompt.R;
 import nz.prompt.controllers.TaskController;
 import nz.prompt.controllers.UserController;
 import nz.prompt.model.TaskModel;
+import nz.prompt.notification.NotificationService;
 
 /**
  * @author Duc Nguyen
@@ -29,7 +31,7 @@ public class TaskListActivity extends AppCompatActivity {
 
     private int year, month, day;
 
-    private Date date = new Date();
+    private Calendar date = Calendar.getInstance();
 
     private HashSet<TaskModel> pastTasks = new HashSet<>();
     private HashSet<TaskModel> upcomingTasks = new HashSet<>();
@@ -46,15 +48,6 @@ public class TaskListActivity extends AppCompatActivity {
         year = bundle.getInt("EXTRA_YEAR");
         month = bundle.getInt("EXTRA_MONTH");
         day = bundle.getInt("EXTRA_DAY");
-
-        LocalTime time = LocalTime.now();
-
-        try {
-            date = TaskController.dateFormat.parse(year + "-" + String.format(Locale.getDefault(), "%02d", month) + "-" + day + " " + time.getHour() + ":" + time.getMinute() + ":" + time.getSecond());
-        } catch (ParseException e) {
-            Log.d("TaskListActivity", e.getMessage());
-            Toast.makeText(this, "ERROR: Cannot read date. Please report to devs.", Toast.LENGTH_LONG).show();
-        }
 
         backButton = findViewById(R.id.taskList_backButton);
         backButton.setOnClickListener(v -> finish());
@@ -157,10 +150,10 @@ public class TaskListActivity extends AppCompatActivity {
         });
         layout.addView(deleteButton);
 
-        /*layout.setOnClickListener(l ->
+        title.setOnClickListener(l ->
         {
-
-        });*/
+            NotificationService.notify(this, task);
+        });
 
         taskDetailsRow.addView(layout);
         tableLayout.addView(taskDetailsRow);

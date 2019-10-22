@@ -1,6 +1,6 @@
 package nz.prompt.model;
 
-import java.util.Date;
+import java.util.Calendar;
 
 public class TaskModel {
     private int ID;
@@ -8,11 +8,11 @@ public class TaskModel {
     private String Description;
     private double Location_LAT;
     private double Location_LNG;
-    private Date StartDate;
-    private Date EndDate;
+    private Calendar StartDate;
+    private Calendar EndDate;
     private boolean Status;
 
-    public TaskModel(int ID, String title, String description, double location_LAT, double location_LNG, Date startDate, Date endDate, boolean status) {
+    public TaskModel(int ID, String title, String description, double location_LAT, double location_LNG, Calendar startDate, Calendar endDate, boolean status) {
         this.ID = ID;
         Title = title;
         Description = description;
@@ -63,11 +63,11 @@ public class TaskModel {
         Location_LNG = location_LNG;
     }
 
-    public Date getStartDate() {
+    public Calendar getStartDate() {
         return StartDate;
     }
 
-    public void setStartDate(Date startDate) {
+    public void setStartDate(Calendar startDate) {
         StartDate = startDate;
     }
 
@@ -75,11 +75,11 @@ public class TaskModel {
         return Status;
     }
 
-    public Date getEndDate() {
+    public Calendar getEndDate() {
         return EndDate;
     }
 
-    public void setEndDate(Date endDate) {
+    public void setEndDate(Calendar endDate) {
         EndDate = endDate;
     }
 

@@ -72,7 +72,7 @@ public class TaskActivity extends AppCompatActivity {
 
         calendar = Calendar.getInstance();
         currentYear = calendar.get(Calendar.YEAR);
-        currentMonth = calendar.get(Calendar.MONTH) + 1;
+        currentMonth = calendar.get(Calendar.MONTH);
         currentDay = calendar.get(Calendar.DAY_OF_MONTH);
         currentHour = calendar.get(Calendar.HOUR_OF_DAY);
         currentMinute = calendar.get(Calendar.MINUTE);
@@ -103,9 +103,8 @@ public class TaskActivity extends AppCompatActivity {
             int day = calendar.get(Calendar.DAY_OF_MONTH);  //Using Day of month cause there are many different days to each month
 
             DatePickerDialog dialog = new DatePickerDialog(TaskActivity.this, android.R.style.Theme_Holo_Light_Dialog_MinWidth, (datePicker, year12, month12, day12) -> {
-                month12 += 1;     //Doing this because January Starts at 0 and December is 11
                 Log.d(TAG, "onDateSet: dd/mm/yy " + day12 + "/" + month12 + "/" + year12);
-                String date = day12 + "/" + month12 + "/" + year12;
+                String date = day12 + "/" + (month12 + 1) + "/" + year12;
 
                 startDate_Day = day12;
                 startDate_Month = month12;
@@ -148,9 +147,8 @@ public class TaskActivity extends AppCompatActivity {
 
             DatePickerDialog dialog = new DatePickerDialog(this, android.R.style.Theme_Holo_Light_Dialog_MinWidth,
                     (datePicker, year1, month1, day1) -> {
-                        month1 += 1;     //Doing this because January Starts at 0 and December is 11
                         Log.d(TAG, "onDateSet: dd/mm/yy " + day1 + "/" + month1 + "/" + year1);
-                        String date = day1 + "/" + month1 + "/" + year1;
+                        String date = day1 + "/" + (month1 + 1) + "/" + year1;
 
                         endDate_Day = day1;
                         endDate_Month = month1;
@@ -195,8 +193,8 @@ public class TaskActivity extends AppCompatActivity {
         createButton.setOnClickListener(v -> {
             String taskName = editTextTask.getText().toString();
             String description = editTextDescription.getText().toString();
-            String startDate = String.format(Locale.getDefault(), "%04d-%02d-%02d %02d:%02d:00", startDate_Year, startDate_Month, startDate_Day, startDate_Hour, startDate_Min);
-            String endDate = String.format(Locale.getDefault(), "%04d-%02d-%02d %02d:%02d:00", endDate_Year, endDate_Month, endDate_Day, endDate_Hour, endDate_Min);
+            int[] startDate = new int[] {startDate_Year, startDate_Month, startDate_Day, startDate_Hour, startDate_Min};
+            int[] endDate = new int[] {endDate_Year, endDate_Month, endDate_Day, endDate_Hour, endDate_Min};
 
             if (TaskController.CreateTask(taskName, description, chosenLat, chosenLng, startDate, endDate))
             {

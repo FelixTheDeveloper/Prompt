@@ -8,6 +8,7 @@ import android.os.Bundle;
 import nz.prompt.controllers.AccountController;
 import nz.prompt.controllers.UserController;
 import nz.prompt.database.DatabaseHandler;
+import nz.prompt.notification.NotificationService;
 import nz.prompt.notification.PromptService;
 import nz.prompt.ui.main.FirstTimeActivity;
 import nz.prompt.ui.main.MainMenu;
@@ -20,6 +21,8 @@ public class MainActivity extends AppCompatActivity {
         DatabaseHandler.EstablishDB(this);
 
         boolean loggedIn = Boolean.parseBoolean(DatabaseHandler.dbHelper.getSetting("UserLoggedIn"));
+
+        NotificationService.createNotificationChannel(this);
 
         Intent service = new Intent(this, PromptService.class);
         startService(service);
