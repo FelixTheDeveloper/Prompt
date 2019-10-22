@@ -26,6 +26,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     private GoogleMap mMap;
     private FusedLocationProviderClient fusedLocationClient;
     private Button backButton, saveButton;
+    private MarkerOptions marker;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,14 +50,16 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         });
 
         if (checkSelfPermission(android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && checkSelfPermission(android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            requestPermissions(new String[] {android.Manifest.permission.ACCESS_FINE_LOCATION, android.Manifest.permission.ACCESS_COARSE_LOCATION}, 1000);
+            requestPermissions(new String[] {android.Manifest.permission.ACCESS_FINE_LOCATION, android.Manifest.permission.ACCESS_COARSE_LOCATION}, 1001);
         }
+        else
+        {
+            SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+                    .findFragmentById(R.id.map);
+            mapFragment.getMapAsync(this);
 
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
-                .findFragmentById(R.id.map);
-        mapFragment.getMapAsync(this);
-
-        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
+            fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
+        }
     }
 
     @Override
@@ -70,6 +73,21 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(location.getLatitude(), location.getLongitude()), 16));
             }
         });
+
+        marker = new MarkerOptions();
+        marker.position(mMap.getCameraPosition().target);
+        marker.draggable(false);
+        mMap.addMarker(marker);
+
+        mMap.setOnCameraMoveListener(() -> {
+            mMap.clear();
+
+            marker = new MarkerOptions();
+            marker.position(mMap.getCameraPosition().target);
+            marker.draggable(false);
+
+            mMap.addMarker(marker);
+        });
     }
 
     @Override
@@ -79,4 +97,19 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         setResult(0, intent);
         finish();
     }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        if (requestCode == 1001) {// If request is cancelled, the result arrays are empty.
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                Intent intent = getIntent();
+                setResult(0, intent);
+                finish();
+                startActivity(intent);
+            } else {
+                requestPermissions(new String[] {android.Manifest.permission.ACCESS_FINE_LOCATION, android.Manifest.permission.ACCESS_COARSE_LOCATION}, 1001);
+            }
+        }
+    }
+
 }

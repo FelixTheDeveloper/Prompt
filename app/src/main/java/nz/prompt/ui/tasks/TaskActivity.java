@@ -42,8 +42,7 @@ public class TaskActivity extends AppCompatActivity {
     private TextView endChooseTime;
     private TextView locationTextBox;
     private Calendar calendar;
-    private int currentHour;
-    private int currentMinute;
+    private int currentYear, currentMonth, currentDay, currentHour, currentMinute;
     private String amPm;
 
     private int startDate_Day = -1;
@@ -71,11 +70,20 @@ public class TaskActivity extends AppCompatActivity {
         cancelButton = findViewById(R.id.task_cancelButton);
         locationTextBox = findViewById(R.id.task_locationTextBox);
 
+        calendar = Calendar.getInstance();
+        currentYear = calendar.get(Calendar.YEAR);
+        currentMonth = calendar.get(Calendar.MONTH) + 1;
+        currentDay = calendar.get(Calendar.DAY_OF_MONTH);
+        currentHour = calendar.get(Calendar.HOUR_OF_DAY);
+        currentMinute = calendar.get(Calendar.MINUTE);
+
         //FOR START TIME
 
         //FOR DATE START
 
         mStartDisplayDate = findViewById(R.id.task_startDateViewer);
+        mStartDisplayDate.setText(String.format(Locale.getDefault(), "%04d-%02d-%02d", currentYear, currentMonth, currentDay));
+
         mStartDisplayDate.setOnClickListener(view -> {
             Calendar calendar = Calendar.getInstance();
             int year = calendar.get(Calendar.YEAR);
@@ -100,24 +108,16 @@ public class TaskActivity extends AppCompatActivity {
         //END OF START DATE
 
         //For TIME START
-        calendar = Calendar.getInstance();
-        currentHour = calendar.get(Calendar.HOUR_OF_DAY);
-        currentMinute = calendar.get(Calendar.MINUTE);
 
         startChooseTime = findViewById(R.id.task_startChooseTimeText);
+        startChooseTime.setText(String.format(Locale.getDefault(), "%02d:%02d:00", currentHour, currentMinute));
+
         startChooseTime.setOnClickListener(view -> {
             TimePickerDialog dialog = new TimePickerDialog(this, (timePicker, hourOfDay, minutes) -> {
                 startDate_Hour = hourOfDay;
                 startDate_Min = minutes;
+                startChooseTime.setText(String.format(Locale.getDefault(), "%02d:%02d:00", hourOfDay, minutes));
 
-                if (hourOfDay > 12){
-                    hourOfDay -= 12;
-                    amPm = "PM";
-                } else {
-                    amPm = "AM";
-                }
-                startChooseTime.setText(String.format(Locale.getDefault(), "%02d:%02d:00", hourOfDay, minutes) + amPm);
-//                        startChooseTime.setText(hourOfDay + ":" + minutes);
             }, currentHour, currentMinute, false);
             dialog.show();
         });
@@ -126,6 +126,8 @@ public class TaskActivity extends AppCompatActivity {
         //START OF END
         //FOR DATE END
         mEndDisplayDate = findViewById(R.id.task_endDateViewer);
+        mEndDisplayDate.setText(String.format(Locale.getDefault(), "%04d-%02d-%02d", currentYear, currentMonth, currentDay));
+
         mEndDisplayDate.setOnClickListener(view -> {
             Calendar calendar = Calendar.getInstance();
             int year = calendar.get(Calendar.YEAR);
@@ -153,22 +155,13 @@ public class TaskActivity extends AppCompatActivity {
         //Start of End Time
 
         endChooseTime = findViewById(R.id.task_endChooseTimeText);
+        endChooseTime.setText(String.format(Locale.getDefault(), "%02d:%02d:00", currentHour, currentMinute));
         endChooseTime.setOnClickListener(view -> {
             TimePickerDialog dialog = new TimePickerDialog(TaskActivity.this, (timePicker, hourOfDay, minutes) -> {
                 endDate_Hour = hourOfDay;
                 endDate_Min = minutes;
+                endChooseTime.setText(String.format(Locale.getDefault(), "%02d:%02d:00", hourOfDay, minutes));
 
-                if (hourOfDay > 12)
-                {
-                    hourOfDay -= 12;
-                    amPm = "PM";
-                }
-                else
-                {
-                    amPm = "AM";
-                }
-                endChooseTime.setText(String.format(Locale.getDefault(), "%02d:%02d:00", hourOfDay, minutes) + " " + amPm);
-//                        startChooseTime.setText(hourOfDay + ":" + minutes);
             }, currentHour, currentMinute, false);
             dialog.show();
         });     //End of Time Start

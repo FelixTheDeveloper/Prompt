@@ -157,6 +157,11 @@ public class TaskListActivity extends AppCompatActivity {
         });
         layout.addView(deleteButton);
 
+        layout.setOnClickListener(l ->
+        {
+
+        });
+
         taskDetailsRow.addView(layout);
         tableLayout.addView(taskDetailsRow);
     }
