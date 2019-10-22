@@ -27,7 +27,7 @@ public class LocationRestaurant extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         // initializing the queue object
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_location_restaurants);
+        setContentView(R.layout.activity_location);
         queue = Volley.newRequestQueue(this);
     }
 

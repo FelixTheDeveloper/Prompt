@@ -8,18 +8,16 @@ import android.widget.CheckBox;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.HashSet;
 
 import nz.prompt.R;
-import nz.prompt.api.LocationRestaurants;
+import nz.prompt.api.Location;
 import nz.prompt.controllers.TaskController;
 import nz.prompt.controllers.UserController;
 import nz.prompt.model.TaskModel;
@@ -92,7 +90,7 @@ public class MainMenu extends AppCompatActivity {
     }
 
     public void openZomato() {
-        Intent intent = new Intent(this, LocationRestaurants.class);
+        Intent intent = new Intent(this, Location.class);
         startActivity(intent);
     }
 
