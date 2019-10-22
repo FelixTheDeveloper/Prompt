@@ -49,6 +49,8 @@ public class TaskListActivity extends AppCompatActivity {
         month = bundle.getInt("EXTRA_MONTH");
         day = bundle.getInt("EXTRA_DAY");
 
+        date.set(year, month, day);
+
         backButton = findViewById(R.id.taskList_backButton);
         backButton.setOnClickListener(v -> finish());
 
@@ -74,7 +76,7 @@ public class TaskListActivity extends AppCompatActivity {
             return;
         }
 
-        if (task.getEndDate().before(new Date())) {
+        if (task.getEndDate().before(Calendar.getInstance())) {
             pastTasks.add(task);
             return;
         }

@@ -32,8 +32,7 @@ import nz.prompt.ui.tasks.TaskListActivity;
 public class MainMenu extends AppCompatActivity {
     private ImageButton addTaskButton, profileButton;
     private CalendarView calendarView;
-    private LocalDate cacheDate = LocalDate.now();
-    public static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-M-d");
+    private Calendar cacheDate = Calendar.getInstance();
 
     private HashSet<TaskModel> tasks = new HashSet<>();
     private static int ID = 20000;
@@ -51,11 +50,11 @@ public class MainMenu extends AppCompatActivity {
 
         calendarView = findViewById(R.id.mainMenu_calendarView);
         calendarView.setOnDateChangeListener((calendarView, year, month, day) -> {
-            if (year == cacheDate.getYear() && month + 1 == cacheDate.getMonthValue() && day == cacheDate.getDayOfMonth())
+            if (year == cacheDate.get(Calendar.YEAR) && month == cacheDate.get(Calendar.MONTH) && day == cacheDate.get(Calendar.DAY_OF_MONTH))
             {
                 Bundle bundle = new Bundle();
                 bundle.putInt("EXTRA_YEAR", year);
-                bundle.putInt("EXTRA_MONTH", month + 1);
+                bundle.putInt("EXTRA_MONTH", month);
                 bundle.putInt("EXTRA_DAY", day);
 
                 Intent intent = new Intent(this, TaskListActivity.class);
@@ -64,7 +63,7 @@ public class MainMenu extends AppCompatActivity {
             }
             else
             {
-                cacheDate = LocalDate.parse(year + "-" + (month + 1) + "-" + day, formatter);
+                cacheDate = new Calendar.Builder().setDate(year, month, day).build();
             }
         });
     }
