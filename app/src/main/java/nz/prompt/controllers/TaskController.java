@@ -1,15 +1,12 @@
 package nz.prompt.controllers;
 
-import android.provider.ContactsContract;
 import android.util.Log;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Locale;
 
-import nz.prompt.MainActivity;
 import nz.prompt.database.DatabaseHandler;
 import nz.prompt.model.TaskModel;
 import nz.prompt.notification.BackgroundService;
@@ -22,7 +19,7 @@ public class TaskController {
     public static HashSet<TaskModel> tasks = new HashSet<>();
     public static final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.US);
 
-    public static boolean CreateTask(String taskName, String locationName, String description, String startDate, String endDate) {
+    public static boolean CreateTask(String taskName, String description, double location_LAT, double location_LNG, String startDate, String endDate) {
         try {
             int currentID;
             String currentID_string = DatabaseHandler.dbHelper.getSetting("TaskCurrentID");
@@ -33,7 +30,7 @@ public class TaskController {
 
             Date m_startDate = dateFormat.parse(startDate);
             Date m_endDate = dateFormat.parse(endDate);
-            TaskModel task = new TaskModel(currentID, taskName, description, locationName, m_startDate, m_endDate, false);
+            TaskModel task = new TaskModel(currentID, taskName, description, location_LAT, location_LNG, m_startDate, m_endDate, false);
 
             AddTask(task);
 

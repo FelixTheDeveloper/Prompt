@@ -52,7 +52,7 @@ public class LoginActivity extends AppCompatActivity {
         if (AccountController.CheckAccount(email))
         {
             int id = AccountController.VerifyAccount(email, password);
-            if (AccountController.VerifyAccount(email, password) != -1)
+            if (id != -1)
             {
                 AccountModel account = AccountController.GetAccount(id);
                 AccountController.currentAccount = account;
@@ -63,6 +63,7 @@ public class LoginActivity extends AppCompatActivity {
                 DatabaseHandler.dbHelper.setSetting("UserLoggedIn", "TRUE");
 
                 Intent intent = new Intent(this, MainMenu.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
             }
             else

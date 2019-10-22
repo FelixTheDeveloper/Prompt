@@ -134,7 +134,7 @@ public class TaskListActivity extends AppCompatActivity {
         location.setId(ID++ + task.getID());
         location.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
         location.setTextAppearance(R.style.AppTheme);
-        location.setText("Location: " + task.getLocation());
+        location.setText("Location: " + String.format(Locale.getDefault(), "%.2f, %.2f", task.getLocation_LAT(), task.getLocation_LNG()));
         location.setTextSize(14);
         location.setTextColor(0xBB000000);
         layout.addView(location);
@@ -156,6 +156,11 @@ public class TaskListActivity extends AppCompatActivity {
             }
         });
         layout.addView(deleteButton);
+
+        /*layout.setOnClickListener(l ->
+        {
+
+        });*/
 
         taskDetailsRow.addView(layout);
         tableLayout.addView(taskDetailsRow);

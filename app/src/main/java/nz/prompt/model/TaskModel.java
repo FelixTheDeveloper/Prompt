@@ -6,19 +6,21 @@ public class TaskModel {
     private int ID;
     private String Title;
     private String Description;
-    private String Location;
+    private double Location_LAT;
+    private double Location_LNG;
     private Date StartDate;
     private Date EndDate;
     private boolean Status;
 
-    public TaskModel(int id, String title, String description, String location, Date startDate, Date endDate, boolean status) {
-        setID(id);
-        setTitle(title);
-        setDescription(description);
-        setLocation(location);
-        setStartDate(startDate);
-        setEndDate(endDate);
-        setStatus(status);
+    public TaskModel(int ID, String title, String description, double location_LAT, double location_LNG, Date startDate, Date endDate, boolean status) {
+        this.ID = ID;
+        Title = title;
+        Description = description;
+        Location_LAT = location_LAT;
+        Location_LNG = location_LNG;
+        StartDate = startDate;
+        EndDate = endDate;
+        Status = status;
     }
 
     public int getID() {
@@ -45,12 +47,20 @@ public class TaskModel {
         Description = description;
     }
 
-    public String getLocation() {
-        return Location;
+    public double getLocation_LAT() {
+        return Location_LAT;
     }
 
-    public void setLocation(String location) {
-        Location = location;
+    public void setLocation_LAT(double location_LAT) {
+        Location_LAT = location_LAT;
+    }
+
+    public double getLocation_LNG() {
+        return Location_LNG;
+    }
+
+    public void setLocation_LNG(double location_LNG) {
+        Location_LNG = location_LNG;
     }
 
     public Date getStartDate() {

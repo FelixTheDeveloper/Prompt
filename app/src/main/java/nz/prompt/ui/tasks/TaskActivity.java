@@ -1,8 +1,5 @@
 package nz.prompt.ui.tasks;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.Manifest;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
@@ -10,30 +7,17 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
-import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.TimePicker;
 import android.widget.Toast;
 
-import com.google.android.gms.maps.CameraUpdate;
-import com.google.android.gms.maps.CameraUpdateFactory;
-import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.MapView;
-import com.google.android.gms.maps.MapsInitializer;
-import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.LatLngBounds;
-import com.google.android.gms.maps.model.MarkerOptions;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.Calendar;
 import java.util.Locale;
@@ -41,9 +25,6 @@ import java.util.Locale;
 import nz.prompt.R;
 import nz.prompt.controllers.TaskController;
 import nz.prompt.maps.MapsActivity;
-import nz.prompt.ui.main.MainMenu;
-
-import static android.app.PendingIntent.getActivity;
 
 /**
  *
@@ -59,9 +40,9 @@ public class TaskActivity extends AppCompatActivity {
     private TextView mEndDisplayDate;
     private TextView startChooseTime;
     private TextView endChooseTime;
+    private TextView locationTextBox;
     private Calendar calendar;
-    private int currentHour;
-    private int currentMinute;
+    private int currentYear, currentMonth, currentDay, currentHour, currentMinute;
     private String amPm;
 
     private int startDate_Day = -1;
@@ -75,6 +56,9 @@ public class TaskActivity extends AppCompatActivity {
     private int endDate_Hour = -1;
     private int endDate_Min = -1;
 
+    private double chosenLat = 0;
+    private double chosenLng = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -84,12 +68,34 @@ public class TaskActivity extends AppCompatActivity {
         editTextDescription = findViewById(R.id.task_descriptionTextBox);
         createButton = findViewById(R.id.task_createButton);
         cancelButton = findViewById(R.id.task_cancelButton);
+        locationTextBox = findViewById(R.id.task_locationTextBox);
+
+        calendar = Calendar.getInstance();
+        currentYear = calendar.get(Calendar.YEAR);
+        currentMonth = calendar.get(Calendar.MONTH) + 1;
+        currentDay = calendar.get(Calendar.DAY_OF_MONTH);
+        currentHour = calendar.get(Calendar.HOUR_OF_DAY);
+        currentMinute = calendar.get(Calendar.MINUTE);
+
+        startDate_Day = currentDay;
+        startDate_Month = currentMonth;
+        startDate_Year = currentYear;
+        startDate_Hour = currentHour;
+        startDate_Min = currentMinute;
+
+        endDate_Day = currentDay;
+        endDate_Month = currentMonth;
+        endDate_Year = currentYear;
+        endDate_Hour = currentHour + 1;
+        endDate_Min = currentMinute;
 
         //FOR START TIME
 
         //FOR DATE START
 
         mStartDisplayDate = findViewById(R.id.task_startDateViewer);
+        mStartDisplayDate.setText(String.format(Locale.getDefault(), "%02d/%02d/%04d", currentDay, currentMonth, currentYear));
+
         mStartDisplayDate.setOnClickListener(view -> {
             Calendar calendar = Calendar.getInstance();
             int year = calendar.get(Calendar.YEAR);
@@ -114,24 +120,16 @@ public class TaskActivity extends AppCompatActivity {
         //END OF START DATE
 
         //For TIME START
-        calendar = Calendar.getInstance();
-        currentHour = calendar.get(Calendar.HOUR_OF_DAY);
-        currentMinute = calendar.get(Calendar.MINUTE);
 
         startChooseTime = findViewById(R.id.task_startChooseTimeText);
+        startChooseTime.setText(String.format(Locale.getDefault(), "%02d:%02d:00", currentHour, currentMinute));
+
         startChooseTime.setOnClickListener(view -> {
-            TimePickerDialog dialog = new TimePickerDialog(TaskActivity.this, (timePicker, hourOfDay, minutes) -> {
+            TimePickerDialog dialog = new TimePickerDialog(this, (timePicker, hourOfDay, minutes) -> {
                 startDate_Hour = hourOfDay;
                 startDate_Min = minutes;
+                startChooseTime.setText(String.format(Locale.getDefault(), "%02d:%02d:00", hourOfDay, minutes));
 
-                if (hourOfDay > 12){
-                    hourOfDay -= 12;
-                    amPm = "PM";
-                } else {
-                    amPm = "AM";
-                }
-                startChooseTime.setText(String.format("%02d:%02d:00", hourOfDay, minutes) + amPm);
-//                        startChooseTime.setText(hourOfDay + ":" + minutes);
             }, currentHour, currentMinute, false);
             dialog.show();
         });
@@ -140,13 +138,15 @@ public class TaskActivity extends AppCompatActivity {
         //START OF END
         //FOR DATE END
         mEndDisplayDate = findViewById(R.id.task_endDateViewer);
+        mEndDisplayDate.setText(String.format(Locale.getDefault(), "%02d/%02d/%04d", currentDay, currentMonth, currentYear));
+
         mEndDisplayDate.setOnClickListener(view -> {
             Calendar calendar = Calendar.getInstance();
             int year = calendar.get(Calendar.YEAR);
             int month = calendar.get(Calendar.MONTH);
             int day = calendar.get(Calendar.DAY_OF_MONTH);  //Using Day of month cause there are many different days to each month
 
-            DatePickerDialog dialog = new DatePickerDialog(TaskActivity.this, android.R.style.Theme_Holo_Light_Dialog_MinWidth,
+            DatePickerDialog dialog = new DatePickerDialog(this, android.R.style.Theme_Holo_Light_Dialog_MinWidth,
                     (datePicker, year1, month1, day1) -> {
                         month1 += 1;     //Doing this because January Starts at 0 and December is 11
                         Log.d(TAG, "onDateSet: dd/mm/yy " + day1 + "/" + month1 + "/" + year1);
@@ -166,36 +166,17 @@ public class TaskActivity extends AppCompatActivity {
 
         //Start of End Time
 
-        calendar = Calendar.getInstance();
-        currentHour = calendar.get(Calendar.HOUR_OF_DAY);
-        currentMinute = calendar.get(Calendar.MINUTE);
-
         endChooseTime = findViewById(R.id.task_endChooseTimeText);
+        endChooseTime.setText(String.format(Locale.getDefault(), "%02d:%02d:00", currentHour + 1, currentMinute));
         endChooseTime.setOnClickListener(view -> {
             TimePickerDialog dialog = new TimePickerDialog(TaskActivity.this, (timePicker, hourOfDay, minutes) -> {
                 endDate_Hour = hourOfDay;
                 endDate_Min = minutes;
+                endChooseTime.setText(String.format(Locale.getDefault(), "%02d:%02d:00", hourOfDay, minutes));
 
-                if (hourOfDay > 12)
-                {
-                    hourOfDay -= 12;
-                    amPm = "PM";
-                }
-                else
-                {
-                    amPm = "AM";
-                }
-                endChooseTime.setText(String.format(Locale.getDefault(), "%02d:%02d:00", hourOfDay, minutes) + " " + amPm);
-//                        startChooseTime.setText(hourOfDay + ":" + minutes);
             }, currentHour, currentMinute, false);
             dialog.show();
         });     //End of Time Start
-
-        //Creating a dropdown menu for a spinner
-        Spinner mySpinner = findViewById(R.id.task_repeatOptions);
-        ArrayAdapter<String> myAdapter = new ArrayAdapter<>(TaskActivity.this, android.R.layout.simple_list_item_1, getResources().getStringArray(R.array.names));
-        myAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        mySpinner.setAdapter(myAdapter);        //Starting the spinner
 
         cancelButton.setOnClickListener(v -> finish());
 
@@ -203,28 +184,28 @@ public class TaskActivity extends AppCompatActivity {
         if (checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
             requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1000);
         }
-
+        //Location button
         Button locationButton = findViewById(R.id.task_locationButton);
         locationButton.setOnClickListener(e -> {
             Intent intent = new Intent(this, MapsActivity.class);
-            startActivity(intent);
+            startActivityForResult(intent, 0);
         });
 
+        //Create button
         createButton.setOnClickListener(v -> {
             String taskName = editTextTask.getText().toString();
-            String locationName = "";
             String description = editTextDescription.getText().toString();
             String startDate = String.format(Locale.getDefault(), "%04d-%02d-%02d %02d:%02d:00", startDate_Year, startDate_Month, startDate_Day, startDate_Hour, startDate_Min);
             String endDate = String.format(Locale.getDefault(), "%04d-%02d-%02d %02d:%02d:00", endDate_Year, endDate_Month, endDate_Day, endDate_Hour, endDate_Min);
 
-            if (TaskController.CreateTask(taskName, locationName, description, startDate, endDate))
+            if (TaskController.CreateTask(taskName, description, chosenLat, chosenLng, startDate, endDate))
             {
-                Toast.makeText(TaskActivity.this, "Task created!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Task created!", Toast.LENGTH_SHORT).show();
                 finish();
             }
             else
             {
-                Toast.makeText(TaskActivity.this, "Task create failed!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Task create failed!", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -235,15 +216,29 @@ public class TaskActivity extends AppCompatActivity {
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        switch (requestCode) {
-            case 1000:
-                if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    Toast.makeText(this, "Permission Granted", Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(this, "Permission Not Granted!", Toast.LENGTH_SHORT).show();
-                    finish();
-                }
+        if (requestCode == 1000) {
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                Toast.makeText(this, "Permission Granted", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(this, "Permission Not Granted!", Toast.LENGTH_SHORT).show();
+                finish();
+            }
+        }
+    }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
+        super.onActivityResult(requestCode, resultCode, intent);
+        //Retrieve data in the intent
+        if (requestCode == 0)
+        {
+            chosenLat = intent.getDoubleExtra("MAPS_EXTRA_SAVE_LAT", 0);
+            chosenLng = intent.getDoubleExtra("MAPS_EXTRA_SAVE_LNG", 0);
+
+            if (chosenLat != 0 && chosenLng != 0)
+            {
+                locationTextBox.setText(String.format(Locale.getDefault(), "%.2f, %.2f", chosenLat, chosenLng));
+            }
         }
     }
 
