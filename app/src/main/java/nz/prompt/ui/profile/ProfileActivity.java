@@ -13,10 +13,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.w3c.dom.Text;
-
 import nz.prompt.R;
-import nz.prompt.api.LocationRestaurants;
+import nz.prompt.api.LocationRestaurant;
 import nz.prompt.controllers.UserController;
 import nz.prompt.database.DatabaseHandler;
 import nz.prompt.ui.main.FirstTimeActivity;
@@ -41,7 +39,7 @@ public class ProfileActivity extends AppCompatActivity {
         foodButton = findViewById(R.id.profile_foodButton);
 
         foodButton.setOnClickListener(v -> {
-            Intent intent = new Intent(this, LocationRestaurants.class);
+            Intent intent = new Intent(this, LocationRestaurant.class);
             startActivity(intent);
         });
 

@@ -31,7 +31,7 @@
         <service
             android:name=".notification.PromptService"
             android:enabled="true"
-            android:exported="true"></service>
+            android:exported="true" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
@@ -40,11 +40,10 @@
         <activity
             android:name=".maps.MapsActivity"
             android:label="@string/title_activity_maps" />
-            android:label="@string/title_activity_maps"></activity>
 
         <activity
             android:name=".api.Location"
-            android:label="Location"></activity>
+            android:label="Location" />
 
 
         <activity android:name=".ui.register.RegisterActivity_User" />
@@ -92,11 +91,6 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </receiver>
-
-        <service
-            android:name=".notification.PromptService"
-            android:enabled="true"
-            android:exported="false" />
     </application>
 
 </manifest>
