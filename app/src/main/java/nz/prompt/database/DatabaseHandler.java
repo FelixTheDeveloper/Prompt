@@ -6,6 +6,9 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.HashSet;
@@ -28,7 +31,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private SQLiteDatabase dbRead;
     private SQLiteDatabase dbWrite;
 
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 2;
     private static final String DATABASE_NAME = "PromptDatabase.db";
     private static final String TABLE_USERS_NAME = "Users";
     private static final String TABLE_TASKS_NAME = "Tasks";
@@ -59,44 +62,45 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
 
     @Override
-        public void onCreate(SQLiteDatabase sqLiteDatabase) {
-            String CREATE_USERS_TABLE = "CREATE TABLE " + TABLE_USERS_NAME + " (" +
-                    "UserID int NOT NULL PRIMARY KEY," +
-                    "FirstName TEXT NOT NULL," +
-                    "LastName TEXT NOT NULL," +
-                    "Age int(3) NOT NULL," +
-                    "Budget int NOT NULL" +
-                    ")";
+    public void onCreate(SQLiteDatabase sqLiteDatabase) {
+        String CREATE_USERS_TABLE = "CREATE TABLE " + TABLE_USERS_NAME + " (" +
+                "UserID int NOT NULL PRIMARY KEY," +
+                "FirstName TEXT NOT NULL," +
+                "LastName TEXT NOT NULL," +
+                "Age int(3) NOT NULL," +
+                "Budget int NOT NULL" +
+                ")";
 
-            String CREATE_TASKS_TABLE = "CREATE TABLE " + TABLE_TASKS_NAME + " (" +
-                    "TaskID int NOT NULL PRIMARY KEY," +
-                    "Title TEXT NOT NULL," +
-                    "Description TEXT," +
-                    "Location TEXT," +
-                    "StartDate DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL," +
-                    "EndDate DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL," +
-                    "Status bool NOT NULL," +
-                    "OwnerID int NOT NULL," +
-                    "FOREIGN KEY (OwnerID) REFERENCES " + TABLE_USERS_NAME + "(UserID)" +
-                    ")";
+        String CREATE_TASKS_TABLE = "CREATE TABLE " + TABLE_TASKS_NAME + " (" +
+                "TaskID int NOT NULL PRIMARY KEY," +
+                "Title TEXT NOT NULL," +
+                "Description TEXT," +
+                "Location_LAT DOUBLE," +
+                "Location_LNG DOUBLE," +
+                "StartDate DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL," +
+                "EndDate DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL," +
+                "Status bool NOT NULL," +
+                "OwnerID int NOT NULL," +
+                "FOREIGN KEY (OwnerID) REFERENCES " + TABLE_USERS_NAME + "(UserID)" +
+                ")";
 
-            String CREATE_ACCOUNTS_TABLE = "CREATE TABLE " + TABLE_ACCOUNT_NAME + " (" +
-                    "AccountID int NOT NULL PRIMARY KEY," +
-                    "Email TEXT NOT NULL UNIQUE," +
-                    "Password TEXT NOT NULL," +
-                    "UserID int," +
-                    "FOREIGN KEY (UserID) REFERENCES " + TABLE_USERS_NAME + "(UserID)" +
-                    ")";
+        String CREATE_ACCOUNTS_TABLE = "CREATE TABLE " + TABLE_ACCOUNT_NAME + " (" +
+                "AccountID int NOT NULL PRIMARY KEY," +
+                "Email TEXT NOT NULL UNIQUE," +
+                "Password TEXT NOT NULL," +
+                "UserID int," +
+                "FOREIGN KEY (UserID) REFERENCES " + TABLE_USERS_NAME + "(UserID)" +
+                ")";
 
-            String CREATE_PROMPT_TABLE = "CREATE TABLE " + TABLE_PROMPT_NAME + " (" +
-                    "setting TEXT NOT NULL PRIMARY KEY," +
-                    "value TEXT NOT NULL" +
-                    ")";
+        String CREATE_PROMPT_TABLE = "CREATE TABLE " + TABLE_PROMPT_NAME + " (" +
+                "setting TEXT NOT NULL PRIMARY KEY," +
+                "value TEXT NOT NULL" +
+                ")";
 
-            sqLiteDatabase.execSQL(CREATE_USERS_TABLE);
-            sqLiteDatabase.execSQL(CREATE_TASKS_TABLE);
-            sqLiteDatabase.execSQL(CREATE_ACCOUNTS_TABLE);
-            sqLiteDatabase.execSQL(CREATE_PROMPT_TABLE);
+        sqLiteDatabase.execSQL(CREATE_USERS_TABLE);
+        sqLiteDatabase.execSQL(CREATE_TASKS_TABLE);
+        sqLiteDatabase.execSQL(CREATE_ACCOUNTS_TABLE);
+        sqLiteDatabase.execSQL(CREATE_PROMPT_TABLE);
 
         Created = true;
     }
@@ -211,7 +215,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         values.put("TaskID", task.getID());
         values.put("Title", task.getTitle());
         values.put("Description", task.getDescription());
-        values.put("Location", task.getLocation());
+        values.put("Location_LAT", task.getLocation_LAT());
+        values.put("Location_LNG", task.getLocation_LNG());
         values.put("StartDate", TaskController.dateFormat.format(task.getStartDate()));
         values.put("EndDate", TaskController.dateFormat.format(task.getEndDate()));
         values.put("Status", task.isStatus());
@@ -229,7 +234,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         if (cursor.moveToNext())
         {
             int id;
-            String title, description, location;
+            String title, description;
+            double location_LAT, location_LNG;
             Date startDate, endDate;
             boolean status;
 
@@ -261,9 +267,18 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 return null;
             }
 
-            index = cursor.getColumnIndex("Location");
+            index = cursor.getColumnIndex("Location_LAT");
             if (index != -1)
-                location = cursor.getString(index);
+                location_LAT = cursor.getDouble(index);
+            else
+            {
+                cursor.close();
+                return null;
+            }
+
+            index = cursor.getColumnIndex("Location_LNG");
+            if (index != -1)
+                location_LNG = cursor.getDouble(index);
             else
             {
                 cursor.close();
@@ -314,7 +329,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 return null;
             }
 
-            TaskModel task = new TaskModel(id, title, description, location, startDate, endDate, status);
+            TaskModel task = new TaskModel(id, title, description, location_LAT, location_LNG, startDate, endDate, status);
 
             return task;
         }
@@ -347,7 +362,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         while (cursor.moveToNext())
         {
             int id;
-            String title, description, location;
+            String title, description;
+            double location_LAT, location_LNG;
             Date startDate, endDate;
             boolean status;
 
@@ -379,9 +395,18 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 continue;
             }
 
-            index = cursor.getColumnIndex("Location");
+            index = cursor.getColumnIndex("Location_LAT");
             if (index != -1)
-                location = cursor.getString(index);
+                location_LAT = cursor.getDouble(index);
+            else
+            {
+                cursor.close();
+                continue;
+            }
+
+            index = cursor.getColumnIndex("Location_LNG");
+            if (index != -1)
+                location_LNG = cursor.getDouble(index);
             else
             {
                 cursor.close();
@@ -432,7 +457,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 continue;
             }
 
-            TaskModel task = new TaskModel(id, title, description, location, startDate, endDate, status);
+            TaskModel task = new TaskModel(id, title, description, location_LAT, location_LNG, startDate, endDate, status);
 
             tasks.add(task);
         }
@@ -457,8 +482,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         }
     }
 
-    public void addAccount(AccountModel account)
-    {
+    public void addAccount(AccountModel account) {
         SQLiteDatabase db = dbWrite;
 
         if (getAccount(account.getAccountID()) != null)
@@ -469,7 +493,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
         values.put("AccountID", account.getAccountID());
         values.put("Email", account.getEmail());
-        values.put("Password", account.getPassword());
+
+        String encodedPass = sha256(account.getPassword());
+
+        values.put("Password", encodedPass);
         values.put("UserID", account.getUser().getID());
 
         db.insert(TABLE_ACCOUNT_NAME, null, values);
@@ -533,8 +560,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return null;
     }
 
-    public int verifyAccount(String email, String password)
-    {
+    public int verifyAccount(String email, String password) {
         SQLiteDatabase db = dbRead;
 
         Cursor cursor = db.query(TABLE_ACCOUNT_NAME, null, "Email = ?", new String[] {email}, null, null, null);
@@ -544,7 +570,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             int index = cursor.getColumnIndex("Password");
             String tmpPassword = cursor.getString(index);
 
-            if (password.equals(tmpPassword))
+            String encodedPass = sha256(password);
+
+            if (encodedPass.equals(tmpPassword))
             {
                 index = cursor.getColumnIndex("AccountID");
                 int ID = cursor.getInt(index);
@@ -605,6 +633,24 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         {
             cursor.close();
             return null;
+        }
+    }
+
+    private static String sha256(String base) {
+        try{
+            MessageDigest digest = MessageDigest.getInstance("SHA-256");
+            byte[] hash = digest.digest(base.getBytes("UTF-8"));
+            StringBuffer hexString = new StringBuffer();
+
+            for (int i = 0; i < hash.length; i++) {
+                String hex = Integer.toHexString(0xff & hash[i]);
+                if(hex.length() == 1) hexString.append('0');
+                hexString.append(hex);
+            }
+
+            return hexString.toString();
+        } catch(Exception ex){
+            throw new RuntimeException(ex);
         }
     }
 }

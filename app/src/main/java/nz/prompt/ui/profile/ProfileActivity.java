@@ -17,12 +17,14 @@ import org.w3c.dom.Text;
 
 import nz.prompt.R;
 import nz.prompt.controllers.UserController;
+import nz.prompt.database.DatabaseHandler;
+import nz.prompt.ui.main.FirstTimeActivity;
 
 public class ProfileActivity extends AppCompatActivity {
 
     ImageView vieImage;
     Button selectButton;
-    private Button backButton, budgetButton;
+    private Button backButton, budgetButton, logoutButton;
 
 
     private static final int IMAGE_PICK_CODE = 1000;
@@ -54,6 +56,14 @@ public class ProfileActivity extends AppCompatActivity {
 
         backButton = findViewById(R.id.profile_backButton);
         backButton.setOnClickListener(v -> finish());
+
+        logoutButton = findViewById(R.id.profile_logoutButton);
+        logoutButton.setOnClickListener(v -> {
+            DatabaseHandler.dbHelper.setSetting("UserLoggedIn", "FALSE");
+            Intent intent = new Intent(this, FirstTimeActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+        });
 
         TextView nameText = findViewById(R.id.profile_nameTextInput);
         nameText.setText(UserController.currentUser.getFirstName() + " " + UserController.currentUser.getLastName());

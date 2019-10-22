@@ -145,46 +145,26 @@
         app:layout_constraintTop_toTopOf="@+id/task_endDateViewer" />
 
     <TextView
-        android:id="@+id/task_repeatTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="60dp"
-        android:text="@string/repeat"
-        android:textSize="14sp"
-        app:layout_constraintStart_toStartOf="@+id/task_endTimeTextViewer"
-        app:layout_constraintTop_toBottomOf="@+id/task_endTimeTextViewer" />
-
-    <Spinner
-        android:id="@+id/task_repeatOptions"
-        android:layout_width="0dp"
-        android:layout_height="38dp"
-        android:layout_marginTop="46dp"
-        app:layout_constraintEnd_toEndOf="@+id/task_endChooseTimeText"
-        app:layout_constraintStart_toStartOf="@+id/task_endDateViewer"
-        app:layout_constraintTop_toBottomOf="@+id/task_endChooseTimeText" />
-
-    <TextView
         android:id="@+id/task_descriptionTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="36dp"
+        android:layout_marginTop="48dp"
         android:text="@string/description"
-        app:layout_constraintStart_toStartOf="@+id/task_repeatTextView"
-        app:layout_constraintTop_toBottomOf="@+id/task_repeatTextView" />
+        app:layout_constraintStart_toStartOf="@+id/task_endTimeTextViewer"
+        app:layout_constraintTop_toBottomOf="@+id/task_endTimeTextViewer" />
 
     <EditText
         android:id="@+id/task_descriptionTextBox"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="32dp"
         android:ems="10"
         android:hint="@string/descriptionhInt"
         android:importantForAutofill="no"
         android:inputType="textMultiLine"
         android:singleLine="false"
-        app:layout_constraintEnd_toEndOf="@+id/task_repeatOptions"
-        app:layout_constraintStart_toStartOf="@+id/task_repeatOptions"
-        app:layout_constraintTop_toBottomOf="@+id/task_repeatOptions" />
+        app:layout_constraintStart_toStartOf="@+id/task_endDateViewer"
+        app:layout_constraintTop_toBottomOf="@+id/task_endDateViewer" />
 
     <Button
         android:id="@+id/task_createButton"
@@ -200,11 +180,21 @@
     <Button
         android:id="@+id/task_locationButton"
         style="@style/Widget.AppCompat.Button.Borderless.Colored"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="96dp"
+        android:layout_height="60dp"
         android:layout_marginTop="8dp"
         android:text="@string/locationButton"
         app:layout_constraintStart_toStartOf="@+id/task_taskTitleTextView"
         app:layout_constraintTop_toBottomOf="@+id/task_taskTitleTextView" />
+
+    <TextView
+        android:id="@+id/task_locationTextBox"
+        android:layout_width="172dp"
+        android:layout_height="32dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="@+id/task_taskTitleTextView"
+        app:layout_constraintStart_toEndOf="@+id/task_locationButton"
+        app:layout_constraintTop_toTopOf="@+id/task_locationButton" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

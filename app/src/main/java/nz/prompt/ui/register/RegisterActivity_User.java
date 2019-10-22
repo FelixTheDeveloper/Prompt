@@ -96,6 +96,7 @@ public class RegisterActivity_User extends AppCompatActivity {
                 UserController.currentUser = user;
 
                 Intent intent = new Intent(this, MainMenu.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
             }
             else

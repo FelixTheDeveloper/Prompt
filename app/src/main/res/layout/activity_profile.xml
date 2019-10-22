@@ -10,6 +10,7 @@
     <!-- The back button-->
     <Button
         android:id="@+id/profile_backButton"
+        style="@style/Widget.AppCompat.Button.Borderless.Colored"
         android:layout_width="wrap_content"
         android:layout_height="35dp"
         android:layout_marginStart="8dp"
@@ -25,10 +26,10 @@
 
     <Button
         android:id="@+id/profile_choose_image_btn"
+        style="@style/Widget.AppCompat.Button.Borderless.Colored"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="Select Image"
-        android:textColor="@android:color/black"
         app:layout_constraintEnd_toEndOf="@+id/profile_avatarImageView"
         app:layout_constraintStart_toStartOf="@+id/profile_avatarImageView"
         app:layout_constraintTop_toBottomOf="@+id/profile_avatarImageView" />
@@ -87,11 +88,23 @@
 
     <Button
         android:id="@+id/profile_budgetButton"
+        style="@style/Widget.AppCompat.Button.Borderless.Colored"
         android:layout_width="115dp"
         android:layout_height="0dp"
         android:layout_marginEnd="8dp"
         android:text="Budget Calculate"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/profile_avatarImageView" />
+
+    <Button
+        android:id="@+id/profile_logoutButton"
+        style="@style/Widget.AppCompat.Button.Borderless.Colored"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginBottom="16dp"
+        android:text="Logout"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

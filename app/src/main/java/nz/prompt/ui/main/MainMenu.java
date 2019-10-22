@@ -17,6 +17,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.Locale;
 
 import nz.prompt.R;
 import nz.prompt.controllers.TaskController;
@@ -137,7 +138,7 @@ public class MainMenu extends AppCompatActivity {
         location.setId(ID++ + task.getID());
         location.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
         location.setTextAppearance(R.style.AppTheme);
-        location.setText("Location: " + task.getLocation());
+        location.setText("Location: " + String.format(Locale.getDefault(), "%.2f, %.2f", task.getLocation_LAT(), task.getLocation_LNG()));
         location.setTextSize(14);
         location.setTextColor(0xBB000000);
         layout.addView(location);
