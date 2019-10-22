@@ -74,11 +74,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             }
         });
 
-        marker = new MarkerOptions();
-        marker.position(mMap.getCameraPosition().target);
-        marker.draggable(false);
-        mMap.addMarker(marker);
-
+        //Quick and dirty identifier
         mMap.setOnCameraMoveListener(() -> {
             mMap.clear();
 

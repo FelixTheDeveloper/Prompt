@@ -77,12 +77,24 @@ public class TaskActivity extends AppCompatActivity {
         currentHour = calendar.get(Calendar.HOUR_OF_DAY);
         currentMinute = calendar.get(Calendar.MINUTE);
 
+        startDate_Day = currentDay;
+        startDate_Month = currentMonth;
+        startDate_Year = currentYear;
+        startDate_Hour = currentHour;
+        startDate_Min = currentMinute;
+
+        endDate_Day = currentDay;
+        endDate_Month = currentMonth;
+        endDate_Year = currentYear;
+        endDate_Hour = currentHour + 1;
+        endDate_Min = currentMinute;
+
         //FOR START TIME
 
         //FOR DATE START
 
         mStartDisplayDate = findViewById(R.id.task_startDateViewer);
-        mStartDisplayDate.setText(String.format(Locale.getDefault(), "%04d-%02d-%02d", currentYear, currentMonth, currentDay));
+        mStartDisplayDate.setText(String.format(Locale.getDefault(), "%02d/%02d/%04d", currentDay, currentMonth, currentYear));
 
         mStartDisplayDate.setOnClickListener(view -> {
             Calendar calendar = Calendar.getInstance();
@@ -126,7 +138,7 @@ public class TaskActivity extends AppCompatActivity {
         //START OF END
         //FOR DATE END
         mEndDisplayDate = findViewById(R.id.task_endDateViewer);
-        mEndDisplayDate.setText(String.format(Locale.getDefault(), "%04d-%02d-%02d", currentYear, currentMonth, currentDay));
+        mEndDisplayDate.setText(String.format(Locale.getDefault(), "%02d/%02d/%04d", currentDay, currentMonth, currentYear));
 
         mEndDisplayDate.setOnClickListener(view -> {
             Calendar calendar = Calendar.getInstance();
@@ -155,7 +167,7 @@ public class TaskActivity extends AppCompatActivity {
         //Start of End Time
 
         endChooseTime = findViewById(R.id.task_endChooseTimeText);
-        endChooseTime.setText(String.format(Locale.getDefault(), "%02d:%02d:00", currentHour, currentMinute));
+        endChooseTime.setText(String.format(Locale.getDefault(), "%02d:%02d:00", currentHour + 1, currentMinute));
         endChooseTime.setOnClickListener(view -> {
             TimePickerDialog dialog = new TimePickerDialog(TaskActivity.this, (timePicker, hourOfDay, minutes) -> {
                 endDate_Hour = hourOfDay;
