@@ -59,44 +59,44 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
 
     @Override
-    public void onCreate(SQLiteDatabase sqLiteDatabase) {
-        String CREATE_USERS_TABLE = "CREATE TABLE " + TABLE_USERS_NAME + " (" +
-                "UserID int NOT NULL PRIMARY KEY," +
-                "FirstName TEXT NOT NULL," +
-                "LastName TEXT NOT NULL," +
-                "Age int(3) NOT NULL," +
-                "Budget int NOT NULL" +
-                ")";
+        public void onCreate(SQLiteDatabase sqLiteDatabase) {
+            String CREATE_USERS_TABLE = "CREATE TABLE " + TABLE_USERS_NAME + " (" +
+                    "UserID int NOT NULL PRIMARY KEY," +
+                    "FirstName TEXT NOT NULL," +
+                    "LastName TEXT NOT NULL," +
+                    "Age int(3) NOT NULL," +
+                    "Budget int NOT NULL" +
+                    ")";
 
-        String CREATE_TASKS_TABLE = "CREATE TABLE " + TABLE_TASKS_NAME + " (" +
-                "TaskID int NOT NULL PRIMARY KEY," +
-                "Title TEXT NOT NULL," +
-                "Description TEXT," +
-                "Location TEXT," +
-                "StartDate DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL," +
-                "EndDate DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL," +
-                "Status bool NOT NULL," +
-                "OwnerID int NOT NULL," +
-                "FOREIGN KEY (OwnerID) REFERENCES " + TABLE_USERS_NAME + "(UserID)" +
-                ")";
+            String CREATE_TASKS_TABLE = "CREATE TABLE " + TABLE_TASKS_NAME + " (" +
+                    "TaskID int NOT NULL PRIMARY KEY," +
+                    "Title TEXT NOT NULL," +
+                    "Description TEXT," +
+                    "Location TEXT," +
+                    "StartDate DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL," +
+                    "EndDate DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL," +
+                    "Status bool NOT NULL," +
+                    "OwnerID int NOT NULL," +
+                    "FOREIGN KEY (OwnerID) REFERENCES " + TABLE_USERS_NAME + "(UserID)" +
+                    ")";
 
-        String CREATE_ACCOUNTS_TABLE = "CREATE TABLE " + TABLE_ACCOUNT_NAME + " (" +
-                "AccountID int NOT NULL PRIMARY KEY," +
-                "Email TEXT NOT NULL UNIQUE," +
-                "Password TEXT NOT NULL," +
-                "UserID int," +
-                "FOREIGN KEY (UserID) REFERENCES " + TABLE_USERS_NAME + "(UserID)" +
-                ")";
+            String CREATE_ACCOUNTS_TABLE = "CREATE TABLE " + TABLE_ACCOUNT_NAME + " (" +
+                    "AccountID int NOT NULL PRIMARY KEY," +
+                    "Email TEXT NOT NULL UNIQUE," +
+                    "Password TEXT NOT NULL," +
+                    "UserID int," +
+                    "FOREIGN KEY (UserID) REFERENCES " + TABLE_USERS_NAME + "(UserID)" +
+                    ")";
 
-        String CREATE_PROMPT_TABLE = "CREATE TABLE " + TABLE_PROMPT_NAME + " (" +
-                "setting TEXT NOT NULL PRIMARY KEY," +
-                "value TEXT NOT NULL" +
-                ")";
+            String CREATE_PROMPT_TABLE = "CREATE TABLE " + TABLE_PROMPT_NAME + " (" +
+                    "setting TEXT NOT NULL PRIMARY KEY," +
+                    "value TEXT NOT NULL" +
+                    ")";
 
-        sqLiteDatabase.execSQL(CREATE_USERS_TABLE);
-        sqLiteDatabase.execSQL(CREATE_TASKS_TABLE);
-        sqLiteDatabase.execSQL(CREATE_ACCOUNTS_TABLE);
-        sqLiteDatabase.execSQL(CREATE_PROMPT_TABLE);
+            sqLiteDatabase.execSQL(CREATE_USERS_TABLE);
+            sqLiteDatabase.execSQL(CREATE_TASKS_TABLE);
+            sqLiteDatabase.execSQL(CREATE_ACCOUNTS_TABLE);
+            sqLiteDatabase.execSQL(CREATE_PROMPT_TABLE);
 
         Created = true;
     }

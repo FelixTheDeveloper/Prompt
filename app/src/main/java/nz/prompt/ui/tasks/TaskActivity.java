@@ -25,12 +25,25 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.google.android.gms.maps.CameraUpdate;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapView;
+import com.google.android.gms.maps.MapsInitializer;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.LatLngBounds;
+import com.google.android.gms.maps.model.MarkerOptions;
+
 import java.util.Calendar;
 import java.util.Locale;
 
 import nz.prompt.R;
 import nz.prompt.controllers.TaskController;
+import nz.prompt.maps.MapsActivity;
 import nz.prompt.ui.main.MainMenu;
+
+import static android.app.PendingIntent.getActivity;
 
 /**
  *
@@ -39,7 +52,6 @@ import nz.prompt.ui.main.MainMenu;
 public class TaskActivity extends AppCompatActivity {
     private static final String TAG = "TaskActivity";
     private EditText editTextTask;
-    private EditText editTextLocation;
     private EditText editTextDescription;
     private Button createButton;
     private Button cancelButton;
@@ -69,7 +81,6 @@ public class TaskActivity extends AppCompatActivity {
         setContentView(R.layout.activity_task);
 
         editTextTask = findViewById(R.id.task_taskTitleTextView);
-        editTextLocation = findViewById(R.id.task_locationTextBox);
         editTextDescription = findViewById(R.id.task_descriptionTextBox);
         createButton = findViewById(R.id.task_createButton);
         cancelButton = findViewById(R.id.task_cancelButton);
@@ -193,9 +204,15 @@ public class TaskActivity extends AppCompatActivity {
             requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1000);
         }
 
+        Button locationButton = findViewById(R.id.task_locationButton);
+        locationButton.setOnClickListener(e -> {
+            Intent intent = new Intent(this, MapsActivity.class);
+            startActivity(intent);
+        });
+
         createButton.setOnClickListener(v -> {
             String taskName = editTextTask.getText().toString();
-            String locationName = editTextLocation.getText().toString();
+            String locationName = "";
             String description = editTextDescription.getText().toString();
             String startDate = String.format(Locale.getDefault(), "%04d-%02d-%02d %02d:%02d:00", startDate_Year, startDate_Month, startDate_Day, startDate_Hour, startDate_Min);
             String endDate = String.format(Locale.getDefault(), "%04d-%02d-%02d %02d:%02d:00", endDate_Year, endDate_Month, endDate_Day, endDate_Hour, endDate_Min);
@@ -213,7 +230,6 @@ public class TaskActivity extends AppCompatActivity {
 
         //Checking realtime whether the user has input anything
         editTextTask.addTextChangedListener(addTaskTextWatcher);
-        editTextLocation.addTextChangedListener(addTaskTextWatcher);
     }
 
 
